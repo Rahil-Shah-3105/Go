@@ -1,4 +1,5 @@
 package hashmap_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestHashMap(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHashMap(t=%v)", t)
 	mp := hashmap.DefaultNew()
 
 	t.Run("Test 1: Put(10) and checking if Get() is correct", func(t *testing.T) {
@@ -77,4 +79,5 @@ func TestHashMap(t *testing.T) {
 			t.Errorf("Put: %v, Got: %v", got, 40)
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestHashMap(t=%v)", t)
 }

@@ -1,4 +1,5 @@
 package linkedlist
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,12 +7,15 @@ import (
 )
 
 func fillList(list *Cyclic[int], n int) {
+	logritelog.Default().Printf(">>> Entering fillList(list=%v,n=%v)", list, n)
 	for i := 1; i <= n; i++ {
 		list.Add(i)
 	}
+	logritelog.Default().Printf("<<< Exiting fillList(list=%v,n=%v)", list, n)
 }
 
 func TestAdd(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAdd(t=%v)", t)
 	list := NewCyclic[int]()
 	fillList(list, 3)
 
@@ -19,17 +23,21 @@ func TestAdd(t *testing.T) {
 	var got []any
 	var start *Node[int]
 	start = list.Head
+	logritelog.Default().Printf("TestAdd(t=%v): start → %v", t, start)
 
 	for i := 0; i < list.Size; i++ {
 		got = append(got, start.Val)
 		start = start.Next
+		logritelog.Default().Printf("TestAdd(t=%v): got → %v", t, got)
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got: %v, want: %v", got, want)
 	}
+	logritelog.Default().Printf("<<< Exiting TestAdd(t=%v)", t)
 }
 
 func TestWalk(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestWalk(t=%v)", t)
 	list := NewCyclic[int]()
 	fillList(list, 3)
 
@@ -39,9 +47,11 @@ func TestWalk(t *testing.T) {
 	if got.Val != want {
 		t.Errorf("got: %v, want: nil", got)
 	}
+	logritelog.Default().Printf("<<< Exiting TestWalk(t=%v)", t)
 }
 
 func TestRotate(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRotate(t=%v)", t)
 	type testCase struct {
 		param        int
 		wantToReturn int
@@ -66,9 +76,11 @@ func TestRotate(t *testing.T) {
 			t.Errorf("got: %v, want: %v for test id %v", got, tCase.wantToReturn, idx)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestRotate(t=%v)", t)
 }
 
 func TestDelete(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDelete(t=%v)", t)
 	list := NewCyclic[int]()
 	fillList(list, 3)
 
@@ -82,9 +94,11 @@ func TestDelete(t *testing.T) {
 	if wantSize != list.Size {
 		t.Errorf("got: %v, want: %v", got, want)
 	}
+	logritelog.Default().Printf("<<< Exiting TestDelete(t=%v)", t)
 }
 
 func TestDestroy(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDestroy(t=%v)", t)
 	list := NewCyclic[int]()
 	fillList(list, 3)
 	wantSize := 0
@@ -99,9 +113,11 @@ func TestDestroy(t *testing.T) {
 	if wantSize != list.Size {
 		t.Errorf("got: %v, want: %v", got, wantSize)
 	}
+	logritelog.Default().Printf("<<< Exiting TestDestroy(t=%v)", t)
 }
 
 func TestJosephusProblem(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestJosephusProblem(t=%v)", t)
 	type testCase struct {
 		param        int
 		wantToReturn int
@@ -126,4 +142,5 @@ func TestJosephusProblem(t *testing.T) {
 			t.Errorf("got: %v, want: %v", got, tCase.wantToReturn)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestJosephusProblem(t=%v)", t)
 }

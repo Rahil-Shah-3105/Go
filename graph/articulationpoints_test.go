@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestArticulationPoints(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestArticulationPoints(t=%v)", t)
 	var testCases = []struct {
 		description string
 		graph       Graph
@@ -79,4 +81,5 @@ func TestArticulationPoints(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestArticulationPoints(t=%v)", t)
 }

@@ -8,6 +8,7 @@
 // see sha256_test.go
 
 package sha256
+import logritelog "log"
 
 import (
 	"encoding/binary" // Used for interacting with uint at the byte level
@@ -35,6 +36,7 @@ const chunkSize = 64
 // message, represented as a 64-bits unsigned integer.
 // For more details, see: https://datatracker.ietf.org/doc/html/rfc6234#section-4.1
 func pad(message []byte) []byte {
+	logritelog.Default().Printf(">>> Entering pad(message=%v)", message)
 	L := make([]byte, 8)
 	binary.BigEndian.PutUint64(L, uint64(len(message)*8))
 	message = append(message, 0x80) // "1" bit followed by 7 "0" bits
@@ -43,6 +45,7 @@ func pad(message []byte) []byte {
 	}
 	message = append(message, L...)
 
+	logritelog.Default().Printf("<<< Exiting pad(message=%v)", message)
 	return message
 }
 
@@ -50,6 +53,7 @@ func pad(message []byte) []byte {
 // The implementation follows the RGC6234 standard, which is documented
 // at https://datatracker.ietf.org/doc/html/rfc6234
 func Hash(message []byte) [32]byte {
+	logritelog.Default().Printf(">>> Entering Hash(message=%v)", message)
 	message = pad(message)
 
 	// Initialize round constants
@@ -110,5 +114,6 @@ func Hash(message []byte) [32]byte {
 	binary.BigEndian.PutUint32(digest[24:28], h6)
 	binary.BigEndian.PutUint32(digest[28:], h7)
 
+	logritelog.Default().Printf("<<< Exiting Hash(message=%v)", message)
 	return digest
 }

@@ -1,4 +1,5 @@
 package linkedlist
+import logritelog "log"
 
 import "fmt"
 
@@ -18,10 +19,14 @@ func NewCyclic[T any]() *Cyclic[T] {
 // to the end of the list. End of the list is Prev field of
 // current item. Complexity O(1).
 func (cl *Cyclic[T]) Add(val T) {
+	logritelog.Default().Printf(">>> Entering Add(val=%v)", val)
 	n := NewNode(val)
 	cl.Size++
 	if cl.Head == nil {
 		n.Prev = n
+		logritelog.Default().Printf("Add(val=%v): n.Prev → %v", val, n.Prev)
+		logritelog.Default().Printf("Add(val=%v): n.Next → %v", val, n.Next)
+		logritelog.Default().Printf("Add(val=%v): cl.Head → %v", val, cl.Head)
 		n.Next = n
 		cl.Head = n
 	} else {
@@ -30,6 +35,7 @@ func (cl *Cyclic[T]) Add(val T) {
 		cl.Head.Prev.Next = n
 		cl.Head.Prev = n
 	}
+	logritelog.Default().Printf("<<< Exiting Add(val=%v)", val)
 }
 
 // Rotate list by P places.
@@ -47,6 +53,7 @@ func (cl *Cyclic[T]) Add(val T) {
 // Therefore, if P > N / 2, you can turn the list by N-P places back.
 // Complexity O(n).
 func (cl *Cyclic[T]) Rotate(places int) {
+	logritelog.Default().Printf(">>> Entering Rotate(places=%v)", places)
 	if cl.Size > 0 {
 		if places < 0 {
 			multiple := cl.Size - 1 - places/cl.Size
@@ -58,6 +65,7 @@ func (cl *Cyclic[T]) Rotate(places int) {
 			places = cl.Size - places
 			for i := 0; i < places; i++ {
 				cl.Head = cl.Head.Prev
+				logritelog.Default().Printf("Rotate(places=%v): cl.Head → %v", places, cl.Head)
 			}
 		} else if places == 0 {
 			return
@@ -68,10 +76,12 @@ func (cl *Cyclic[T]) Rotate(places int) {
 
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting Rotate(places=%v)", places)
 }
 
 // Delete the current item.
 func (cl *Cyclic[T]) Delete() bool {
+	logritelog.Default().Printf(">>> Entering Delete()")
 	var deleted bool
 	var prevItem, thisItem, nextItem *Node[T]
 
@@ -80,44 +90,58 @@ func (cl *Cyclic[T]) Delete() bool {
 	}
 
 	deleted = true
+	logritelog.Default().Printf("Delete(): deleted → %v", deleted)
+	logritelog.Default().Printf("Delete(): thisItem → %v", thisItem)
+	logritelog.Default().Printf("Delete(): nextItem → %v", nextItem)
+	logritelog.Default().Printf("Delete(): prevItem → %v", prevItem)
 	thisItem = cl.Head
 	nextItem = thisItem.Next
 	prevItem = thisItem.Prev
 
 	if cl.Size == 1 {
 		cl.Head = nil
+		logritelog.Default().Printf("Delete(): cl.Head → %v", cl.Head)
 	} else {
 		cl.Head = nextItem
 		nextItem.Prev = prevItem
+		logritelog.Default().Printf("Delete(): nextItem.Prev → %v", nextItem.Prev)
+		logritelog.Default().Printf("Delete(): prevItem.Next → %v", prevItem.Next)
 		prevItem.Next = nextItem
 	}
 	cl.Size--
 
+	logritelog.Default().Printf("<<< Exiting Delete()")
 	return deleted
 }
 
 // Destroy all items in the list.
 func (cl *Cyclic[T]) Destroy() {
+	logritelog.Default().Printf(">>> Entering Destroy()")
 	for cl.Delete() {
 		continue
 	}
+	logritelog.Default().Printf("<<< Exiting Destroy()")
 }
 
 // Show list body.
 func (cl *Cyclic[T]) Walk() *Node[T] {
+	logritelog.Default().Printf(">>> Entering Walk()")
 	var start *Node[T]
 	start = cl.Head
+	logritelog.Default().Printf("Walk(): start → %v", start)
 
 	for i := 0; i < cl.Size; i++ {
 		fmt.Printf("%v \n", start.Val)
 		start = start.Next
 	}
+	logritelog.Default().Printf("<<< Exiting Walk()")
 	return start
 }
 
 // https://en.wikipedia.org/wiki/Josephus_problem
 // This is a struct-based solution for Josephus problem.
 func JosephusProblem(cl *Cyclic[int], k int) int {
+	logritelog.Default().Printf(">>> Entering JosephusProblem(cl=%v,k=%v)", cl, k)
 	for cl.Size > 1 {
 		cl.Rotate(k)
 		cl.Delete()
@@ -125,5 +149,6 @@ func JosephusProblem(cl *Cyclic[int], k int) int {
 	}
 	retval := cl.Head.Val
 	cl.Destroy()
+	logritelog.Default().Printf("<<< Exiting JosephusProblem(cl=%v,k=%v)", cl, k)
 	return retval
 }

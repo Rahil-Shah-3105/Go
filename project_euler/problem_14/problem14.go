@@ -16,6 +16,7 @@
 * @author ddaniel27
  */
 package problem14
+import logritelog "log"
 
 type dict map[uint64]uint64
 
@@ -24,6 +25,7 @@ var dictionary = dict{
 }
 
 func Problem14(limit uint64) uint64 {
+	logritelog.Default().Printf(">>> Entering Problem14(limit=%v)", limit)
 	for i := uint64(2); i <= limit; i++ {
 		weightNextNode(i)
 	}
@@ -32,25 +34,32 @@ func Problem14(limit uint64) uint64 {
 	for k, v := range dictionary {
 		if v > maxWeight {
 			max = k
+			logritelog.Default().Printf("Problem14(limit=%v): max → %v", limit, max)
+			logritelog.Default().Printf("Problem14(limit=%v): maxWeight → %v", limit, maxWeight)
 			maxWeight = v
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem14(limit=%v)", limit)
 	return max
 }
 
 func weightNextNode(current uint64) uint64 {
+	logritelog.Default().Printf(">>> Entering weightNextNode(current=%v)", current)
 	var next, weight uint64
 	if current%2 == 0 {
 		next = current / 2
+		logritelog.Default().Printf("weightNextNode(current=%v): next → %v", current, next)
 	} else {
 		next = (3 * current) + 1
 	}
 	if v, ok := dictionary[next]; !ok {
 		weight = weightNextNode(next) + 1
+		logritelog.Default().Printf("weightNextNode(current=%v): weight → %v", current, weight)
 	} else {
 		weight = v + 1
 	}
 	dictionary[current] = weight
+	logritelog.Default().Printf("<<< Exiting weightNextNode(current=%v)", current)
 	return weight
 }

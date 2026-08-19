@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"fmt"
@@ -6,6 +7,7 @@ import (
 )
 
 func Test_EditDistance(t *testing.T) {
+logritelog.Default().Printf(">>> Entering Test_EditDistance(t=%v)", t)
 
 	var testCases = []struct {
 		first    string
@@ -32,4 +34,5 @@ func Test_EditDistance(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting Test_EditDistance(t=%v)", t)
 }

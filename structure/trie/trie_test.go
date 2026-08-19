@@ -1,10 +1,12 @@
 package trie
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestTrieInsert(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTrieInsert(t=%v)", t)
 	n := NewNode()
 
 	insertWords := []string{
@@ -20,11 +22,13 @@ func TestTrieInsert(t *testing.T) {
 
 	n.Insert(insertWords...)
 	n.verify(t, checkWords)
+	logritelog.Default().Printf("<<< Exiting TestTrieInsert(t=%v)", t)
 	n.verifySizeCapa(t, 2, 12)
 
 }
 
 func TestTrieInsert_substrings(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTrieInsert_substrings(t=%v)", t)
 	n := NewNode()
 
 	insertWords := []string{
@@ -57,9 +61,11 @@ func TestTrieInsert_substrings(t *testing.T) {
 	}
 	n.verify(t, checkWords)
 	n.verifySizeCapa(t, 2, 5+1)
+	logritelog.Default().Printf("<<< Exiting TestTrieInsert_substrings(t=%v)", t)
 }
 
 func TestTrieRemove(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTrieRemove(t=%v)", t)
 	n := NewNode()
 
 	insertWords := []string{
@@ -112,6 +118,7 @@ func TestTrieRemove(t *testing.T) {
 	capa = n.Capacity()
 	n.verify(t, checkWords)
 	n.verifySizeCapa(t, size, capa) // still 1 word, reduced capacity
+	logritelog.Default().Printf("TestTrieRemove(t=%v): capa → %v", t, capa)
 
 	n.Remove("einstein")
 	checkWords["einstein"] = false
@@ -123,12 +130,14 @@ func TestTrieRemove(t *testing.T) {
 		t.Fatal("the root node of an empty Trie should be marked as removable after compaction")
 	}
 	n.verifySizeCapa(t, 0, 1) // no words, only the root node left
+	logritelog.Default().Printf("<<< Exiting TestTrieRemove(t=%v)", t)
 }
 
 // --------------- helper functions ---------------------------
 
 // verify if provided words are present
 func (n *Node) verify(t *testing.T, checkWords map[string]bool) {
+	logritelog.Default().Printf(">>> Entering verify(t=%v,checkWords=%v)", t, checkWords)
 	for k, v := range checkWords {
 		ok := n.Find(k)
 		if ok != v {
@@ -144,14 +153,17 @@ func (n *Node) verify(t *testing.T, checkWords map[string]bool) {
 		// 	map[bool]string{true: "", false: "NOT "}[ok],
 		// )
 	}
+	logritelog.Default().Printf("<<< Exiting verify(t=%v,checkWords=%v)", t, checkWords)
 }
 
 // verify expected size and capacity
 func (n *Node) verifySizeCapa(t *testing.T, expectedSize, expectedCapacity int) {
+	logritelog.Default().Printf(">>> Entering verifySizeCapa(t=%v,expectedSize=%v,expectedCapacity=%v)", t, expectedSize, expectedCapacity)
 	if got := n.Size(); got != expectedSize {
 		t.Fatalf("Expected Size was %d but got %d", expectedSize, got)
 	}
 	if got := n.Capacity(); got != expectedCapacity {
 		t.Fatalf("Expected Capacity was %d but got %d", expectedCapacity, got)
 	}
+	logritelog.Default().Printf("<<< Exiting verifySizeCapa(t=%v,expectedSize=%v,expectedCapacity=%v)", t, expectedSize, expectedCapacity)
 }

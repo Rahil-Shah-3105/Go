@@ -2,6 +2,10 @@
 // For more details, see https://en.wikipedia.org/wiki/B-tree
 
 package tree
+import (
+	logritelog "log"
+	logritetime "time"
+)
 
 import "github.com/TheAlgorithms/Go/constraints"
 
@@ -18,6 +22,7 @@ type BTree[T constraints.Ordered] struct {
 }
 
 func minKeys(maxKeys int) int {
+	logritelog.Default().Printf(">>> Entering minKeys(maxKeys=%v)", maxKeys)
 	return (maxKeys - 1) / 2
 }
 
@@ -43,19 +48,23 @@ func NewBTree[T constraints.Ordered](maxKeys int) *BTree[T] {
 }
 
 func (node *BTreeNode[T]) Verify(tree *BTree[T]) {
+	logritelog.Default().Printf(">>> Entering Verify(tree=%v)", tree)
 	minKeys := minKeys(tree.maxKeys)
 	if node != tree.root && node.numKeys < minKeys {
 		panic("node has too few keys")
 	} else if node.numKeys > tree.maxKeys {
 		panic("node has too many keys")
 	}
+	logritelog.Default().Printf("<<< Exiting Verify(tree=%v)", tree)
 }
 
 func (node *BTreeNode[T]) IsFull(maxKeys int) bool {
+	logritelog.Default().Printf(">>> Entering IsFull(maxKeys=%v)", maxKeys)
 	return node.numKeys == maxKeys
 }
 
 func (node *BTreeNode[T]) Search(key T) bool {
+	logritelog.Default().Printf(">>> Entering Search(key=%v)", key)
 	i := 0
 	for ; i < node.numKeys; i++ {
 		if key == node.keys[i] {
@@ -66,6 +75,7 @@ func (node *BTreeNode[T]) Search(key T) bool {
 		}
 	}
 	if node.isLeaf {
+	logritelog.Default().Printf("<<< Exiting Search(key=%v)", key)
 		return false
 	}
 	return node.children[i].Search(key)
@@ -79,6 +89,7 @@ func (tree *BTree[T]) Search(key T) bool {
 }
 
 func (node *BTreeNode[T]) InsertKeyChild(key T, child *BTreeNode[T]) {
+	logritelog.Default().Printf(">>> Entering InsertKeyChild(key=%v,child=%v)", key, child)
 	i := node.numKeys
 	node.children[i+1] = node.children[i]
 	for ; i > 0; i-- {
@@ -98,6 +109,7 @@ func (node *BTreeNode[T]) InsertKeyChild(key T, child *BTreeNode[T]) {
 }
 
 func (node *BTreeNode[T]) Append(key T, child *BTreeNode[T]) {
+	logritelog.Default().Printf(">>> Entering Append(key=%v,child=%v)", key, child)
 	node.keys[node.numKeys] = key
 	node.children[node.numKeys+1] = child
 	node.numKeys++
@@ -105,11 +117,13 @@ func (node *BTreeNode[T]) Append(key T, child *BTreeNode[T]) {
 
 // Add all of other's keys starting from idx and children starting from idx + 1
 func (node *BTreeNode[T]) Concat(other *BTreeNode[T], idx int) {
+	logritelog.Default().Printf(">>> Entering Concat(other=%v,idx=%v)", other, idx)
 	for i := 0; i < other.numKeys-idx; i++ {
 		node.keys[node.numKeys+i] = other.keys[i+idx]
 		node.children[node.numKeys+i+1] = other.children[i+idx+1]
 	}
 	node.numKeys += other.numKeys - idx
+	logritelog.Default().Printf("<<< Exiting Concat(other=%v,idx=%v)", other, idx)
 }
 
 // Transform:
@@ -126,6 +140,7 @@ func (node *BTreeNode[T]) Concat(other *BTreeNode[T], idx int) {
 //
 // a b  d
 func (parent *BTreeNode[T]) Split(idx int, maxKeys int) {
+	logritelog.Default().Printf(">>> Entering Split(idx=%v,maxKeys=%v)", idx, maxKeys)
 	child := parent.children[idx]
 	midKeyIndex := maxKeys / 2
 	rightChild := NewBTreeNode[T](maxKeys, child.isLeaf)
@@ -134,6 +149,7 @@ func (parent *BTreeNode[T]) Split(idx int, maxKeys int) {
 
 	// Reuse child as the left node
 	child.numKeys = midKeyIndex
+	logritelog.Default().Printf("Split(idx=%v,maxKeys=%v): child.numKeys → %v", idx, maxKeys, child.numKeys)
 
 	// Insert the child's mid index to the parent
 	for i := parent.numKeys; i > idx; i-- {
@@ -144,9 +160,11 @@ func (parent *BTreeNode[T]) Split(idx int, maxKeys int) {
 	parent.children[idx] = child
 	parent.children[idx+1] = rightChild
 	parent.numKeys += 1
+	logritelog.Default().Printf("<<< Exiting Split(idx=%v,maxKeys=%v)", idx, maxKeys)
 }
 
 func (node *BTreeNode[T]) InsertNonFull(tree *BTree[T], key T) {
+	logritelog.Default().Printf(">>> Entering InsertNonFull(tree=%v,key=%v)", tree, key)
 	node.Verify(tree)
 	if node.IsFull(tree.maxKeys) {
 		panic("Called InsertNonFull() with a full node")
@@ -155,6 +173,7 @@ func (node *BTreeNode[T]) InsertNonFull(tree *BTree[T], key T) {
 	if node.isLeaf {
 		// Node is a leaf. Directly insert the key.
 		node.InsertKeyChild(key, nil)
+		logritelog.Default().Printf("<<< Exiting InsertNonFull(tree=%v,key=%v)", tree, key)
 		return
 	}
 
@@ -176,6 +195,7 @@ func (node *BTreeNode[T]) InsertNonFull(tree *BTree[T], key T) {
 }
 
 func (tree *BTree[T]) Insert(key T) {
+	logritelog.Default().Printf(">>> Entering Insert(key=%v)", key)
 	if tree.root == nil {
 		tree.root = NewBTreeNode[T](tree.maxKeys, true)
 		tree.root.keys[0] = key
@@ -186,14 +206,17 @@ func (tree *BTree[T]) Insert(key T) {
 	if tree.root.IsFull(tree.maxKeys) {
 		newRoot := NewBTreeNode[T](tree.maxKeys, false)
 		newRoot.numKeys = 0
+		logritelog.Default().Printf("Insert(key=%v): newRoot.numKeys → %v", key, newRoot.numKeys)
 		newRoot.children[0] = tree.root
 		newRoot.Split(0, tree.maxKeys)
 		tree.root = newRoot
+		logritelog.Default().Printf("Insert(key=%v): tree.root → %v", key, tree.root)
 	}
 	tree.root.InsertNonFull(tree, key)
 }
 
 func (node *BTreeNode[T]) DeleteIthKey(i int) {
+	logritelog.Default().Printf(">>> Entering DeleteIthKey(i=%v)", i)
 	if i >= node.numKeys {
 		panic("deleting out of bounds key")
 	}
@@ -217,6 +240,7 @@ func (node *BTreeNode[T]) DeleteIthKey(i int) {
 //
 // a B c
 func (node *BTreeNode[T]) Merge(idx int) {
+	logritelog.Default().Printf(">>> Entering Merge(idx=%v)", idx)
 	if node.isLeaf {
 		panic("cannot merge when leaf node is parent")
 	}
@@ -225,23 +249,29 @@ func (node *BTreeNode[T]) Merge(idx int) {
 	left.Append(node.keys[idx], right.children[0])
 	left.Concat(right, 0)
 	node.DeleteIthKey(idx)
+	logritelog.Default().Printf("<<< Exiting Merge(idx=%v)", idx)
 }
 
 func (node *BTreeNode[T]) Min() T {
+	logritelog.Default().Printf(">>> Entering Min()")
 	if node.isLeaf {
+	logritelog.Default().Printf("<<< Exiting Min()")
 		return node.keys[0]
 	}
 	return node.children[0].Min()
 }
 
 func (node *BTreeNode[T]) Max() T {
+	logritelog.Default().Printf(">>> Entering Max()")
 	if node.isLeaf {
+	logritelog.Default().Printf("<<< Exiting Max()")
 		return node.keys[node.numKeys-1]
 	}
 	return node.children[node.numKeys].Max()
 }
 
 func (node *BTreeNode[T]) Delete(tree *BTree[T], key T) {
+	logritelog.Default().Printf(">>> Entering Delete(tree=%v,key=%v)", tree, key)
 	node.Verify(tree)
 	if node.isLeaf {
 		// Case 1: Node is a leaf. Directly delete the key.
@@ -257,6 +287,7 @@ func (node *BTreeNode[T]) Delete(tree *BTree[T], key T) {
 	minKeys := minKeys(tree.maxKeys)
 	i := 0
 	for ; i < node.numKeys; i++ {
+		__logStart := logritetime.Now()
 		if key == node.keys[i] {
 			// Case 2: key exists in a non-leaf node
 			left := node.children[i]
@@ -292,6 +323,7 @@ func (node *BTreeNode[T]) Delete(tree *BTree[T], key T) {
 				node.Merge(i)
 				left.Delete(tree, key)
 			}
+				logritelog.Default().Printf("Delete(tree,key)=%v,%v: update query executed in %v ms", tree, key, logritetime.Since(__logStart).Milliseconds())
 			return
 		}
 
@@ -335,21 +367,26 @@ func (node *BTreeNode[T]) Delete(tree *BTree[T], key T) {
 				// Merge with left sibling
 				node.Merge(i - 1)
 				child = node.children[i-1]
+				logritelog.Default().Printf("Delete(tree=%v,key=%v): child → %v", tree, key, child)
 			}
 		}
 	}
 	if child.numKeys == minKeys {
 		panic("cannot delete key from node with minimum number of keys")
 	}
+		logritelog.Default().Printf("Delete(tree,key)=%v,%v: delete query executed in %v ms", tree, key, logritetime.Since(__logStart).Milliseconds())
 	child.Delete(tree, key)
+	logritelog.Default().Printf("<<< Exiting Delete(tree=%v,key=%v)", tree, key)
 }
 
 func (tree *BTree[T]) Delete(key T) {
+	logritelog.Default().Printf(">>> Entering Delete(key=%v)", key)
 	if tree.root == nil {
 		return
 	}
 	tree.root.Delete(tree, key)
 	if tree.root.numKeys == 0 {
 		tree.root = tree.root.children[0]
+		logritelog.Default().Printf("Delete(key=%v): tree.root → %v", key, tree.root)
 	}
 }

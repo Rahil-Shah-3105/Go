@@ -9,6 +9,7 @@
 
 // Package factorial describes algorithms Factorials calculations.
 package factorial
+import logritelog "log"
 
 import (
 	"errors"
@@ -18,6 +19,7 @@ var ErrNegativeArgument = errors.New("input argument must be non-negative intege
 
 // Iterative returns the iteratively brute forced factorial of n
 func Iterative(n int) (int, error) {
+	logritelog.Default().Printf(">>> Entering Iterative(n=%v)", n)
 	if n < 0 {
 		return 0, ErrNegativeArgument
 	}
@@ -25,11 +27,13 @@ func Iterative(n int) (int, error) {
 	for i := 2; i <= n; i++ {
 		result *= i
 	}
+	logritelog.Default().Printf("<<< Exiting Iterative(n=%v)", n)
 	return result, nil
 }
 
 // Recursive This function recursively computes the factorial of a number
 func Recursive(n int) (int, error) {
+	logritelog.Default().Printf(">>> Entering Recursive(n=%v)", n)
 	if n < 0 {
 		return 0, ErrNegativeArgument
 	}
@@ -37,11 +41,13 @@ func Recursive(n int) (int, error) {
 		return 1, nil
 	}
 	prev, _ := Recursive(n - 1)
+	logritelog.Default().Printf("<<< Exiting Recursive(n=%v)", n)
 	return n * prev, nil
 }
 
 // UsingTree This function finds the factorial of a number using a binary tree
 func UsingTree(n int) (int, error) {
+	logritelog.Default().Printf(">>> Entering UsingTree(n=%v)", n)
 	if n < 0 {
 		return 0, ErrNegativeArgument
 	}
@@ -49,12 +55,14 @@ func UsingTree(n int) (int, error) {
 		return 1, nil
 	}
 	if n == 1 || n == 2 {
+	logritelog.Default().Printf("<<< Exiting UsingTree(n=%v)", n)
 		return n, nil
 	}
 	return prodTree(2, n), nil
 }
 
 func prodTree(l int, r int) int {
+	logritelog.Default().Printf(">>> Entering prodTree(l=%v,r=%v)", l, r)
 	if l > r {
 		return 1
 	}
@@ -65,5 +73,6 @@ func prodTree(l int, r int) int {
 		return l * r
 	}
 	m := (l + r) / 2
+	logritelog.Default().Printf("<<< Exiting prodTree(l=%v,r=%v)", l, r)
 	return prodTree(l, m) * prodTree(m+1, r)
 }

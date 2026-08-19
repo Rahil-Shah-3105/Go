@@ -1,4 +1,5 @@
 package linkedlist
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestDoubly(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDoubly(t=%v)", t)
 	newList := NewDoubly[int]()
 
 	newList.AddAtBeg(1)
@@ -22,8 +24,10 @@ func TestDoubly(t *testing.T) {
 
 		got = append(got, current.Val)
 
+		logritelog.Default().Printf("TestDoubly(t=%v): got → %v", t, got)
 		for current.Next != newList.Head {
 			current = current.Next
+			logritelog.Default().Printf("TestDoubly(t=%v): current → %v", t, current)
 			got = append(got, current.Val)
 		}
 
@@ -109,4 +113,5 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("got: %v, want: %v", got, want)
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestDoubly(t=%v)", t)
 }

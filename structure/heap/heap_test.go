@@ -1,4 +1,5 @@
 package heap_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/structure/heap"
@@ -9,6 +10,7 @@ import (
 type testInt int
 
 func (u testInt) Less(o testInt) bool {
+	logritelog.Default().Printf("<<< Exiting Less(o=%v)", o)
 	return u < o
 }
 
@@ -25,6 +27,7 @@ func (u testStudent) Less(o testStudent) bool {
 }
 
 func TestHeap_Empty(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHeap_Empty(t=%v)", t)
 	tests := []struct {
 		name string
 		want bool
@@ -39,6 +42,7 @@ func TestHeap_Empty(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestHeap_Empty(t=%v)", t)
 }
 
 type testOpType int
@@ -62,6 +66,7 @@ type testStruct[T any] struct {
 }
 
 func TestHeapExample1(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHeapExample1(t=%v)", t)
 	tests1 := []testStruct[testInt]{
 		{
 			name: "example 1",
@@ -93,9 +98,11 @@ func TestHeapExample1(t *testing.T) {
 		},
 	}
 	testFunc(t, tests1, testInt.Less)
+	logritelog.Default().Printf("<<< Exiting TestHeapExample1(t=%v)", t)
 }
 
 func TestHeapExample2(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHeapExample2(t=%v)", t)
 	tests1 := []testStruct[testStudent]{
 		{
 			name: "example 2",
@@ -110,6 +117,7 @@ func TestHeapExample2(t *testing.T) {
 		},
 	}
 	testFunc(t, tests1, testStudent.Less)
+	logritelog.Default().Printf("<<< Exiting TestHeapExample2(t=%v)", t)
 }
 
 func testFunc[T any](t *testing.T, tests []testStruct[T], less func(a, b T) bool) {

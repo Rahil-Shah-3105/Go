@@ -4,6 +4,7 @@
 // space complexity: O(1)
 
 package binary
+import logritelog "log"
 
 // Abs returns absolute value using binary operation
 // Principle of operation:
@@ -13,6 +14,8 @@ package binary
 // 4) Add the mask to the given number.
 // 5) XOR of mask + n and mask gives the absolute value.
 func Abs(base, n int) int {
+	logritelog.Default().Printf(">>> Entering Abs(base=%v,n=%v)", base, n)
 	m := n >> (base - 1)
+	logritelog.Default().Printf("<<< Exiting Abs(base=%v,n=%v)", base, n)
 	return (n + m) ^ m
 }

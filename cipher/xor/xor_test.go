@@ -1,4 +1,5 @@
 package xor
+import logritelog "log"
 
 import (
 	"bytes"
@@ -8,11 +9,14 @@ import (
 )
 
 func Example() {
+	logritelog.Default().Printf(">>> Entering Example()")
 	const (
 		seed = "Hello World"
 		key  = 97
 	)
 
+	logritelog.Default().Printf("Example(): seed → %v", seed)
+	logritelog.Default().Printf("[WARN] Example(): key → %v", key)
 	encrypted := Encrypt(byte(key), []byte(seed))
 	fmt.Printf("Encrypt=> key: %d, seed: %s, encryptedText: %v\n", key, seed, encrypted)
 
@@ -22,6 +26,7 @@ func Example() {
 	// Output:
 	// Encrypt=> key: 97, seed: Hello World, encryptedText: [41 4 13 13 14 65 54 14 19 13 5]
 	// Decrypt=> key: 97, encryptedText: [41 4 13 13 14 65 54 14 19 13 5], DecryptedText: Hello World
+	logritelog.Default().Printf("<<< Exiting Example()")
 }
 
 var xorTestData = []struct {

@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
@@ -34,6 +35,7 @@ var tc_dijkstra = []struct {
 }
 
 func TestDijkstra(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDijkstra(t=%v)", t)
 	for _, tc := range tc_dijkstra {
 		t.Run(tc.name, func(t *testing.T) {
 			var graph Graph
@@ -48,4 +50,5 @@ func TestDijkstra(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestDijkstra(t=%v)", t)
 }

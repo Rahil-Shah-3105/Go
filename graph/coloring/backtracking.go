@@ -4,10 +4,12 @@
 // Author(s): [Shivam](https://github.com/Shivam010)
 
 package coloring
+import logritelog "log"
 
 // ColorUsingBacktracking will return the Color of each vertex and the
 // total number of different colors used, using backtracking
 func (g *Graph) ColorUsingBacktracking() (map[int]Color, int) {
+	logritelog.Default().Printf(">>> Entering ColorUsingBacktracking()")
 	vertexColors := make(map[int]Color, g.vertices)
 	g.colorVertex(0, vertexColors)
 
@@ -16,12 +18,15 @@ func (g *Graph) ColorUsingBacktracking() (map[int]Color, int) {
 		if colorsUsed < int(cr) {
 			colorsUsed = int(cr)
 		}
+			logritelog.Default().Printf("ColorUsingBacktracking(): colorsUsed → %v", colorsUsed)
 	}
+	logritelog.Default().Printf("<<< Exiting ColorUsingBacktracking()")
 	return vertexColors, colorsUsed
 }
 
 // colorVertex will try to color provided vertex, v
 func (g *Graph) colorVertex(v int, color map[int]Color) bool {
+	logritelog.Default().Printf(">>> Entering colorVertex(v=%v,color=%v)", v, color)
 	// If all vertices are colored, the colors store will be completely filled.
 	if len(color) == g.vertices {
 		return true
@@ -37,6 +42,7 @@ func (g *Graph) colorVertex(v int, color map[int]Color) bool {
 			// cr, color is not safe if color of nb, crnb is not equal to cr
 			if crnb, ok := color[nb]; ok && crnb == cr {
 				safe = false
+				logritelog.Default().Printf("colorVertex(v=%v,color=%v): safe → %v", v, color, safe)
 				break
 			}
 		}
@@ -48,5 +54,6 @@ func (g *Graph) colorVertex(v int, color map[int]Color) bool {
 			delete(color, v)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting colorVertex(v=%v,color=%v)", v, color)
 	return false
 }

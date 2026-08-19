@@ -1,4 +1,5 @@
 package strings_test
+import logritelog "log"
 
 import (
 	"errors"
@@ -115,6 +116,7 @@ var testCases = []struct {
 }
 
 func TestIsIsogram(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsIsogram(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			actualVal, actualErr := strings.IsIsogram(test.input, test.order)
@@ -128,4 +130,5 @@ func TestIsIsogram(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIsIsogram(t=%v)", t)
 }

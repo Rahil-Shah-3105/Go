@@ -1,9 +1,11 @@
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
 // OptimalBST returns the minimum cost of constructing a Binary Search Tree
 func OptimalBST(keys []int, freq []int, n int) int {
+	logritelog.Default().Printf(">>> Entering OptimalBST(keys=%v,freq=%v,n=%v)", keys, freq, n)
 	// Initialize DP table with size n x n
 	dp := make([][]int, n)
 	for i := range dp {
@@ -28,6 +30,7 @@ func OptimalBST(keys []int, freq []int, n int) int {
 				var leftCost int
 				if k > i {
 					leftCost = dp[i][k-1]
+					logritelog.Default().Printf("OptimalBST(keys=%v,freq=%v,n=%v): leftCost → %v", keys, freq, n, leftCost)
 				} else {
 					leftCost = 0
 				}
@@ -36,6 +39,7 @@ func OptimalBST(keys []int, freq []int, n int) int {
 				var rightCost int
 				if k < j {
 					rightCost = dp[k+1][j]
+					logritelog.Default().Printf("OptimalBST(keys=%v,freq=%v,n=%v): rightCost → %v", keys, freq, n, rightCost)
 				} else {
 					rightCost = 0
 				}
@@ -48,14 +52,17 @@ func OptimalBST(keys []int, freq []int, n int) int {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting OptimalBST(keys=%v,freq=%v,n=%v)", keys, freq, n)
 	return dp[0][n-1]
 }
 
 // Helper function to sum the frequencies
 func sum(freq []int, i, j int) int {
+	logritelog.Default().Printf(">>> Entering sum(freq=%v,i=%v,j=%v)", freq, i, j)
 	total := 0
 	for k := i; k <= j; k++ {
 		total += freq[k]
 	}
+	logritelog.Default().Printf("<<< Exiting sum(freq=%v,i=%v,j=%v)", freq, i, j)
 	return total
 }

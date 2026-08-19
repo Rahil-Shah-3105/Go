@@ -4,6 +4,7 @@
 // space complexity: O(n^2) where n is the number of rows in the first matrix
 
 package matrix
+import logritelog "log"
 
 import (
 	"context"
@@ -13,6 +14,7 @@ import (
 
 // Multiply multiplies the current matrix (m1) with another matrix (m2) and returns the result as a new matrix.
 func (m1 Matrix[T]) Multiply(m2 Matrix[T]) (Matrix[T], error) {
+	logritelog.Default().Printf(">>> Entering Multiply(m2=%v)", m2)
 	// Check if the matrices can be multiplied.
 	if m1.Columns() != m2.Rows() {
 		return Matrix[T]{}, errors.New("matrices cannot be multiplied: column count of the first matrix must match row count of the second matrix")
@@ -84,6 +86,7 @@ func (m1 Matrix[T]) Multiply(m2 Matrix[T]) (Matrix[T], error) {
 
 	// Check for any errors
 	if err := <-errCh; err != nil {
+	logritelog.Default().Printf("<<< Exiting Multiply(m2=%v)", m2)
 		return Matrix[T]{}, err
 	}
 
