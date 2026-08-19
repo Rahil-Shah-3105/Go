@@ -4,10 +4,14 @@
 // see generateparentheses.go
 
 package generateparentheses
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestGenerateParenthesis(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestGenerateParenthesis(t=%v)", t)
 	t.Run("GenerateParenthesis", func(t *testing.T) {
 		result := GenerateParenthesis(3)
 		t.Log(result)
@@ -18,4 +22,5 @@ func TestGenerateParenthesis(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestGenerateParenthesis(t=%v)", t)
 }

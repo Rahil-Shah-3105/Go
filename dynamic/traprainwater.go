@@ -9,14 +9,18 @@
 // space complexity: O(n)
 // author(s) [TruongNhanNguyen (SOZEL)](https://github.com/TruongNhanNguyen)
 package dynamic
+import logritelog "log"
 
 import "math"
+import stdlog "log"
+var log = stdlog.Default()
 
 // TrapRainWater calculates the amount of trapped rainwater between the bars represented by the given elevation map.
 // It uses dynamic programming to precompute the maximum height of bars to the left and right of each position.
 // Then, it iterates through the array to calculate the amount of trapped rainwater at each position based on the minimum of the left and right maximum heights.
 // Finally, it sums up the trapped rainwater for all positions and returns the total amount.
 func TrapRainWater(height []int) int {
+	logritelog.Default().Printf(">>> Entering TrapRainWater(height=%v)", height)
 	if len(height) == 0 {
 		return 0
 	}
@@ -39,5 +43,6 @@ func TrapRainWater(height []int) int {
 		trappedWater += int(math.Min(float64(leftMax[i]), float64(rightMax[i]))) - height[i]
 	}
 
+	logritelog.Default().Printf("<<< Exiting TrapRainWater(height=%v)", height)
 	return trappedWater
 }

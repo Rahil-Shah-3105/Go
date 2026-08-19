@@ -1,6 +1,9 @@
 package power
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 var testCases = []struct {
 	name     string
@@ -16,6 +19,7 @@ var testCases = []struct {
 }
 
 func TestIterativePower(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIterativePower(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := IterativePower(tc.base, tc.power)
@@ -24,9 +28,11 @@ func TestIterativePower(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIterativePower(t=%v)", t)
 }
 
 func TestRecursivePower(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRecursivePower(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := RecursivePower(tc.base, tc.power)
@@ -35,9 +41,11 @@ func TestRecursivePower(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestRecursivePower(t=%v)", t)
 }
 
 func TestRecursivePower1(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRecursivePower1(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := RecursivePower1(tc.base, tc.power)
@@ -46,22 +54,29 @@ func TestRecursivePower1(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestRecursivePower1(t=%v)", t)
 }
 
 func BenchmarkIterativePower(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkIterativePower(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		IterativePower(10, 5)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkIterativePower(b=%v)", b)
 }
 
 func BenchmarkRecursivePower(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRecursivePower(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		RecursivePower(10, 5)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRecursivePower(b=%v)", b)
 }
 
 func BenchmarkRecursivePower1(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRecursivePower1(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		RecursivePower1(10, 5)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRecursivePower1(b=%v)", b)
 }

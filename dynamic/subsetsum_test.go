@@ -1,8 +1,12 @@
 package dynamic
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestSubsetSum(t *testing.T) {
+logritelog.Default().Printf(">>> Entering TestSubsetSum(t=%v)", t)
 
 	var subsetSumTestData = []struct {
 		description    string
@@ -90,4 +94,5 @@ func TestSubsetSum(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestSubsetSum(t=%v)", t)
 }
