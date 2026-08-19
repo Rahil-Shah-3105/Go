@@ -1,6 +1,9 @@
 package conversion
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 var HEX = []uint{
 	0x1abc9c,
@@ -15,6 +18,7 @@ var RGB = [][]byte{
 }
 
 func TestHEXToRGB(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHEXToRGB(t=%v)", t)
 	for i := 0; i < len(HEX); i++ {
 		hex := HEX[i]
 		expected := RGB[i]
@@ -24,15 +28,19 @@ func TestHEXToRGB(t *testing.T) {
 				hex, resultR, resultG, resultB, expected[0], expected[1], expected[2])
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestHEXToRGB(t=%v)", t)
 }
 
 func BenchmarkHEXToRGB(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkHEXToRGB(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _, _ = HEXToRGB(0xdeadbe)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkHEXToRGB(b=%v)", b)
 }
 
 func TestRGBToHEX(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRGBToHEX(t=%v)", t)
 	for i := 0; i < len(RGB); i++ {
 		args := RGB[i]
 		expected := HEX[i]
@@ -42,10 +50,13 @@ func TestRGBToHEX(t *testing.T) {
 				args[0], args[1], args[2], result, expected)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestRGBToHEX(t=%v)", t)
 }
 
 func BenchmarkRGBToHEX(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRGBToHEX(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = RGBToHEX(222, 173, 190)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRGBToHEX(b=%v)", b)
 }

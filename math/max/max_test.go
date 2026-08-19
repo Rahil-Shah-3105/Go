@@ -1,8 +1,12 @@
 package max
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestMax(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMax(t=%v)", t)
 	testCases := []struct {
 		name  string
 		left  int
@@ -32,9 +36,11 @@ func TestMax(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestMax(t=%v)", t)
 }
 
 func TestMaxOfThree(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMaxOfThree(t=%v)", t)
 	testCases := []struct {
 		name   string
 		left   int
@@ -74,4 +80,5 @@ func TestMaxOfThree(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestMaxOfThree(t=%v)", t)
 }

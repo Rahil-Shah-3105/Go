@@ -4,12 +4,16 @@
 // Author(s): [Shivam](https://github.com/Shivam010)
 
 package coloring
+import logritelog "log"
 
 import "container/list"
+import stdlog "log"
+var log = stdlog.Default()
 
 // ColorUsingBFS will return the Color of each vertex and the
 // total number of different colors used, using BFS
 func (g *Graph) ColorUsingBFS() (map[int]Color, int) {
+	logritelog.Default().Printf(">>> Entering ColorUsingBFS()")
 	// Initially all vertices will have same color
 	vertexColors := make(map[int]Color, g.vertices)
 	for i := 0; i < g.vertices; i++ {
@@ -53,6 +57,8 @@ func (g *Graph) ColorUsingBFS() (map[int]Color, int) {
 		if colorsUsed < int(cr) {
 			colorsUsed = int(cr)
 		}
+			logritelog.Default().Printf("ColorUsingBFS(): colorsUsed → %v", colorsUsed)
 	}
+	logritelog.Default().Printf("<<< Exiting ColorUsingBFS()")
 	return vertexColors, colorsUsed
 }

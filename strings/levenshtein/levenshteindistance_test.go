@@ -1,6 +1,9 @@
 package levenshtein
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 var testCases = []struct {
 	name             string
@@ -41,6 +44,7 @@ var testCases = []struct {
 }
 
 func TestLevenshteinDistance(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLevenshteinDistance(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := Distance(tc.string1, tc.string2, tc.insertionCost, tc.substitutionCost, tc.deletionCost)
@@ -49,4 +53,5 @@ func TestLevenshteinDistance(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestLevenshteinDistance(t=%v)", t)
 }

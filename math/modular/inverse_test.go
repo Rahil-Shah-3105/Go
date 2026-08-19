@@ -4,11 +4,15 @@
 // see inverse.go
 
 package modular
+import logritelog "log"
 
 import "testing"
 import "fmt"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestInverse(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestInverse(t=%v)", t)
 	testCases := []struct {
 		a             int64
 		m             int64
@@ -36,4 +40,5 @@ func TestInverse(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestInverse(t=%v)", t)
 }

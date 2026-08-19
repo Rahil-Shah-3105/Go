@@ -4,8 +4,11 @@
 // see exponentiation.go
 
 package modular
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 type cases struct {
 	name          string
@@ -66,6 +69,7 @@ var testCases = []cases{
 }
 
 func TestExponentiation(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestExponentiation(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			result, err := Exponentiation(test.base, test.exponent, test.mod)
@@ -80,10 +84,13 @@ func TestExponentiation(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestExponentiation(t=%v)", t)
 }
 
 func BenchmarkExponentiation(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkExponentiation(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _ = Exponentiation(17, 60, 23)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkExponentiation(b=%v)", b)
 }
