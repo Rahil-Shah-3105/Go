@@ -4,6 +4,7 @@
 // time complexity: O(n*k) where n is the number of elements and k is the number of elements to choose
 // space complexity: O(n*k) where n is the number of elements and k is the number of elements to choose
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
@@ -24,6 +25,7 @@ import "github.com/TheAlgorithms/Go/math/min"
 
 // Bin2 function
 func Bin2(n int, k int) int {
+	logritelog.Default().Printf(">>> Entering Bin2(n=%v,k=%v)", n, k)
 	var i, j int
 	B := make([][]int, (n + 1))
 	for i := range B {
@@ -39,5 +41,6 @@ func Bin2(n int, k int) int {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting Bin2(n=%v,k=%v)", n, k)
 	return B[n][k]
 }

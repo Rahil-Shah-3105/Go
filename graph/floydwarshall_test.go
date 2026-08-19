@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"math"
@@ -10,11 +11,13 @@ const float64EqualityThreshold = 1e-9
 // almostEqual subtracts two float64 variables and returns true if they differ less then float64EqualityThreshold
 // reference: https://stackoverflow.com/a/47969546
 func almostEqual(a, b float64) bool {
+	logritelog.Default().Printf(">>> Entering almostEqual(a=%v,b=%v)", a, b)
 	return math.Abs(a-b) <= float64EqualityThreshold
 }
 
 // IsAlmostEqualTo verifies if two WeightedGraphs can be considered almost equal
 func (a *WeightedGraph) IsAlmostEqualTo(b WeightedGraph) bool {
+	logritelog.Default().Printf(">>> Entering IsAlmostEqualTo(b=%v)", b)
 	if len(*a) != len(b) {
 		return false
 	}
@@ -35,10 +38,12 @@ func (a *WeightedGraph) IsAlmostEqualTo(b WeightedGraph) bool {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting IsAlmostEqualTo(b=%v)", b)
 	return true
 }
 
 func TestFloydWarshall(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFloydWarshall(t=%v)", t)
 	var floydWarshallTestData = []struct {
 		description string
 		graph       [][]float64
@@ -107,4 +112,5 @@ func TestFloydWarshall(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestFloydWarshall(t=%v)", t)
 }

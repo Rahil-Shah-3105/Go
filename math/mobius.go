@@ -13,6 +13,7 @@
 // see mobius_test.go
 
 package math
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/prime"
@@ -21,6 +22,7 @@ import (
 // Mu is the Mobius function
 // This function returns μ(n) for given number
 func Mu(n int) int {
+	logritelog.Default().Printf(">>> Entering Mu(n=%v)", n)
 	if n <= 1 {
 		return 1
 	}
@@ -34,6 +36,7 @@ func Mu(n int) int {
 		}
 	}
 	if primeFactorCount%2 == 0 {
+	logritelog.Default().Printf("<<< Exiting Mu(n=%v)", n)
 		return 1
 	}
 	return -1

@@ -6,6 +6,7 @@
 
 // Package geometry contains geometric algorithms
 package geometry
+import logritelog "log"
 
 import (
 	"errors"
@@ -20,6 +21,7 @@ var ErrDimMismatch = errors.New("mismatched dimensions")
 // EuclideanDistance returns the Euclidean distance between points in
 // any `n` dimensional Euclidean space.
 func EuclideanDistance(p1 EuclideanPoint, p2 EuclideanPoint) (float64, error) {
+	logritelog.Default().Printf(">>> Entering EuclideanDistance(p1=%v,p2=%v)", p1, p2)
 	n := len(p1)
 
 	if len(p2) != n {
@@ -34,5 +36,6 @@ func EuclideanDistance(p1 EuclideanPoint, p2 EuclideanPoint) (float64, error) {
 		total += diff * diff
 	}
 
+	logritelog.Default().Printf("<<< Exiting EuclideanDistance(p1=%v,p2=%v)", p1, p2)
 	return math.Sqrt(total), nil
 }

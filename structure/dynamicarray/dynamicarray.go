@@ -10,6 +10,7 @@
 // authors [Wesllhey Holanda](https://github.com/wesllhey), [Milad](https://github.com/miraddo)
 // see dynamicarray.go, dynamicarray_test.go
 package dynamicarray
+import logritelog "log"
 
 import (
 	"errors"
@@ -26,19 +27,25 @@ type DynamicArray struct {
 
 // Put function is change/update the value in array with the index and new value
 func (da *DynamicArray) Put(index int, element any) error {
+	logritelog.Default().Printf(">>> Entering Put(index=%v,element=%v)", index, element)
 	err := da.CheckRangeFromIndex(index)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Put(index=%v,element=%v): %v", index, element, err)
+		logritelog.Default().Printf(">>> Entering CheckRangeFromIndex(index=%v)", index)
+		logritelog.Default().Printf("<<< Exiting CheckRangeFromIndex(index=%v)", index)
 		return err
 	}
 
 	da.ElementData[index] = element
 
+	logritelog.Default().Printf("<<< Exiting Put(index=%v,element=%v)", index, element)
 	return nil
 }
 
 // Add function is add new element to our array
 func (da *DynamicArray) Add(element any) {
+	logritelog.Default().Printf(">>> Entering Add(element=%v)", element)
 	if da.Size == da.Capacity {
 		da.NewCapacity()
 	}
@@ -49,9 +56,11 @@ func (da *DynamicArray) Add(element any) {
 
 // Remove function is remove an element with the index
 func (da *DynamicArray) Remove(index int) error {
+	logritelog.Default().Printf(">>> Entering Remove(index=%v)", index)
 	err := da.CheckRangeFromIndex(index)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Remove(index=%v): %v", index, err)
 		return err
 	}
 
@@ -60,14 +69,18 @@ func (da *DynamicArray) Remove(index int) error {
 
 	da.Size--
 
+	logritelog.Default().Printf("<<< Exiting Remove(index=%v)", index)
 	return nil
 }
 
 // Get function is return one element with the index of array
 func (da *DynamicArray) Get(index int) (any, error) {
+	logritelog.Default().Printf(">>> Entering Get(index=%v)", index)
 	err := da.CheckRangeFromIndex(index)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Get(index=%v): %v", index, err)
+	logritelog.Default().Printf("<<< Exiting Get(index=%v)", index)
 		return nil, err
 	}
 
@@ -76,11 +89,13 @@ func (da *DynamicArray) Get(index int) (any, error) {
 
 // IsEmpty function is check that the array has value or not
 func (da *DynamicArray) IsEmpty() bool {
+	logritelog.Default().Printf(">>> Entering IsEmpty()")
 	return da.Size == 0
 }
 
 // GetData function return all value of array
 func (da *DynamicArray) GetData() []any {
+	logritelog.Default().Printf(">>> Entering GetData()")
 	return da.ElementData[:da.Size]
 }
 
@@ -94,8 +109,10 @@ func (da *DynamicArray) CheckRangeFromIndex(index int) error {
 
 // NewCapacity function increase the Capacity
 func (da *DynamicArray) NewCapacity() {
+	logritelog.Default().Printf(">>> Entering NewCapacity()")
 	if da.Capacity == 0 {
 		da.Capacity = defaultCapacity
+		logritelog.Default().Printf("NewCapacity(): da.Capacity → %v", da.Capacity)
 	} else {
 		da.Capacity = da.Capacity << 1
 	}
@@ -105,4 +122,6 @@ func (da *DynamicArray) NewCapacity() {
 	copy(newDataElement, da.ElementData)
 
 	da.ElementData = newDataElement
+	logritelog.Default().Printf("NewCapacity(): da.ElementData → %v", da.ElementData)
+logritelog.Default().Printf("<<< Exiting NewCapacity()")
 }

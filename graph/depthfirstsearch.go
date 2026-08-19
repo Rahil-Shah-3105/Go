@@ -5,34 +5,42 @@
 // space complexity: O(n)
 
 package graph
+import logritelog "log"
 
 func GetIdx(target int, nodes []int) int {
+	logritelog.Default().Printf(">>> Entering GetIdx(target=%v,nodes=%v)", target, nodes)
 	for i := 0; i < len(nodes); i++ {
 		if nodes[i] == target {
 			return i
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting GetIdx(target=%v,nodes=%v)", target, nodes)
 	return -1
 }
 
 func NotExist(target int, slice []int) bool {
+	logritelog.Default().Printf(">>> Entering NotExist(target=%v,slice=%v)", target, slice)
 	for i := 0; i < len(slice); i++ {
 		if slice[i] == target {
 			return false
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting NotExist(target=%v,slice=%v)", target, slice)
 	return true
 }
 
 func DepthFirstSearchHelper(start, end int, nodes []int, edges [][]bool, showroute bool) ([]int, bool) {
+	logritelog.Default().Printf(">>> Entering DepthFirstSearchHelper(start=%v,end=%v,nodes=%v,edges=%v,showroute=%v)", start, end, nodes, edges, showroute)
 	var route []int
 	var stack []int
 	startIdx := GetIdx(start, nodes)
 	stack = append(stack, startIdx)
 	for len(stack) > 0 {
+	logritelog.Default().Printf("DepthFirstSearchHelper(start=%v,end=%v,nodes=%v,edges=%v,showroute=%v): stack → %v", start, end, nodes, edges, showroute, stack)
 		now := stack[len(stack)-1]
 		route = append(route, nodes[now])
 		if len(stack) > 1 {
+		logritelog.Default().Printf("DepthFirstSearchHelper(start=%v,end=%v,nodes=%v,edges=%v,showroute=%v): route → %v", start, end, nodes, edges, showroute, route)
 			stack = stack[:len(stack)-1]
 		} else {
 			stack = stack[:len(stack)-1]
@@ -52,11 +60,13 @@ func DepthFirstSearchHelper(start, end int, nodes []int, edges [][]bool, showrou
 	if showroute {
 		return route, false
 	} else {
+		logritelog.Default().Printf("<<< Exiting DepthFirstSearchHelper(start=%v,end=%v,nodes=%v,edges=%v,showroute=%v)", start, end, nodes, edges, showroute)
 		return nil, false
 	}
 }
 
 func DepthFirstSearch(start, end int, nodes []int, edges [][]bool) ([]int, bool) {
+	logritelog.Default().Printf(">>> Entering DepthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
 	return DepthFirstSearchHelper(start, end, nodes, edges, false)
 }
 

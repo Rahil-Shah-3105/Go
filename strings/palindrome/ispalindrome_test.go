@@ -1,4 +1,5 @@
 package palindrome
+import logritelog "log"
 
 import (
 	"testing"
@@ -42,6 +43,7 @@ var testCases = []struct {
 }
 
 func TestIsPalindrome(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsPalindrome(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			func_result := IsPalindrome(test.input)
@@ -50,9 +52,11 @@ func TestIsPalindrome(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIsPalindrome(t=%v)", t)
 }
 
 func TestIsPalindromeRecursive(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsPalindromeRecursive(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			func_result := IsPalindromeRecursive(test.input)
@@ -61,4 +65,5 @@ func TestIsPalindromeRecursive(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIsPalindromeRecursive(t=%v)", t)
 }

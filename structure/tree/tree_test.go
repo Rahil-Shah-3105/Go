@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -10,6 +11,7 @@ import (
 )
 
 func TestTreeGetOrHas(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeGetOrHas(t=%v)", t)
 	helper := func(tree TestTree[int], nums []int) {
 		tree.Push(nums...)
 		for _, num := range nums {
@@ -48,9 +50,11 @@ func TestTreeGetOrHas(t *testing.T) {
 			helper(avlTree, nums)
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestTreeGetOrHas(t=%v)", t)
 }
 
 func TestTreePreOrder(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreePreOrder(t=%v)", t)
 	t.Run("Test for Binary-Search Tree", func(t *testing.T) {
 		tests := []struct {
 			input []int
@@ -104,9 +108,11 @@ func TestTreePreOrder(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreePreOrder(t=%v)", t)
 }
 
 func TestTreeInOrder(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeInOrder(t=%v)", t)
 	lens := []int{100, 1_000, 10_000, 100_000}
 	for _, ll := range lens {
 		nums := rand.Perm(ll)
@@ -135,9 +141,11 @@ func TestTreeInOrder(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestTreeInOrder(t=%v)", t)
 }
 
 func TestTreePostOrder(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreePostOrder(t=%v)", t)
 	t.Run("Test for Binary-Search Tree", func(t *testing.T) {
 		tests := []struct {
 			input []int
@@ -194,9 +202,11 @@ func TestTreePostOrder(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreePostOrder(t=%v)", t)
 }
 
 func TestTreeLevelOrder(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeLevelOrder(t=%v)", t)
 	t.Run("Test for Binary-Search Tree", func(t *testing.T) {
 		tests := []struct {
 			input []int
@@ -253,9 +263,11 @@ func TestTreeLevelOrder(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreeLevelOrder(t=%v)", t)
 }
 
 func TestTreeMinAndMax(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeMinAndMax(t=%v)", t)
 	helper := func(tree TestTree[int], nums []int) {
 		ll := len(nums)
 		if _, ok := tree.Min(); ok {
@@ -290,9 +302,11 @@ func TestTreeMinAndMax(t *testing.T) {
 			helper(bt.NewAVL[int](), nums)
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestTreeMinAndMax(t=%v)", t)
 }
 
 func TestTreeDepth(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeDepth(t=%v)", t)
 	t.Run("Test for Binary-Search Tree", func(t *testing.T) {
 		tests := []struct {
 			input []int
@@ -349,9 +363,11 @@ func TestTreeDepth(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreeDepth(t=%v)", t)
 }
 
 func TestTreeAccessNodesByLayer(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreeAccessNodesByLayer(t=%v)", t)
 	t.Run("Test for Binary-Search Tree", func(t *testing.T) {
 		tests := []struct {
 			input []int
@@ -412,9 +428,11 @@ func TestTreeAccessNodesByLayer(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreeAccessNodesByLayer(t=%v)", t)
 }
 
 func TestTreePredecessorAndSuccessor(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTreePredecessorAndSuccessor(t=%v)", t)
 	helper := func(tree TestTree[int]) {
 		nums := []int{10, 8, 88, 888, 4, -1, 100}
 		tree.Push(nums...)
@@ -487,12 +505,14 @@ func TestTreePredecessorAndSuccessor(t *testing.T) {
 		tree := bt.NewAVL[int]()
 		helper(tree)
 	})
+	logritelog.Default().Printf("<<< Exiting TestTreePredecessorAndSuccessor(t=%v)", t)
 }
 
 // Benchmark the comparisons between BST, AVL and RB Tree
 const testNum = 10_000
 
 func BenchmarkBSTree_Insert(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkBSTree_Insert(b=%v)", b)
 	helper := func() {
 		tree := bt.NewBinarySearch[int]()
 		for i := 1; i <= testNum; i++ {
@@ -503,9 +523,11 @@ func BenchmarkBSTree_Insert(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkBSTree_Insert(b=%v)", b)
 }
 
 func BenchmarkBSTree_Has(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkBSTree_Has(b=%v)", b)
 	helper := func() {
 		tree := bt.NewBinarySearch[int]()
 		for i := 1; i <= testNum; i++ {
@@ -520,9 +542,11 @@ func BenchmarkBSTree_Has(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkBSTree_Has(b=%v)", b)
 }
 
 func BenchmarkBSTree_Delete(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkBSTree_Delete(b=%v)", b)
 	helper := func() {
 		tree := bt.NewBinarySearch[int]()
 		for i := 1; i <= testNum; i++ {
@@ -537,9 +561,11 @@ func BenchmarkBSTree_Delete(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkBSTree_Delete(b=%v)", b)
 }
 
 func BenchmarkRBTree_Insert(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRBTree_Insert(b=%v)", b)
 	helper := func() {
 		tree := bt.NewRB[int]()
 		for i := 1; i <= testNum; i++ {
@@ -550,9 +576,11 @@ func BenchmarkRBTree_Insert(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRBTree_Insert(b=%v)", b)
 }
 
 func BenchmarkRBTree_Has(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRBTree_Has(b=%v)", b)
 	helper := func() {
 		tree := bt.NewRB[int]()
 		for i := 1; i <= testNum; i++ {
@@ -567,9 +595,11 @@ func BenchmarkRBTree_Has(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRBTree_Has(b=%v)", b)
 }
 
 func BenchmarkRBTree_Delete(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRBTree_Delete(b=%v)", b)
 	helper := func() {
 		tree := bt.NewRB[int]()
 		for i := 1; i <= testNum; i++ {
@@ -584,9 +614,11 @@ func BenchmarkRBTree_Delete(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRBTree_Delete(b=%v)", b)
 }
 
 func BenchmarkAVLTree_Insert(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkAVLTree_Insert(b=%v)", b)
 	helper := func() {
 		tree := bt.NewAVL[int]()
 		for i := 1; i <= testNum; i++ {
@@ -596,11 +628,13 @@ func BenchmarkAVLTree_Insert(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		helper()
+	logritelog.Default().Printf("<<< Exiting BenchmarkAVLTree_Insert(b=%v)", b)
 	}
 
 }
 
 func BenchmarkAVLTree_Has(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkAVLTree_Has(b=%v)", b)
 	helper := func() {
 		tree := bt.NewAVL[int]()
 		for i := 1; i <= testNum; i++ {
@@ -615,9 +649,11 @@ func BenchmarkAVLTree_Has(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkAVLTree_Has(b=%v)", b)
 }
 
 func BenchmarkAVLTree_Delete(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkAVLTree_Delete(b=%v)", b)
 	helper := func() {
 		tree := bt.NewAVL[int]()
 		for i := 1; i <= testNum; i++ {
@@ -632,4 +668,5 @@ func BenchmarkAVLTree_Delete(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		helper()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkAVLTree_Delete(b=%v)", b)
 }

@@ -1,4 +1,5 @@
 package math
+import logritelog "log"
 
 import (
 	"testing"
@@ -26,6 +27,7 @@ func getTestsForPhi() []struct {
 }
 
 func TestPhi(t *testing.T) {
+logritelog.Default().Printf(">>> Entering TestPhi(t=%v)", t)
 
 	tests := getTestsForPhi()
 	for _, test := range tests {
@@ -35,10 +37,13 @@ func TestPhi(t *testing.T) {
 			t.Errorf("Wrong result! Expected:%v, returned:%v ", test.expected, result)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestPhi(t=%v)", t)
 }
 
 func BenchmarkPhi(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkPhi(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Phi(65536)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkPhi(b=%v)", b)
 }

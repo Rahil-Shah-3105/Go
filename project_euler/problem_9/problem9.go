@@ -13,8 +13,10 @@
 * @author ddaniel27
  */
 package problem9
+import logritelog "log"
 
 func Problem9() uint {
+	logritelog.Default().Printf(">>> Entering Problem9()")
 	for a := uint(1); a < 1000; a++ {
 		for b := a + 1; b < 1000; b++ {
 			c := 1000 - a - b
@@ -25,5 +27,6 @@ func Problem9() uint {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem9()")
 	return 0
 }

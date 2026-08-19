@@ -1,4 +1,5 @@
 package pythagoras
+import logritelog "log"
 
 import (
 	"math"
@@ -13,6 +14,8 @@ type Vector struct {
 
 // Distance calculates the distance between to vectors with the   Pythagoras theorem
 func Distance(a, b Vector) float64 {
+	logritelog.Default().Printf(">>> Entering Distance(a=%v,b=%v)", a, b)
 	res := math.Pow(b.x-a.x, 2.0) + math.Pow(b.y-a.y, 2.0) + math.Pow(b.z-a.z, 2.0)
+	logritelog.Default().Printf("<<< Exiting Distance(a=%v,b=%v)", a, b)
 	return math.Sqrt(res)
 }

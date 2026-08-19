@@ -5,11 +5,13 @@
 // space complexity: O(n^2)
 
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
 // MatrixChainRec function
 func MatrixChainRec(D []int, i, j int) int {
+	logritelog.Default().Printf(">>> Entering MatrixChainRec(D=%v,i=%v,j=%v)", D, i, j)
 	// d[i-1] x d[i] : dimension of matrix i
 	if i == j {
 		return 0
@@ -19,11 +21,13 @@ func MatrixChainRec(D []int, i, j int) int {
 		prod := MatrixChainRec(D, i, k) + MatrixChainRec(D, k+1, j) + D[i-1]*D[k]*D[j]
 		q = min.Int(prod, q)
 	}
+	logritelog.Default().Printf("<<< Exiting MatrixChainRec(D=%v,i=%v,j=%v)", D, i, j)
 	return q
 }
 
 // MatrixChainDp function
 func MatrixChainDp(D []int) int {
+	logritelog.Default().Printf(">>> Entering MatrixChainDp(D=%v)", D)
 	// d[i-1] x d[i] : dimension of matrix i
 	N := len(D)
 
@@ -44,13 +48,16 @@ func MatrixChainDp(D []int) int {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting MatrixChainDp(D=%v)", D)
 	return dp[1][N-1]
 }
 
 /*
 func main() {
+	logritelog.Default().Printf(">>> Entering main()")
 	D := []int{2, 2, 2, 2, 2} // 4 matrices
 	fmt.Print(matrixChainRec(D, 1, 4), "\n")
 	fmt.Print(matrixChainDp(D), "\n")
+	logritelog.Default().Printf("<<< Exiting main()")
 }
 */

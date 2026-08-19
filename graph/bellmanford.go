@@ -7,6 +7,7 @@
 // space complexity: O(V) where V is the number of vertices in the graph
 
 package graph
+import logritelog "log"
 
 import (
 	"errors"
@@ -14,6 +15,7 @@ import (
 )
 
 func (g *Graph) BellmanFord(start, end int) (isReachable bool, distance int, err error) {
+	logritelog.Default().Printf(">>> Entering BellmanFord(start=%v,end=%v)", start, end)
 	INF := math.Inf(1)
 	distances := make([]float64, g.vertices)
 
@@ -47,5 +49,6 @@ func (g *Graph) BellmanFord(start, end int) (isReachable bool, distance int, err
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting BellmanFord(start=%v,end=%v)", start, end)
 	return distances[end] != INF, int(distances[end]), nil
 }

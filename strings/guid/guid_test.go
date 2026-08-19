@@ -1,4 +1,5 @@
 package guid
+import logritelog "log"
 
 import (
 	"strings"
@@ -6,10 +7,12 @@ import (
 )
 
 func TestNew(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestNew(t=%v)", t)
 	t.Run("check for allowed characters", func(t *testing.T) {
 		allowedChars := "0123456789abcdef-"
 		guid, err := New()
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestNew(t=%v): %v", t, err)
 			t.Errorf(`the test failed, an error occurred: %s`, err.Error())
 		}
 
@@ -59,10 +62,13 @@ func TestNew(t *testing.T) {
 			t.Errorf(`the length of the string should be "%d", but got %d`, len(pattern), len(guid))
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestNew(t=%v)", t)
 }
 
 func BenchmarkNew(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkNew(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _ = New()
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkNew(b=%v)", b)
 }

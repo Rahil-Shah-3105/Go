@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"fmt"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestAbbreviation(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAbbreviation(t=%v)", t)
 	tests := []struct {
 		a        string
 		b        string
@@ -38,4 +40,5 @@ func TestAbbreviation(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestAbbreviation(t=%v)", t)
 }

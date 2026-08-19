@@ -1,6 +1,7 @@
 // Tests for directed and undirected graphs
 
 package graph
+import logritelog "log"
 
 import (
 	"fmt"
@@ -56,6 +57,7 @@ var graphTestCases = []struct {
 }
 
 func TestDirectedGraph(t *testing.T) {
+logritelog.Default().Printf(">>> Entering TestDirectedGraph(t=%v)", t)
 
 	// Testing self-loops separately only for directed graphs.
 	// For undirected graphs each edge already creates a self-loop.
@@ -78,6 +80,7 @@ func TestDirectedGraph(t *testing.T) {
 			// Initializing graph, adding edges
 			graph := New(test.vertices)
 			graph.Directed = true
+			logritelog.Default().Printf("TestDirectedGraph(t=%v): graph.Directed → %v", t, graph.Directed)
 			for _, edge := range test.edges {
 				graph.AddWeightedEdge(edge[0], edge[1], edge[2])
 			}
@@ -99,9 +102,11 @@ func TestDirectedGraph(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestDirectedGraph(t=%v)", t)
 }
 
 func TestUndirectedGraph(t *testing.T) {
+logritelog.Default().Printf(">>> Entering TestUndirectedGraph(t=%v)", t)
 
 	for _, test := range graphTestCases {
 		t.Run(fmt.Sprint(test.name), func(t *testing.T) {
@@ -128,4 +133,5 @@ func TestUndirectedGraph(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestUndirectedGraph(t=%v)", t)
 }

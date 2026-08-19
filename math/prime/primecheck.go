@@ -1,4 +1,5 @@
 package prime
+import logritelog "log"
 
 // A primality test is an algorithm for determining whether an input number is prime. Among other
 // fields of mathematics, it is used for cryptography. Unlike integer factorization, primality
@@ -9,6 +10,7 @@ package prime
 
 // TrialDivision tests whether a number is prime by trying to divide it by the numbers less than it.
 func TrialDivision(n int64) bool {
+	logritelog.Default().Printf(">>> Entering TrialDivision(n=%v)", n)
 	if n < 2 {
 		return false
 	}
@@ -19,6 +21,7 @@ func TrialDivision(n int64) bool {
 			return false
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TrialDivision(n=%v)", n)
 	return true
 }
 
@@ -26,6 +29,7 @@ func TrialDivision(n int64) bool {
 // The optimizations include not checking divisibility by the even numbers and only checking up to
 // the square root of the given number.
 func OptimizedTrialDivision(n int64) bool {
+	logritelog.Default().Printf(">>> Entering OptimizedTrialDivision(n=%v)", n)
 	// 0 and 1 are not prime
 	if n < 2 {
 		return false
@@ -46,5 +50,6 @@ func OptimizedTrialDivision(n int64) bool {
 			return false
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting OptimizedTrialDivision(n=%v)", n)
 	return true
 }
