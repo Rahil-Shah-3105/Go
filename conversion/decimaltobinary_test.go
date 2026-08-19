@@ -1,4 +1,5 @@
 package conversion
+import logritelog "log"
 
 import "testing"
 
@@ -27,20 +28,25 @@ var decimalTestCases = map[int]string{
 }
 
 func TestDecimalToBinary(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDecimalToBinary(t=%v)", t)
 	for input, expected := range decimalTestCases {
 		out, err := DecimalToBinary(input)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestDecimalToBinary(t=%v): %v", t, err)
 			t.Errorf("DecimalToBinary(%d) returned an error %s", input, err.Error())
 		}
 		if out != expected {
 			t.Errorf("DecimalToBinary(%d) = %s; want %s", input, out, expected)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestDecimalToBinary(t=%v)", t)
 }
 
 func BenchmarkDecimalToBinary(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkDecimalToBinary(b=%v)", b)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		_, _ = DecimalToBinary(100)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkDecimalToBinary(b=%v)", b)
 }

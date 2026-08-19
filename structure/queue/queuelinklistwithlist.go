@@ -8,6 +8,7 @@
 // see queuearray.go, queuelinkedlist.go, queue_test.go
 
 package queue
+import logritelog "log"
 
 // container/list: is used as linked-list
 // fmt: used to return fmt.Errorf for the error part
@@ -23,16 +24,20 @@ type LQueue struct {
 
 // Enqueue will be added new value
 func (lq *LQueue) Enqueue(value any) {
+	logritelog.Default().Printf(">>> Entering Enqueue(value=%v)", value)
 	lq.queue.PushBack(value)
+	logritelog.Default().Printf("<<< Exiting Enqueue(value=%v)", value)
 }
 
 // Dequeue will be removed the first value that input (First In First Out - FIFO)
 func (lq *LQueue) Dequeue() error {
+logritelog.Default().Printf(">>> Entering Dequeue()")
 
 	if !lq.Empty() {
 		element := lq.queue.Front()
 		lq.queue.Remove(element)
 
+	logritelog.Default().Printf("<<< Exiting Dequeue()")
 		return nil
 	}
 
@@ -41,8 +46,10 @@ func (lq *LQueue) Dequeue() error {
 
 // Front it will return the front value
 func (lq *LQueue) Front() (any, error) {
+	logritelog.Default().Printf(">>> Entering Front()")
 	if !lq.Empty() {
 		val := lq.queue.Front().Value
+	logritelog.Default().Printf("<<< Exiting Front()")
 		return val, nil
 	}
 
@@ -51,8 +58,10 @@ func (lq *LQueue) Front() (any, error) {
 
 // Back it will return the back value
 func (lq *LQueue) Back() (any, error) {
+	logritelog.Default().Printf(">>> Entering Back()")
 	if !lq.Empty() {
 		val := lq.queue.Back().Value
+	logritelog.Default().Printf("<<< Exiting Back()")
 		return val, nil
 	}
 
@@ -61,10 +70,12 @@ func (lq *LQueue) Back() (any, error) {
 
 // Len it will return the length of list
 func (lq *LQueue) Len() int {
+	logritelog.Default().Printf(">>> Entering Len()")
 	return lq.queue.Len()
 }
 
 // Empty is check our list is empty or not
 func (lq *LQueue) Empty() bool {
+	logritelog.Default().Printf(">>> Entering Empty()")
 	return lq.queue.Len() == 0
 }

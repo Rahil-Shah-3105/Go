@@ -1,4 +1,5 @@
 package strings_test
+import logritelog "log"
 
 import (
 	"reflect"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestIsSubsequence(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsSubsequence(t=%v)", t)
 	var testCases = []struct {
 		name     string
 		s        string
@@ -72,4 +74,5 @@ func TestIsSubsequence(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIsSubsequence(t=%v)", t)
 }

@@ -1,10 +1,12 @@
 package search
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestSelectK(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestSelectK(t=%v)", t)
 	tests := []struct {
 		data     []int
 		k        int
@@ -28,14 +30,18 @@ func TestSelectK(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestSelectK(t=%v)", t)
 }
 
 func BenchmarkSelectK(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkSelectK(b=%v)", b)
 	testCase := generateBenchmarkTestCase()
 	testCase = append(testCase, 1) // make sure len(testCase)/2+1 is valid
+	logritelog.Default().Printf("BenchmarkSelectK(b=%v): testCase → %v", b, testCase)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		_, _ = SelectK(testCase, len(testCase)/2)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkSelectK(b=%v)", b)
 }

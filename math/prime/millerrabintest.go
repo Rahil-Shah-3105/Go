@@ -9,6 +9,7 @@
 // [Rak](https://github.com/raklaptudirm)
 
 package prime
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -19,11 +20,13 @@ import (
 // formatNum accepts a number and returns the
 // odd number d such that num = 2^s * d + 1
 func formatNum(num int64) (d int64, s int64) {
+	logritelog.Default().Printf(">>> Entering formatNum(num=%v)", num)
 	d = num - 1
 	for num%2 == 0 {
 		d /= 2
 		s++
 	}
+	logritelog.Default().Printf("<<< Exiting formatNum(num=%v)", num)
 	return
 }
 
@@ -31,27 +34,32 @@ func formatNum(num int64) (d int64, s int64) {
 // If it is, it returns true and num's primality. Otherwise
 // it returns false and false.
 func isTrivial(num int64) (prime bool, trivial bool) {
+	logritelog.Default().Printf(">>> Entering isTrivial(num=%v)", num)
 	if num <= 4 {
 		// 2 and 3 are primes
 		prime = num == 2 || num == 3
 		trivial = true
 	} else {
 		prime = false
+		logritelog.Default().Printf("isTrivial(num=%v): prime → %v", num, prime)
 		// number is trivial prime if
 		// it is divisible by 2
 		trivial = num%2 == 0
 	}
 
+	logritelog.Default().Printf("<<< Exiting isTrivial(num=%v)", num)
 	return
 }
 
 // MillerTest tests whether num is a strong probable prime to a witness.
 // Formally: a^d ≡ 1 (mod n) or a^(2^r * d) ≡ -1 (mod n), 0 <= r <= s
 func MillerTest(num, witness int64) (bool, error) {
+	logritelog.Default().Printf(">>> Entering MillerTest(num=%v,witness=%v)", num, witness)
 	d, _ := formatNum(num)
 	res, err := modular.Exponentiation(witness, d, num)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in MillerTest(num=%v,witness=%v): %v", num, witness, err)
 		return false, err
 	}
 	// miller conditions checks
@@ -69,6 +77,7 @@ func MillerTest(num, witness int64) (bool, error) {
 			return true, nil
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting MillerTest(num=%v,witness=%v)", num, witness)
 	return false, nil
 }
 
@@ -76,16 +85,20 @@ func MillerTest(num, witness int64) (bool, error) {
 // miller rabin primality test for better probabilitic chances of
 // receiving the correct result with random witnesses.
 func MillerRandomTest(num int64) (bool, error) {
+	logritelog.Default().Printf(">>> Entering MillerRandomTest(num=%v)", num)
 	random := rand.Int63n(num-2) + 2
+	logritelog.Default().Printf("<<< Exiting MillerRandomTest(num=%v)", num)
 	return MillerTest(num, random)
 }
 
 // MillerTestMultiple is like MillerTest but runs the test for multiple
 // witnesses.
 func MillerTestMultiple(num int64, witnesses ...int64) (bool, error) {
+	logritelog.Default().Printf(">>> Entering MillerTestMultiple(num=%v,witnesses=%v)", num, witnesses)
 	for _, witness := range witnesses {
 		prime, err := MillerTest(num, witness)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in MillerTestMultiple(num=%v,witnesses=%v): %v", num, witnesses, err)
 			return false, err
 		}
 
@@ -94,12 +107,14 @@ func MillerTestMultiple(num int64, witnesses ...int64) (bool, error) {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting MillerTestMultiple(num=%v,witnesses=%v)", num, witnesses)
 	return true, nil
 }
 
 // MillerRabinProbabilistic is a probabilistic test for primality
 // of an integer based of the algorithm devised by Miller and Rabin.
 func MillerRabinProbabilistic(num, rounds int64) (bool, error) {
+	logritelog.Default().Printf(">>> Entering MillerRabinProbabilistic(num=%v,rounds=%v)", num, rounds)
 	if prime, trivial := isTrivial(num); trivial {
 		// num is a trivial number
 		return prime, nil
@@ -108,18 +123,21 @@ func MillerRabinProbabilistic(num, rounds int64) (bool, error) {
 	for i := int64(0); i < rounds; i++ {
 		val, err := MillerRandomTest(num)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in MillerRabinProbabilistic(num=%v,rounds=%v): %v", num, rounds, err)
 			return false, err
 		}
 		if !val {
 			return false, nil
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting MillerRabinProbabilistic(num=%v,rounds=%v)", num, rounds)
 	return true, nil
 }
 
 // MillerRabinDeterministic is a Deterministic version of the Miller-Rabin
 // test, which returns correct results for all valid int64 numbers.
 func MillerRabinDeterministic(num int64) (bool, error) {
+	logritelog.Default().Printf(">>> Entering MillerRabinDeterministic(num=%v)", num)
 	if prime, trivial := isTrivial(num); trivial {
 		// num is a trivial number
 		return prime, nil
@@ -157,6 +175,7 @@ func MillerRabinDeterministic(num int64) (bool, error) {
 		// witnesses 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37 can determine
 		// the primality of any number less than 318,665,857,834,031,151,167,461
 		// which is well above the max int64 9,223,372,036,854,775,807
+		logritelog.Default().Printf("<<< Exiting MillerRabinDeterministic(num=%v)", num)
 		return MillerTestMultiple(num, 2, 3, 5, 7, 11, 13, 17, 19, 23, 31, 37)
 	}
 }

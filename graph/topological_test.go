@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
@@ -34,6 +35,7 @@ var testCases = []struct {
 }
 
 func TestTopological(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTopological(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := Topological(tc.N, tc.constraints)
@@ -56,4 +58,5 @@ func TestTopological(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestTopological(t=%v)", t)
 }

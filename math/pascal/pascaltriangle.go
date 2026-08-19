@@ -21,9 +21,11 @@
 // see pascaltriangle_test.go
 
 package pascal
+import logritelog "log"
 
 // GenerateTriangle This function generates a Pascal's triangle of n lines
 func GenerateTriangle(n int) [][]int {
+	logritelog.Default().Printf(">>> Entering GenerateTriangle(n=%v)", n)
 	var triangle = make([][]int, n)
 	for i := 0; i < n; i++ {
 		triangle[i] = make([]int, i+1)
@@ -32,5 +34,6 @@ func GenerateTriangle(n int) [][]int {
 			triangle[i][j] = triangle[i-1][j] + triangle[i-1][j-1]
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting GenerateTriangle(n=%v)", n)
 	return triangle
 }

@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -13,6 +14,7 @@ type testCaseEggDropping struct {
 }
 
 func getEggDroppingTestCases() []testCaseEggDropping {
+	logritelog.Default().Printf(">>> Entering getEggDroppingTestCases()")
 	return []testCaseEggDropping{
 		{1, 10, 10}, // One egg, need to test all floors
 		{2, 10, 4},  // Two eggs and ten floors
@@ -24,6 +26,7 @@ func getEggDroppingTestCases() []testCaseEggDropping {
 }
 
 func TestEggDropping(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestEggDropping(t=%v)", t)
 	t.Run("Egg Dropping test cases", func(t *testing.T) {
 		for _, tc := range getEggDroppingTestCases() {
 			actual := dynamic.EggDropping(tc.eggs, tc.floors)
@@ -32,4 +35,5 @@ func TestEggDropping(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestEggDropping(t=%v)", t)
 }

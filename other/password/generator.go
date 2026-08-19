@@ -7,6 +7,7 @@
 // space complexity: O(n)
 
 package password
+import logritelog "log"
 
 import (
 	"crypto/rand"
@@ -16,6 +17,7 @@ import (
 
 // Generate returns a newly generated password
 func Generate(minLength int, maxLength int) string {
+	logritelog.Default().Printf(">>> Entering Generate(minLength=%v,maxLength=%v)", minLength, maxLength)
 	var chars = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+,.?/:;{}[]`~")
 
 	length, err := rand.Int(rand.Reader, big.NewInt(int64(maxLength-minLength)))

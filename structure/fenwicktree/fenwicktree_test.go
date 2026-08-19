@@ -1,4 +1,5 @@
 package fenwicktree_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/structure/fenwicktree"
@@ -17,6 +18,7 @@ type update struct {
 }
 
 func TestFenwickTree(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFenwickTree(t=%v)", t)
 	var fenwickTreeTestData = []struct {
 		description string
 		array       []int
@@ -76,6 +78,7 @@ func TestFenwickTree(t *testing.T) {
 				}
 			}
 		})
+	logritelog.Default().Printf("<<< Exiting TestFenwickTree(t=%v)", t)
 	}
 
 }

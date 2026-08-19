@@ -16,6 +16,7 @@
 // See abbreviation_test.go for test cases
 
 package dynamic
+import logritelog "log"
 
 // strings for getting uppercases and lowercases
 import (
@@ -24,6 +25,7 @@ import (
 
 // Returns true if it is possible to make a equals b (if b is an abbreviation of a), returns false otherwise
 func Abbreviation(a string, b string) bool {
+	logritelog.Default().Printf(">>> Entering Abbreviation(a=%v,b=%v)", a, b)
 	dp := make([][]bool, len(a)+1)
 	for i := range dp {
 		dp[i] = make([]bool, len(b)+1)
@@ -43,5 +45,6 @@ func Abbreviation(a string, b string) bool {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Abbreviation(a=%v,b=%v)", a, b)
 	return dp[len(a)][len(b)]
 }

@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	bt "github.com/TheAlgorithms/Go/structure/tree"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestBTreeIncreasing(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBTreeIncreasing(t=%v)", t)
 	maxKeysCases := []int{4, 16}
 	sizes := []int{100, 0xBA5, 0xF00}
 	for _, maxKeys := range maxKeysCases {
@@ -40,9 +42,11 @@ func TestBTreeIncreasing(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBTreeIncreasing(t=%v)", t)
 }
 
 func TestBTreeDecreasing(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBTreeDecreasing(t=%v)", t)
 	maxKeysCases := []int{4, 16}
 	sizes := []int{100, 1000}
 	for _, maxKeys := range maxKeysCases {
@@ -76,9 +80,11 @@ func TestBTreeDecreasing(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBTreeDecreasing(t=%v)", t)
 }
 
 func TestBTreeRandom(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBTreeRandom(t=%v)", t)
 	maxKeysCases := []int{4, 16}
 	sizes := []int{100, 0xBA5, 0xF00}
 	for _, maxKeys := range maxKeysCases {
@@ -111,9 +117,11 @@ func TestBTreeRandom(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBTreeRandom(t=%v)", t)
 }
 
 func TestBTreeDeleteEverything(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBTreeDeleteEverything(t=%v)", t)
 	tree := bt.NewBTree[int](4)
 	size := 128
 	for i := 0; i < size; i++ {
@@ -130,4 +138,5 @@ func TestBTreeDeleteEverything(t *testing.T) {
 			t.Errorf("Tree not expected to contain %d", i)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBTreeDeleteEverything(t=%v)", t)
 }

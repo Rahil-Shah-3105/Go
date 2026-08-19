@@ -1,4 +1,5 @@
 package kmp
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestKmp(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestKmp(t=%v)", t)
 	type args struct {
 		word         string
 		text         string
@@ -33,9 +35,11 @@ func TestKmp(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestKmp(t=%v)", t)
 }
 
 func TestTable(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestTable(t=%v)", t)
 	type args struct {
 		w string
 	}
@@ -59,4 +63,5 @@ func TestTable(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestTable(t=%v)", t)
 }

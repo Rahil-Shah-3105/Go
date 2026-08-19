@@ -3,6 +3,7 @@
 // author(s) [red_byte](https://github.com/i-redbyte)
 // see spigotpi.go
 package pi
+import logritelog "log"
 
 import (
 	"strconv"
@@ -10,6 +11,7 @@ import (
 )
 
 func TestSpigot(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestSpigot(t=%v)", t)
 	var tests = []struct {
 		result string
 		n      int
@@ -39,22 +41,29 @@ func TestSpigot(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestSpigot(t=%v)", t)
 }
 
 func BenchmarkPiSpigotN10(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkPiSpigotN10(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Spigot(10)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkPiSpigotN10(b=%v)", b)
 }
 
 func BenchmarkPiSpigotN100(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkPiSpigotN100(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Spigot(100)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkPiSpigotN100(b=%v)", b)
 }
 
 func BenchmarkPiSpigotN1000(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkPiSpigotN1000(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Spigot(1000)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkPiSpigotN1000(b=%v)", b)
 }

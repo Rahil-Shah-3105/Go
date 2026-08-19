@@ -1,10 +1,12 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestUnionFind(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestUnionFind(t=%v)", t)
 	u := NewUnionFind(10) // Creating a Union-Find data structure with 10 elements
 
 	//union operations
@@ -38,4 +40,5 @@ func TestUnionFind(t *testing.T) {
 			t.Error("Union operation not functioning correctly")
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestUnionFind(t=%v)", t)
 }

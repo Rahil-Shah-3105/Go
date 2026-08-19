@@ -4,6 +4,7 @@
 // see liouville.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestLiouvilleLambda(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLiouvilleLambda(t=%v)", t)
 	var tests = []struct {
 		name          string
 		n             int
@@ -31,9 +33,12 @@ func TestLiouvilleLambda(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestLiouvilleLambda(t=%v)", t)
 }
 func BenchmarkLiouvilleLambda(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkLiouvilleLambda(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _ = math.LiouvilleLambda(65536)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkLiouvilleLambda(b=%v)", b)
 }

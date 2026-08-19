@@ -1,4 +1,5 @@
 package geometry_test
+import logritelog "log"
 
 import (
 	"errors"
@@ -13,6 +14,7 @@ type args struct {
 }
 
 func TestFindDistanceBetweenTwoPoints(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFindDistanceBetweenTwoPoints(t=%v)", t)
 	tests := []struct {
 		name    string
 		args    args
@@ -68,13 +70,16 @@ func TestFindDistanceBetweenTwoPoints(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestFindDistanceBetweenTwoPoints(t=%v)", t)
 }
 
 func BenchmarkFindDistanceBetweenTwoPoints(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkFindDistanceBetweenTwoPoints(b=%v)", b)
 	p1 := geometry.EuclideanPoint{0, 0}
 	p2 := geometry.EuclideanPoint{2, -2}
 
 	for i := 0; i < b.N; i++ {
 		_, _ = geometry.EuclideanDistance(p1, p2)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkFindDistanceBetweenTwoPoints(b=%v)", b)
 }

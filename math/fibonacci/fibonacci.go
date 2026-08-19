@@ -8,6 +8,7 @@
 // see fibonacci_test.go
 
 package fibonacci
+import logritelog "log"
 
 import (
 	"math"
@@ -15,6 +16,7 @@ import (
 
 // Matrix This function calculates the n-th fibonacci number using the matrix method. [See](https://en.wikipedia.org/wiki/Fibonacci_number#Matrix_form)
 func Matrix(n uint) uint {
+	logritelog.Default().Printf(">>> Entering Matrix(n=%v)", n)
 	a, b := 1, 1
 	c, rc, tc := 1, 0, 0
 	d, rd := 0, 1
@@ -36,22 +38,27 @@ func Matrix(n uint) uint {
 
 		n >>= 1
 	}
+	logritelog.Default().Printf("<<< Exiting Matrix(n=%v)", n)
 	return uint(rc)
 }
 
 // Formula This function calculates the n-th fibonacci number using the [formula](https://en.wikipedia.org/wiki/Fibonacci_number#Relation_to_the_golden_ratio)
 // Attention! Tests for large values fall due to rounding error of floating point numbers, works well, only on small numbers
 func Formula(n uint) uint {
+	logritelog.Default().Printf(">>> Entering Formula(n=%v)", n)
 	sqrt5 := math.Sqrt(5)
 	phi := (sqrt5 + 1) / 2
 	powPhi := math.Pow(phi, float64(n))
+	logritelog.Default().Printf("<<< Exiting Formula(n=%v)", n)
 	return uint(powPhi/sqrt5 + 0.5)
 }
 
 // Recursive calculates the n-th fibonacci number recursively by adding the previous two Fibonacci numbers.
 // This algorithm is extremely slow for bigger numbers, but provides a simpler implementation.
 func Recursive(n uint) uint {
+	logritelog.Default().Printf(">>> Entering Recursive(n=%v)", n)
 	if n <= 1 {
+	logritelog.Default().Printf("<<< Exiting Recursive(n=%v)", n)
 		return n
 	}
 

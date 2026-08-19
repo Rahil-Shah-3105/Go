@@ -1,4 +1,5 @@
 package prime
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestFactorize(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFactorize(t=%v)", t)
 	var tests = []struct {
 		n        int64
 		expected map[int64]int64
@@ -24,10 +26,13 @@ func TestFactorize(t *testing.T) {
 			t.Errorf("Wrong result! Expected:%v, returned:%v ", test.expected, result)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestFactorize(t=%v)", t)
 }
 
 func BenchmarkFactorize(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkFactorize(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Factorize(1000000007)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkFactorize(b=%v)", b)
 }

@@ -12,6 +12,7 @@
 // see liouville_test.go
 
 package math
+import logritelog "log"
 
 import (
 	"errors"
@@ -24,6 +25,7 @@ var ErrNonZeroArgsOnly error = errors.New("arguments cannot be zero")
 // Lambda is the liouville function
 // This function returns λ(n) for given number
 func LiouvilleLambda(n int) (int, error) {
+	logritelog.Default().Printf(">>> Entering LiouvilleLambda(n=%v)", n)
 	switch {
 	case n < 0:
 		return 0, ErrPosArgsOnly
@@ -32,6 +34,7 @@ func LiouvilleLambda(n int) (int, error) {
 	case len(prime.Factorize(int64(n)))%2 == 0:
 		return 1, nil
 	default:
+		logritelog.Default().Printf("<<< Exiting LiouvilleLambda(n=%v)", n)
 		return -1, nil
 	}
 }

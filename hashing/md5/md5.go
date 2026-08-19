@@ -5,6 +5,7 @@
 // see md5_test.go for testing
 
 package md5
+import logritelog "log"
 
 import (
 	"encoding/binary"
@@ -41,11 +42,13 @@ var (
 
 // leftRotate rotates x left by n bits
 func leftRotate(x, n uint32) uint32 {
+	logritelog.Default().Printf(">>> Entering leftRotate(x=%v,n=%v)", x, n)
 	return (x << n) | (x >> (32 - n))
 }
 
 // pad pads the input message so that its length is congruent to 448 modulo 512
 func pad(message []byte) []byte {
+	logritelog.Default().Printf(">>> Entering pad(message=%v)", message)
 	originalLength := len(message) * 8
 	message = append(message, 0x80)
 	for (len(message)*8)%512 != 448 {
@@ -56,11 +59,13 @@ func pad(message []byte) []byte {
 	binary.LittleEndian.PutUint64(lengthBytes, uint64(originalLength))
 	message = append(message, lengthBytes...)
 
+	logritelog.Default().Printf("<<< Exiting pad(message=%v)", message)
 	return message
 }
 
 // Hash computes the MD5 hash of the input message
 func Hash(message []byte) [16]byte {
+	logritelog.Default().Printf(">>> Entering Hash(message=%v)", message)
 	message = pad(message)
 
 	// Initialize MD5 state variables
@@ -114,5 +119,6 @@ func Hash(message []byte) [16]byte {
 	binary.LittleEndian.PutUint32(digest[8:12], c0)
 	binary.LittleEndian.PutUint32(digest[12:16], d0)
 
+	logritelog.Default().Printf("<<< Exiting Hash(message=%v)", message)
 	return digest
 }

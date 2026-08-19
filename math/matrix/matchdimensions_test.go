@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestMatrixMatchDimensions(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMatrixMatchDimensions(t=%v)", t)
 	// Create two matrices with the same dimensions
 	m1 := matrix.New(2, 3, 0)
 	m2 := matrix.New(2, 3, 0)
@@ -24,10 +26,12 @@ func TestMatrixMatchDimensions(t *testing.T) {
 	if m3.MatchDimensions(m4) {
 		t.Errorf("m3.MatchDimensions(m4) returned : %v, expected: %v", m3.MatchDimensions(m4), false)
 	}
+	logritelog.Default().Printf("<<< Exiting TestMatrixMatchDimensions(t=%v)", t)
 }
 
 // BenchmarkMatchDimensions benchmarks the MatchDimensions method.
 func BenchmarkMatchDimensions(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMatchDimensions(b=%v)", b)
 	// Create sample matrices for benchmarking
 	rows := 100
 	columns := 100
@@ -37,4 +41,5 @@ func BenchmarkMatchDimensions(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = m1.MatchDimensions(m2)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMatchDimensions(b=%v)", b)
 }
