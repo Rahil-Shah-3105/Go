@@ -4,10 +4,14 @@
 // see extended.go
 
 package gcd
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestExtended(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestExtended(t=%v)", t)
 	var testCasesExtended = []struct {
 		name string
 		a    int64
@@ -26,4 +30,5 @@ func TestExtended(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestExtended(t=%v)", t)
 }

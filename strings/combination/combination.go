@@ -1,7 +1,10 @@
 // Package combination ...
 package combination
+import logritelog "log"
 
 import "fmt"
+import stdlog "log"
+var log = stdlog.Default()
 
 // Combinations structure with in and out rune
 type Combinations struct {
@@ -11,15 +14,18 @@ type Combinations struct {
 
 // Start ...
 func Start(input string) {
+	logritelog.Default().Printf(">>> Entering Start(input=%v)", input)
 	c := &Combinations{
 		in: []rune(input),
 	}
 
 	c.Combine(0)
+	logritelog.Default().Printf("<<< Exiting Start(input=%v)", input)
 }
 
 // Combine ...
 func (c *Combinations) Combine(seed int) {
+	logritelog.Default().Printf(">>> Entering Combine(seed=%v)", seed)
 	inLen := len(c.in)
 	for i := seed; i < inLen-1; i++ {
 		c.out = append(c.out, c.in[i])
@@ -30,4 +36,5 @@ func (c *Combinations) Combine(seed int) {
 	c.out = append(c.out, c.in[inLen-1])
 	fmt.Println(string(c.out))
 	c.out = c.out[:len(c.out)-1]
+	logritelog.Default().Printf("<<< Exiting Combine(seed=%v)", seed)
 }

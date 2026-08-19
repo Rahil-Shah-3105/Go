@@ -5,10 +5,14 @@
 // space complexity: O(n*m) where n and m are the dimensions of the matrix
 
 package matrix
+import logritelog "log"
 
 import "sync"
+import stdlog "log"
+var log = stdlog.Default()
 
 func (m Matrix[T]) Copy() (Matrix[T], error) {
+logritelog.Default().Printf(">>> Entering Copy()")
 
 	rows := m.Rows()
 	columns := m.Columns()
@@ -17,6 +21,7 @@ func (m Matrix[T]) Copy() (Matrix[T], error) {
 	}
 	zeroVal, err := m.Get(0, 0) // Get the zero value of the element type
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Copy(): %v", err)
 		return Matrix[T]{}, err
 	}
 	copyMatrix := New(rows, columns, zeroVal)
@@ -52,6 +57,7 @@ func (m Matrix[T]) Copy() (Matrix[T], error) {
 	close(errChan)
 
 	if err, ok := <-errChan; ok {
+	logritelog.Default().Printf("<<< Exiting Copy()")
 		return Matrix[T]{}, err
 	}
 

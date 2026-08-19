@@ -1,10 +1,14 @@
 package gcd
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 type testExtendedFunction func(int64, int64) (int64, int64, int64)
 
 func TemplateTestExtendedGCD(t *testing.T, f testExtendedFunction) {
+	logritelog.Default().Printf(">>> Entering TemplateTestExtendedGCD(t=%v,f=%v)", t, f)
 	var testCasesExtended = []struct {
 		name string
 		a    int64
@@ -31,26 +35,37 @@ func TemplateTestExtendedGCD(t *testing.T, f testExtendedFunction) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TemplateTestExtendedGCD(t=%v,f=%v)", t, f)
 }
 
 func TestExtendedGCDRecursive(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestExtendedGCDRecursive(t=%v)", t)
 	TemplateTestExtendedGCD(t, ExtendedRecursive)
+	logritelog.Default().Printf("<<< Exiting TestExtendedGCDRecursive(t=%v)", t)
 }
 
 func TestExtendedGCDIterative(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestExtendedGCDIterative(t=%v)", t)
 	TemplateTestExtendedGCD(t, ExtendedIterative)
+	logritelog.Default().Printf("<<< Exiting TestExtendedGCDIterative(t=%v)", t)
 }
 
 func TemplateBenchmarkExtendedGCD(b *testing.B, f testExtendedFunction) {
+	logritelog.Default().Printf(">>> Entering TemplateBenchmarkExtendedGCD(b=%v,f=%v)", b, f)
 	for i := 0; i < b.N; i++ {
 		f(98, 56)
 	}
+	logritelog.Default().Printf("<<< Exiting TemplateBenchmarkExtendedGCD(b=%v,f=%v)", b, f)
 }
 
 func BenchmarkExtendedGCDRecursive(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkExtendedGCDRecursive(b=%v)", b)
 	TemplateBenchmarkExtendedGCD(b, ExtendedRecursive)
+	logritelog.Default().Printf("<<< Exiting BenchmarkExtendedGCDRecursive(b=%v)", b)
 }
 
 func BenchmarkExtendedGCDIterative(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkExtendedGCDIterative(b=%v)", b)
 	TemplateBenchmarkExtendedGCD(b, ExtendedIterative)
+	logritelog.Default().Printf("<<< Exiting BenchmarkExtendedGCDIterative(b=%v)", b)
 }

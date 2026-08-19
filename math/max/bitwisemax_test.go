@@ -4,10 +4,14 @@
 // see bitwiseMax.go
 
 package max
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestBitwiseMax(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBitwiseMax(t=%v)", t)
 	base32 := 31
 
 	t.Run("Testing(32bit) a = 32 and m = 64: ", func(t *testing.T) {
@@ -74,4 +78,5 @@ func TestBitwiseMax(t *testing.T) {
 			t.Fatalf("Error: Bitwise returned bad value")
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestBitwiseMax(t=%v)", t)
 }

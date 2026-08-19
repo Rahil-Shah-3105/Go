@@ -1,6 +1,9 @@
 package conversion
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 var romanTestCases = map[string]int{
 	"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6,
@@ -22,9 +25,11 @@ var romanTestCases = map[string]int{
 }
 
 func TestRomanToInt(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRomanToInt(t=%v)", t)
 	for input, expected := range romanTestCases {
 		out, err := RomanToInt(input)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestRomanToInt(t=%v): %v", t, err)
 			t.Errorf("RomanToInt(%s) returned an error %s", input, err.Error())
 		}
 		if out != expected {
@@ -43,11 +48,14 @@ func TestRomanToInt(t *testing.T) {
 	if err != nil {
 		t.Errorf("RomanToInt(\"\") returned an error %s", err.Error())
 	}
+	logritelog.Default().Printf("<<< Exiting TestRomanToInt(t=%v)", t)
 }
 
 func BenchmarkRomanToInt(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRomanToInt(b=%v)", b)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		_, _ = RomanToInt("MMMCMXCIX")
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRomanToInt(b=%v)", b)
 }

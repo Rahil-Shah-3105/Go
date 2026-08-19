@@ -1,8 +1,12 @@
 package conversion
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestBase64Encode(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBase64Encode(t=%v)", t)
 	testCases := []struct {
 		in       string
 		expected string
@@ -21,9 +25,11 @@ func TestBase64Encode(t *testing.T) {
 			t.Fatalf("Base64Encode(%s) = %s, want %s", tc.in, result, tc.expected)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBase64Encode(t=%v)", t)
 }
 
 func BenchmarkBase64Encode(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkBase64Encode(b=%v)", b)
 	benchmarks := []struct {
 		name     string
 		in       string
@@ -44,9 +50,11 @@ func BenchmarkBase64Encode(b *testing.B) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkBase64Encode(b=%v)", b)
 }
 
 func TestBase64Decode(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBase64Decode(t=%v)", t)
 	testCases := []struct {
 		expected string
 		in       string
@@ -65,9 +73,11 @@ func TestBase64Decode(t *testing.T) {
 			t.Fatalf("Base64Decode(%s) = %s, want %s", tc.in, result, tc.expected)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBase64Decode(t=%v)", t)
 }
 
 func BenchmarkBase64Decode(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkBase64Decode(b=%v)", b)
 	benchmarks := []struct {
 		name     string
 		expected string
@@ -88,9 +98,11 @@ func BenchmarkBase64Decode(b *testing.B) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkBase64Decode(b=%v)", b)
 }
 
 func TestBase64EncodeDecodeInverse(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBase64EncodeDecodeInverse(t=%v)", t)
 	testCases := []struct {
 		in string
 	}{
@@ -108,9 +120,11 @@ func TestBase64EncodeDecodeInverse(t *testing.T) {
 			t.Fatalf("Base64Decode(Base64Encode(%s)) = %s, want %s", tc.in, result, tc.in)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestBase64EncodeDecodeInverse(t=%v)", t)
 }
 
 func FuzzBase64Encode(f *testing.F) {
+	logritelog.Default().Printf(">>> Entering FuzzBase64Encode(f=%v)", f)
 	f.Add([]byte("hello"))
 	f.Fuzz(func(t *testing.T, input []byte) {
 		result := Base64Decode(Base64Encode(input))
@@ -120,4 +134,5 @@ func FuzzBase64Encode(f *testing.F) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting FuzzBase64Encode(f=%v)", f)
 }

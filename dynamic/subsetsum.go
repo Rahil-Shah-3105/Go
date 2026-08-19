@@ -6,13 +6,17 @@
 //references: https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
 
 package dynamic
+import logritelog "log"
 
 import "fmt"
+import stdlog "log"
+var log = stdlog.Default()
 
 var ErrInvalidPosition = fmt.Errorf("invalid position in subset")
 var ErrNegativeSum = fmt.Errorf("negative sum is not allowed")
 
 func IsSubsetSum(array []int, sum int) (bool, error) {
+	logritelog.Default().Printf(">>> Entering IsSubsetSum(array=%v,sum=%v)", array, sum)
 	if sum < 0 {
 		//not allow negative sum
 		return false, ErrNegativeSum
@@ -52,5 +56,6 @@ func IsSubsetSum(array []int, sum int) (bool, error) {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting IsSubsetSum(array=%v,sum=%v)", array, sum)
 	return subset[arraySize][sum], nil
 }
