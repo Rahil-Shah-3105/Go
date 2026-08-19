@@ -6,8 +6,11 @@
 // reference: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 package graph
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/sort"
+import stdlog "log"
+var log = stdlog.Default()
 
 type Item struct {
 	node int
@@ -15,14 +18,18 @@ type Item struct {
 }
 
 func (a Item) More(b any) bool {
+	logritelog.Default().Printf(">>> Entering More(b=%v)", b)
 	// reverse direction for minheap
+	logritelog.Default().Printf("<<< Exiting More(b=%v)", b)
 	return a.dist < b.(Item).dist
 }
 func (a Item) Idx() int {
+	logritelog.Default().Printf(">>> Entering Idx()")
 	return a.node
 }
 
 func (g *Graph) Dijkstra(start, end int) (int, bool) {
+	logritelog.Default().Printf(">>> Entering Dijkstra(start=%v,end=%v)", start, end)
 	visited := make(map[int]bool)
 	nodes := make(map[int]*Item)
 
@@ -48,6 +55,7 @@ func (g *Graph) Dijkstra(start, end int) (int, bool) {
 				pq.Push(*nodes[n])
 			} else if item.dist > dist2 {
 				item.dist = dist2
+				logritelog.Default().Printf("Dijkstra(start=%v,end=%v): item.dist → %v", start, end, item.dist)
 				pq.Update(*item)
 			}
 		}
@@ -65,5 +73,6 @@ func (g *Graph) Dijkstra(start, end int) (int, bool) {
 	if item == nil {
 		return -1, false
 	}
+	logritelog.Default().Printf("<<< Exiting Dijkstra(start=%v,end=%v)", start, end)
 	return item.dist, true
 }

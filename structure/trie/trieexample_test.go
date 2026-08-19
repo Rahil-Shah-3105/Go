@@ -1,8 +1,12 @@
 package trie
+import logritelog "log"
 
 import "fmt"
+import stdlog "log"
+var log = stdlog.Default()
 
 func ExampleNode() {
+	logritelog.Default().Printf(">>> Entering ExampleNode()")
 	// creates a new node
 	node := NewNode()
 
@@ -36,4 +40,5 @@ func ExampleNode() {
 	// false
 	// 1
 	// 12
+	logritelog.Default().Printf("<<< Exiting ExampleNode()")
 }

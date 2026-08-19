@@ -15,10 +15,14 @@
 * @author ddaniel27
  */
 package problem17
+import logritelog "log"
 
 import "strings"
+import stdlog "log"
+var log = stdlog.Default()
 
 func Problem17(input string) int {
+	logritelog.Default().Printf(">>> Entering Problem17(input=%v)", input)
 	var sum int
 
 	parsed := strings.Split(input, " ")
@@ -27,5 +31,6 @@ func Problem17(input string) int {
 		sum += len(word)
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem17(input=%v)", input)
 	return sum
 }

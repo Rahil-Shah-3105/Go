@@ -10,10 +10,14 @@
 * @author ddaniel27
  */
 package problem7
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/prime"
+import stdlog "log"
+var log = stdlog.Default()
 
 func Problem7(n uint) int64 {
+	logritelog.Default().Printf(">>> Entering Problem7(n=%v)", n)
 	count, i := uint(0), int64(1)
 
 	for count < n {
@@ -23,5 +27,6 @@ func Problem7(n uint) int64 {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem7(n=%v)", n)
 	return i
 }

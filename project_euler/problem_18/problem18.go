@@ -25,8 +25,11 @@
 * @author ddaniel27
  */
 package problem18
+import logritelog "log"
 
 import "strconv"
+import stdlog "log"
+var log = stdlog.Default()
 
 type (
 	NodeValue int
@@ -48,16 +51,19 @@ type (
 )
 
 func Problem18(input []string, deep int) int {
+	logritelog.Default().Printf(">>> Entering Problem18(input=%v,deep=%v)", input, deep)
 	tree := &Tree{}
 
 	for _, num := range input {
 		v, err := strconv.Atoi(num)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in Problem18(input=%v,deep=%v): %v", input, deep, err)
 			panic(err)
 		}
 
 		tree.BFSInsert(NodeValue(v))
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem18(input=%v,deep=%v)", input, deep)
 	return tree.MaxPathValueSearch(deep)
 }

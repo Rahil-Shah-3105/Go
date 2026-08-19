@@ -1,8 +1,12 @@
 package lcm
+import logritelog "log"
 
 import "testing"
+import stdlog "log"
+var log = stdlog.Default()
 
 func TestLcm(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLcm(t=%v)", t)
 	testCases := []struct {
 		name   string
 		a      int64
@@ -41,4 +45,5 @@ func TestLcm(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestLcm(t=%v)", t)
 }
