@@ -4,9 +4,11 @@
 // see logarithm_test.go
 
 package binary
+import logritelog "log"
 
 // LogBase2 Finding the exponent of n = 2**x using bitwise operations (logarithm in base 2 of n) [See more](https://en.wikipedia.org/wiki/Logarithm)
 func LogBase2(n uint32) uint32 {
+	logritelog.Default().Printf(">>> Entering LogBase2(n=%v)", n)
 	base := [5]uint32{0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000}
 	exponents := [5]uint32{1, 2, 4, 8, 16}
 	var result uint32
@@ -16,5 +18,6 @@ func LogBase2(n uint32) uint32 {
 			result |= exponents[i]
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting LogBase2(n=%v)", n)
 	return result
 }

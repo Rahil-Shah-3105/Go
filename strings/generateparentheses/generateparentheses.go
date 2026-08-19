@@ -6,14 +6,17 @@
 // see generateparentheses_test.go
 
 package generateparentheses
+import logritelog "log"
 
 import "strings"
 
 func GenerateParenthesis(n int) []string {
+	logritelog.Default().Printf(">>> Entering GenerateParenthesis(n=%v)", n)
 	result := make([]string, 0)
 	maxLen := 2 * n
 	var recursiveComputation func(s []string, left int, right int)
 	recursiveComputation = func(s []string, left int, right int) {
+		logritelog.Default().Printf("GenerateParenthesis(n=%v): recursiveComputation → %v", n, recursiveComputation)
 		if len(s) == maxLen {
 			result = append(result, strings.Join(s, ""))
 			return
@@ -30,5 +33,6 @@ func GenerateParenthesis(n int) []string {
 		}
 	}
 	recursiveComputation(make([]string, 0), 0, 0)
+	logritelog.Default().Printf("<<< Exiting GenerateParenthesis(n=%v)", n)
 	return result
 }

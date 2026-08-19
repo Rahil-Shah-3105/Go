@@ -1,4 +1,5 @@
 package coloring
+import logritelog "log"
 
 // Bipartite.go
 // description: Implementation of the Bipartite graph coloring algorithm
@@ -7,6 +8,7 @@ package coloring
 // space complexity: O(V) where V is the number of vertices in the graph
 
 func (g *Graph) TryBipartiteColoring() map[int]Color {
+	logritelog.Default().Printf(">>> Entering TryBipartiteColoring()")
 	// 0 is uncolored, 1/2 are colors
 	colors := make(map[int]Color)
 	visited := make(map[int]bool)
@@ -18,6 +20,7 @@ func (g *Graph) TryBipartiteColoring() map[int]Color {
 
 	var colorNode func(int)
 	colorNode = func(s int) {
+		logritelog.Default().Printf("TryBipartiteColoring(): colorNode → %v", colorNode)
 		visited[s] = true
 		coloring := []Color{0, 2, 1}
 
@@ -38,12 +41,14 @@ func (g *Graph) TryBipartiteColoring() map[int]Color {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting TryBipartiteColoring()")
 	return colors
 }
 
 // basically tries to color the graph in two colors if each edge
 // connects 2 differently colored nodes the graph can be considered bipartite
 func BipartiteCheck(N int, edges [][]int) bool {
+	logritelog.Default().Printf(">>> Entering BipartiteCheck(N=%v,edges=%v)", N, edges)
 	var graph Graph
 	for i := 0; i < N; i++ {
 		graph.AddVertex(i)
@@ -51,5 +56,6 @@ func BipartiteCheck(N int, edges [][]int) bool {
 	for _, e := range edges {
 		graph.AddEdge(e[0], e[1])
 	}
+	logritelog.Default().Printf("<<< Exiting BipartiteCheck(N=%v,edges=%v)", N, edges)
 	return graph.ValidateColorsOfVertex(graph.TryBipartiteColoring()) == nil
 }

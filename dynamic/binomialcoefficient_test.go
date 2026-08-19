@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestBin2(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBin2(t=%v)", t)
 	td := []struct {
 		n, k, expected int
 	}{
@@ -29,4 +31,5 @@ func TestBin2(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestBin2(t=%v)", t)
 }

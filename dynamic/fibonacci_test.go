@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"fmt"
@@ -6,6 +7,7 @@ import (
 )
 
 func Test_NthFibonacci(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering Test_NthFibonacci(t=%v)", t)
 	// source: http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibtable.html
 	var fibonacciNumbers = []struct {
 		nth       uint
@@ -39,4 +41,5 @@ func Test_NthFibonacci(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting Test_NthFibonacci(t=%v)", t)
 }

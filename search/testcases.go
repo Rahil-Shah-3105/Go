@@ -1,4 +1,5 @@
 package search
+import logritelog "log"
 
 type searchTest struct {
 	data          []int
@@ -59,9 +60,12 @@ var upperBoundTests = []searchTest{
 
 // This function generate consistent testcase for benchmark test.
 func generateBenchmarkTestCase() []int {
+	logritelog.Default().Printf(">>> Entering generateBenchmarkTestCase()")
 	var testCase []int
 	for i := 0; i < 1000; i++ {
 		testCase = append(testCase, i)
 	}
+		logritelog.Default().Printf("generateBenchmarkTestCase(): testCase → %v", testCase)
+	logritelog.Default().Printf("<<< Exiting generateBenchmarkTestCase()")
 	return testCase
 }

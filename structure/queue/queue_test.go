@@ -8,6 +8,7 @@
 // see queuearray.go, queuelinkedlist.go, queuelinkedlistwithlist.go
 
 package queue
+import logritelog "log"
 
 import (
 	"container/list"
@@ -15,6 +16,7 @@ import (
 )
 
 func TestQueue(t *testing.T) {
+logritelog.Default().Printf(">>> Entering TestQueue(t=%v)", t)
 
 	// Handle Queue Linked List
 	t.Run("Test Queue Linked List", func(t *testing.T) {
@@ -110,6 +112,7 @@ func TestQueue(t *testing.T) {
 		})
 
 		ListQueue = []any{}
+		logritelog.Default().Printf("TestQueue(t=%v): ListQueue → %v", t, ListQueue)
 
 		t.Run("Test Queue isEmpty", func(t *testing.T) {
 
@@ -169,6 +172,7 @@ func TestQueue(t *testing.T) {
 			err := listQueue.Dequeue()
 
 			if err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestQueue(t=%v): %v", t, err)
 				t.Error("got an unexpected error ", err)
 			}
 			if listQueue.Len() != 3 {
@@ -244,4 +248,5 @@ func TestQueue(t *testing.T) {
 
 	})
 
+logritelog.Default().Printf("<<< Exiting TestQueue(t=%v)", t)
 }

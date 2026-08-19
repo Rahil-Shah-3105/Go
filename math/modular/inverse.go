@@ -8,6 +8,7 @@
 // see inverse_test.go
 
 package modular
+import logritelog "log"
 
 import (
 	"errors"
@@ -19,8 +20,10 @@ var ErrorInverse = errors.New("no Modular Inverse exists")
 
 // Inverse Modular function
 func Inverse(a, m int64) (int64, error) {
+	logritelog.Default().Printf(">>> Entering Inverse(a=%v,m=%v)", a, m)
 	gcd, x, _ := gcd.Extended(a, m)
 	if gcd != 1 || m == 0 {
+	logritelog.Default().Printf("<<< Exiting Inverse(a=%v,m=%v)", a, m)
 		return 0, ErrorInverse
 	}
 

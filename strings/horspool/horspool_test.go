@@ -3,11 +3,13 @@
 // see horspool.go
 
 package horspool
+import logritelog "log"
 
 import "testing"
 import "fmt"
 
 func TestLHorspool(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLHorspool(t=%v)", t)
 	testCases := []struct {
 		input    string
 		pattern  string
@@ -38,9 +40,11 @@ func TestLHorspool(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestLHorspool(t=%v)", t)
 }
 
 func TestLHorspoolNotExisintPattern(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLHorspoolNotExisintPattern(t=%v)", t)
 	testCases := []struct {
 		input   string
 		pattern string
@@ -65,4 +69,5 @@ func TestLHorspoolNotExisintPattern(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestLHorspoolNotExisintPattern(t=%v)", t)
 }

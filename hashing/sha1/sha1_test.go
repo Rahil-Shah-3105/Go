@@ -3,6 +3,7 @@
 // author: Simon Waldherr
 
 package sha1
+import logritelog "log"
 
 import (
 	"encoding/hex"
@@ -11,6 +12,8 @@ import (
 
 // Helper function to convert hash output to hex string for comparison
 func toHexString(hash [20]byte) string {
+	logritelog.Default().Printf(">>> Entering toHexString(hash=<redacted>)")
+	logritelog.Default().Printf("<<< Exiting toHexString(hash=<redacted>)")
 	return hex.EncodeToString(hash[:])
 }
 
@@ -30,6 +33,7 @@ var tests = []struct {
 
 // TestHash verifies that the Hash function produces the correct SHA-1 hash values
 func TestHash(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHash(t=%v)", t)
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
 			result := Hash([]byte(tt.input))
@@ -39,4 +43,5 @@ func TestHash(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestHash(t=%v)", t)
 }

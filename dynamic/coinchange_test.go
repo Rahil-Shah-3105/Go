@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestCoinChange(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCoinChange(t=%v)", t)
 	coinCombination := []int32{1, 2, 5, 10}
 	targets := []struct {
 		target   int32
@@ -26,6 +28,7 @@ func TestCoinChange(t *testing.T) {
 				t.Errorf("target: %d Expected %d, got %d", v.target, v.expected, result)
 			}
 		})
+	logritelog.Default().Printf("<<< Exiting TestCoinChange(t=%v)", t)
 	}
 
 }

@@ -1,4 +1,5 @@
 package polybius
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func ExampleNewPolybius() {
+	logritelog.Default().Printf(">>> Entering ExampleNewPolybius()")
 	// initialize
 	const (
 		plainText  = "HogeFugaPiyoSpam"
@@ -17,6 +19,10 @@ func ExampleNewPolybius() {
 	)
 	p, err := NewPolybius(key, size, characters)
 	if err != nil {
+	logritelog.Default().Printf("ExampleNewPolybius(): plainText → %v", plainText)
+	logritelog.Default().Printf("ExampleNewPolybius(): size → %v", size)
+	logritelog.Default().Printf("[WARN] ExampleNewPolybius(): key → %v", key)
+	logritelog.Default().Printf("ExampleNewPolybius(): characters → %v", characters)
 		log.Fatalf("failed NewPolybius: %v", err)
 	}
 	encryptedText, err := p.Encrypt(plainText)
@@ -34,9 +40,11 @@ func ExampleNewPolybius() {
 	// Output:
 	// Encrypt=> plainText: HogeFugaPiyoSpam, encryptedText: OGGFOOHFOHFHOOHHEHOEFFGFEEEHHHGG
 	// Decrypt=> encryptedText: OGGFOOHFOHFHOOHHEHOEFFGFEEEHHHGG, decryptedText: HOGEFUGAPIYOSPAM
+	logritelog.Default().Printf("<<< Exiting ExampleNewPolybius()")
 }
 
 func TestNewPolybius(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestNewPolybius(t=%v)", t)
 	t.Parallel()
 	cases := []struct {
 		name       string
@@ -67,9 +75,11 @@ func TestNewPolybius(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestNewPolybius(t=%v)", t)
 }
 
 func TestPolybiusEncrypt(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestPolybiusEncrypt(t=%v)", t)
 	t.Parallel()
 	cases := []struct {
 		name string
@@ -91,8 +101,12 @@ func TestPolybiusEncrypt(t *testing.T) {
 	)
 	p, err := NewPolybius(key, size, characters)
 	if err != nil {
+	logritelog.Default().Printf("TestPolybiusEncrypt(t=%v): size → %v", t, size)
+	logritelog.Default().Printf("TestPolybiusEncrypt(t=%v): characters → %v", t, characters)
+	logritelog.Default().Printf("[WARN] TestPolybiusEncrypt(t=%v): key → %v", t, key)
 		t.Fatalf("failed NewPolybius: %v", err)
 	}
+		logritelog.Default().Printf("[ERROR] Exception in TestPolybiusEncrypt(t=%v): %v", t, err)
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			encrypted, err := p.Encrypt(tc.text)
@@ -105,9 +119,11 @@ func TestPolybiusEncrypt(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestPolybiusEncrypt(t=%v)", t)
 }
 
 func TestPolybiusDecrypt(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestPolybiusDecrypt(t=%v)", t)
 	t.Parallel()
 	cases := []struct {
 		name string
@@ -135,8 +151,12 @@ func TestPolybiusDecrypt(t *testing.T) {
 	)
 	p, err := NewPolybius(key, size, characters)
 	if err != nil {
+	logritelog.Default().Printf("[WARN] TestPolybiusDecrypt(t=%v): key → %v", t, key)
+	logritelog.Default().Printf("TestPolybiusDecrypt(t=%v): size → %v", t, size)
+	logritelog.Default().Printf("TestPolybiusDecrypt(t=%v): characters → %v", t, characters)
 		t.Fatalf("failed NewPolybius: %v", err)
 	}
+		logritelog.Default().Printf("[ERROR] Exception in TestPolybiusDecrypt(t=%v): %v", t, err)
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			encrypted, err := p.Decrypt(tc.text)
@@ -149,9 +169,11 @@ func TestPolybiusDecrypt(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestPolybiusDecrypt(t=%v)", t)
 }
 
 func FuzzPolybius(f *testing.F) {
+	logritelog.Default().Printf(">>> Entering FuzzPolybius(f=%v)", f)
 	const (
 		size       = 5
 		characters = "HogeF"
@@ -159,6 +181,9 @@ func FuzzPolybius(f *testing.F) {
 	)
 	f.Add(size, characters, key)
 	f.Fuzz(func(t *testing.T, size int, characters, key string) {
+	logritelog.Default().Printf("FuzzPolybius(f=%v): size → %v", f, size)
+	logritelog.Default().Printf("[WARN] FuzzPolybius(f=%v): key → %v", f, key)
+	logritelog.Default().Printf("FuzzPolybius(f=%v): characters → %v", f, characters)
 		p, err := NewPolybius(key, size, characters)
 		switch {
 		case err == nil:
@@ -181,10 +206,12 @@ func FuzzPolybius(f *testing.F) {
 		}
 		decrypted, err := p.Decrypt(encrypted)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in FuzzPolybius(f=%v): %v", f, err)
 			t.Fatalf("unexpected error during decryption: %v", err)
 		}
 		if decrypted != strings.ToUpper(characters) {
 			t.Errorf("Expecting output to match with %q but was %q", characters, decrypted)
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting FuzzPolybius(f=%v)", f)
 }

@@ -1,4 +1,5 @@
 package sha256
+import logritelog "log"
 
 import (
 	"encoding/hex"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestHash(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHash(t=%v)", t)
 	testCases := []struct {
 		in       string
 		expected string
@@ -24,9 +26,11 @@ func TestHash(t *testing.T) {
 			t.Fatalf("Hash(%s) = %s, expected %s", tc.in, result, tc.expected)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestHash(t=%v)", t)
 }
 
 func BenchmarkHash(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkHash(b=%v)", b)
 	testCases := []struct {
 		name string
 		in   string
@@ -45,4 +49,5 @@ func BenchmarkHash(b *testing.B) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkHash(b=%v)", b)
 }

@@ -1,4 +1,5 @@
 package prime_test
+import logritelog "log"
 
 import (
 	"reflect"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestSieveEratosthenes(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestSieveEratosthenes(t=%v)", t)
 	tests := []struct {
 		name  string
 		limit int
@@ -34,10 +36,13 @@ func TestSieveEratosthenes(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestSieveEratosthenes(t=%v)", t)
 }
 
 func BenchmarkSieveEratosthenes(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkSieveEratosthenes(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = prime.SieveEratosthenes(10)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkSieveEratosthenes(b=%v)", b)
 }

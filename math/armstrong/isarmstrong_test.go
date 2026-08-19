@@ -1,6 +1,7 @@
 // isarmstrong_test.go
 
 package armstrong
+import logritelog "log"
 
 import "testing"
 
@@ -42,6 +43,7 @@ var testCases = []struct {
 }
 
 func TestIsArmstrong(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsArmstrong(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			funcResult := IsArmstrong(test.input)
@@ -50,4 +52,5 @@ func TestIsArmstrong(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestIsArmstrong(t=%v)", t)
 }

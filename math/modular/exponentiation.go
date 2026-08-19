@@ -8,6 +8,7 @@
 // see exponentiation_test.go
 
 package modular
+import logritelog "log"
 
 import (
 	"errors"
@@ -22,6 +23,7 @@ var ErrorNegativeExponent = errors.New("negative Exponent provided")
 
 // Exponentiation returns base^exponent % mod
 func Exponentiation(base, exponent, mod int64) (int64, error) {
+	logritelog.Default().Printf(">>> Entering Exponentiation(base=%v,exponent=%v,mod=%v)", base, exponent, mod)
 	if mod == 1 {
 		return 0, nil
 	}
@@ -32,6 +34,9 @@ func Exponentiation(base, exponent, mod int64) (int64, error) {
 	_, err := Multiply64BitInt(mod-1, mod-1)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Exponentiation(base=%v,exponent=%v,mod=%v): %v", base, exponent, mod, err)
+		logritelog.Default().Printf(">>> Entering Multiply64BitInt(left=%v,right=%v)", left, right)
+		logritelog.Default().Printf("<<< Exiting Multiply64BitInt(left=%v,right=%v)", left, right)
 		return -1, err
 	}
 
@@ -46,6 +51,7 @@ func Exponentiation(base, exponent, mod int64) (int64, error) {
 		exponent = exponent >> 1
 		base = (base * base) % mod
 	}
+	logritelog.Default().Printf("<<< Exiting Exponentiation(base=%v,exponent=%v,mod=%v)", base, exponent, mod)
 	return result, nil
 }
 

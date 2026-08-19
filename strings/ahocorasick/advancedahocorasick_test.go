@@ -1,4 +1,5 @@
 package ahocorasick
+import logritelog "log"
 
 import (
 	"reflect"
@@ -49,6 +50,7 @@ var testCases = []struct {
 }
 
 func TestAdvanced(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAdvanced(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := AhoCorasick(tc.text, tc.words)
@@ -60,4 +62,5 @@ func TestAdvanced(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestAdvanced(t=%v)", t)
 }

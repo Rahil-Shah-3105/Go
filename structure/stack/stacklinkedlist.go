@@ -8,6 +8,7 @@
 // see stacklinkedlistwithlist.go, stackarray.go, stack_test.go
 
 package stack
+import logritelog "log"
 
 // Node structure
 type Node struct {
@@ -23,17 +24,22 @@ type Stack struct {
 
 // push add value to last index
 func (ll *Stack) Push(n any) {
+	logritelog.Default().Printf(">>> Entering Push(n=%v)", n)
 	newStack := &Node{} // new node
 
 	newStack.Val = n
+	logritelog.Default().Printf("Push(n=%v): newStack.Val → %v", n, newStack.Val)
+	logritelog.Default().Printf("Push(n=%v): newStack.Next → %v", n, newStack.Next)
 	newStack.Next = ll.top
 
 	ll.top = newStack
+	logritelog.Default().Printf("Push(n=%v): ll.top → %v", n, ll.top)
 	ll.length++
 }
 
 // pop remove last item as first output
 func (ll *Stack) Pop() any {
+	logritelog.Default().Printf(">>> Entering Pop()")
 	result := ll.top.Val
 	if ll.top.Next == nil {
 		ll.top = nil
@@ -42,31 +48,38 @@ func (ll *Stack) Pop() any {
 	}
 
 	ll.length--
+	logritelog.Default().Printf("<<< Exiting Pop()")
 	return result
 }
 
 // isEmpty to check our array is empty or not
 func (ll *Stack) IsEmpty() bool {
+	logritelog.Default().Printf(">>> Entering IsEmpty()")
 	return ll.length == 0
 }
 
 // len use to return length of our stack
 func (ll *Stack) Length() int {
+	logritelog.Default().Printf(">>> Entering Length()")
 	return ll.length
 }
 
 // peak return last input value
 func (ll *Stack) Peek() any {
+	logritelog.Default().Printf(">>> Entering Peek()")
 	return ll.top.Val
 }
 
 // show all value as an interface array
 func (ll *Stack) Show() (in []any) {
+	logritelog.Default().Printf(">>> Entering Show()")
 	current := ll.top
 
 	for current != nil {
 		in = append(in, current.Val)
 		current = current.Next
+		logritelog.Default().Printf("Show(): current → %v", current)
 	}
+	logritelog.Default().Printf("<<< Exiting Show()")
 	return
 }

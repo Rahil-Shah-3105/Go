@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -13,6 +14,7 @@ type rodCuttingTestCase struct {
 }
 
 func getRodCuttingTestCases() []rodCuttingTestCase {
+	logritelog.Default().Printf(">>> Entering getRodCuttingTestCases()")
 	return []rodCuttingTestCase{
 		{[]int{0, 1, 5, 8, 9}, 4, 10},
 		{[]int{0, 2, 5, 7, 8, 0}, 5, 12},
@@ -22,18 +24,24 @@ func getRodCuttingTestCases() []rodCuttingTestCase {
 }
 
 func cutRodSolTestFunc(t *testing.T, cutRodSolFunc func([]int, int) int) {
+	logritelog.Default().Printf(">>> Entering cutRodSolTestFunc(t=%v,cutRodSolFunc=%v)", t, cutRodSolFunc)
 	for _, tc := range getRodCuttingTestCases() {
 		actual := cutRodSolFunc(tc.price, tc.length)
 		if actual != tc.expected {
 			t.Errorf("expected: %d, got: %d", tc.expected, actual)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting cutRodSolTestFunc(t=%v,cutRodSolFunc=%v)", t, cutRodSolFunc)
 }
 
 func TestCutRodRec(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCutRodRec(t=%v)", t)
 	cutRodSolTestFunc(t, dynamic.CutRodRec)
+	logritelog.Default().Printf("<<< Exiting TestCutRodRec(t=%v)", t)
 }
 
 func TestCutRodDp(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCutRodDp(t=%v)", t)
 	cutRodSolTestFunc(t, dynamic.CutRodDp)
+	logritelog.Default().Printf("<<< Exiting TestCutRodDp(t=%v)", t)
 }
