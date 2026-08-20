@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseLongestArithmeticSubsequence struct {
 }
 
 func getLongestArithmeticSubsequenceTestCases() []testCaseLongestArithmeticSubsequence {
+	logritelog.Default().Printf(">>> Entering getLongestArithmeticSubsequenceTestCases()")
 	return []testCaseLongestArithmeticSubsequence{
 		{[]int{3, 6, 9, 12}, 4},                  // Arithmetic sequence of length 4
 		{[]int{9, 4, 7, 2, 10}, 3},               // Arithmetic sequence of length 3
@@ -27,6 +29,7 @@ func getLongestArithmeticSubsequenceTestCases() []testCaseLongestArithmeticSubse
 }
 
 func TestLongestArithmeticSubsequence(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLongestArithmeticSubsequence(t=%v)", t)
 	t.Run("Longest Arithmetic Subsequence test cases", func(t *testing.T) {
 		for _, tc := range getLongestArithmeticSubsequenceTestCases() {
 			actual := dynamic.LongestArithmeticSubsequence(tc.nums)
@@ -35,4 +38,5 @@ func TestLongestArithmeticSubsequence(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestLongestArithmeticSubsequence(t=%v)", t)
 }

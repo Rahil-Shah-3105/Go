@@ -1,4 +1,5 @@
 package diffiehellman
+import logritelog "log"
 
 import (
 	"crypto/rand"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestDiffieHellmanKeyExchange(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDiffieHellmanKeyExchange(t=%v)", t)
 	t.Run("Test 1: modularExponentiation", func(t *testing.T) {
 		var want int64 = 9 // (3^5)mod13 = 243mod13 = 9
 		var prvKey int64 = 5
@@ -38,4 +40,5 @@ func TestDiffieHellmanKeyExchange(t *testing.T) {
 			t.Errorf("mutual key computed by alice and bob should be same, but got un-equal")
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestDiffieHellmanKeyExchange(t=%v)", t)
 }

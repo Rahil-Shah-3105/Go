@@ -5,12 +5,14 @@
 // space complexity: O(n)
 // ref: https://en.wikipedia.org/wiki/Rail_fence_cipher
 package railfence
+import logritelog "log"
 
 import (
 	"strings"
 )
 
 func Encrypt(text string, rails int) string {
+	logritelog.Default().Printf(">>> Entering Encrypt(text=%v,rails=%v)", text, rails)
 	if rails == 1 {
 		return text
 	}
@@ -27,6 +29,7 @@ func Encrypt(text string, rails int) string {
 	for _, char := range text {
 		if row == 0 || row == rails-1 {
 			dirDown = !dirDown
+			logritelog.Default().Printf("Encrypt(text=%v,rails=%v): dirDown → %v", text, rails, dirDown)
 		}
 		matrix[row][col] = char
 		col++
@@ -45,9 +48,11 @@ func Encrypt(text string, rails int) string {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Encrypt(text=%v,rails=%v)", text, rails)
 	return result.String()
 }
 func Decrypt(cipherText string, rails int) string {
+	logritelog.Default().Printf(">>> Entering Decrypt(cipherText=%v,rails=%v)", cipherText, rails)
 	if rails == 1 || rails >= len(cipherText) {
 		return cipherText
 	}
@@ -77,5 +82,6 @@ func Decrypt(cipherText string, rails int) string {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Decrypt(cipherText=%v,rails=%v)", cipherText, rails)
 	return string(decrypted)
 }

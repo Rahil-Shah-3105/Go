@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseMaxSubArraySum struct {
 }
 
 func getMaxSubArraySumTestCases() []testCaseMaxSubArraySum {
+	logritelog.Default().Printf(">>> Entering getMaxSubArraySumTestCases()")
 	return []testCaseMaxSubArraySum{
 		{[]int{-2, -3, 4, -1, -2, 1, 5, -3}, 7},   // Kadane's algorithm example
 		{[]int{-1, -2, -3, -4}, -1},               // All negative numbers, max single element
@@ -26,6 +28,7 @@ func getMaxSubArraySumTestCases() []testCaseMaxSubArraySum {
 }
 
 func TestMaxSubArraySum(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMaxSubArraySum(t=%v)", t)
 	t.Run("Max SubArray Sum test cases", func(t *testing.T) {
 		for _, tc := range getMaxSubArraySumTestCases() {
 			actual := dynamic.MaxSubArraySum(tc.nums)
@@ -34,4 +37,5 @@ func TestMaxSubArraySum(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestMaxSubArraySum(t=%v)", t)
 }
