@@ -5,6 +5,7 @@
 //reference: https://brilliant.org/wiki/catalan-numbers/
 
 package dynamic
+import logritelog "log"
 
 import "fmt"
 
@@ -13,6 +14,7 @@ var errCatalan = fmt.Errorf("can't have a negative n-th catalan number")
 // NthCatalan returns the n-th Catalan Number
 // Complexity: O(n²)
 func NthCatalanNumber(n int) (int64, error) {
+	logritelog.Default().Printf(">>> Entering NthCatalanNumber(n=%v)", n)
 	if n < 0 {
 		//doesn't accept negative number
 		return 0, errCatalan
@@ -20,6 +22,7 @@ func NthCatalanNumber(n int) (int64, error) {
 
 	var catalanNumberList []int64
 	catalanNumberList = append(catalanNumberList, 1) //first value is 1
+	logritelog.Default().Printf("NthCatalanNumber(n=%v): catalanNumberList → %v", n, catalanNumberList)
 
 	for i := 1; i <= n; i++ {
 		catalanNumberList = append(catalanNumberList, 0) //append 0 and calculate
@@ -29,5 +32,6 @@ func NthCatalanNumber(n int) (int64, error) {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting NthCatalanNumber(n=%v)", n)
 	return catalanNumberList[n], nil
 }

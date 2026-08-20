@@ -1,4 +1,5 @@
 package compression_test
+import logritelog "log"
 
 import (
 	"bytes"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestCompressionRLEncode(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCompressionRLEncode(t=%v)", t)
 	tests := []struct {
 		name string
 		data string
@@ -37,9 +39,11 @@ func TestCompressionRLEncode(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCompressionRLEncode(t=%v)", t)
 }
 
 func TestCompressionRLEDecode(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCompressionRLEDecode(t=%v)", t)
 	tests := []struct {
 		name string
 		data string
@@ -69,9 +73,11 @@ func TestCompressionRLEDecode(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCompressionRLEDecode(t=%v)", t)
 }
 
 func TestCompressionRLEncodeBytes(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCompressionRLEncodeBytes(t=%v)", t)
 	tests := []struct {
 		name string
 		data []byte
@@ -101,9 +107,11 @@ func TestCompressionRLEncodeBytes(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCompressionRLEncodeBytes(t=%v)", t)
 }
 
 func TestCompressionRLEDecodeBytes(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCompressionRLEDecodeBytes(t=%v)", t)
 	tests := []struct {
 		name string
 		data []byte
@@ -133,29 +141,38 @@ func TestCompressionRLEDecodeBytes(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCompressionRLEDecodeBytes(t=%v)", t)
 }
 
 /* --- BENCHMARKS --- */
 func BenchmarkRLEncode(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRLEncode(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = compression.RLEncode("WWWWWWWWWWWWBWWWWWWWWWWWWBBB")
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRLEncode(b=%v)", b)
 }
 
 func BenchmarkRLEDecode(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRLEDecode(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = compression.RLEdecode("12W1B12W3B")
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRLEDecode(b=%v)", b)
 }
 
 func BenchmarkRLEncodeBytes(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRLEncodeBytes(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = compression.RLEncodebytes([]byte("WWWWWWWWWWWWBWWWWWWWWWWWWBBB"))
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRLEncodeBytes(b=%v)", b)
 }
 
 func BenchmarkRLEDecodeBytes(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRLEDecodeBytes(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = compression.RLEdecodebytes([]byte{12, 'W', 1, 'B', 12, 'W', 3, 'B'})
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkRLEDecodeBytes(b=%v)", b)
 }

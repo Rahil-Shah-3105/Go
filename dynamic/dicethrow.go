@@ -5,9 +5,11 @@
 // space complexity: O(m * n)
 
 package dynamic
+import logritelog "log"
 
 // DiceThrow returns the number of ways to get sum `sum` using `m` dice with `n` faces
 func DiceThrow(m, n, sum int) int {
+	logritelog.Default().Printf(">>> Entering DiceThrow(m=%v,n=%v,sum=%v)", m, n, sum)
 	dp := make([][]int, m+1)
 	for i := range dp {
 		dp[i] = make([]int, sum+1)
@@ -29,5 +31,6 @@ func DiceThrow(m, n, sum int) int {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting DiceThrow(m=%v,n=%v,sum=%v)", m, n, sum)
 	return dp[m][sum]
 }

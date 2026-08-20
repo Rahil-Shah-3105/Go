@@ -7,6 +7,7 @@
 // space complexity: O(1)
 
 package conversion
+import logritelog "log"
 
 import (
 	"errors"
@@ -40,6 +41,7 @@ var nums = []numeral{
 // outside the range 1 to 3,999 will return an error. Nil or empty string return 0
 // with no error thrown.
 func RomanToInt(input string) (int, error) {
+	logritelog.Default().Printf(">>> Entering RomanToInt(input=%v)", input)
 	if input == "" {
 		return 0, nil
 	}
@@ -53,6 +55,7 @@ func RomanToInt(input string) (int, error) {
 	// if we are still left with input string values then the
 	// input was invalid and an error is returned.
 	if len(input) > 0 {
+	logritelog.Default().Printf("<<< Exiting RomanToInt(input=%v)", input)
 		return 0, errors.New("invalid roman numeral")
 	}
 	return output, nil

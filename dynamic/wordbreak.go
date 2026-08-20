@@ -5,9 +5,11 @@
 // space complexity: O(n)
 
 package dynamic
+import logritelog "log"
 
 // WordBreak checks if the input string can be segmented into words from a dictionary
 func WordBreak(s string, wordDict []string) bool {
+	logritelog.Default().Printf(">>> Entering WordBreak(s=%v,wordDict=%v)", s, wordDict)
 	wordSet := make(map[string]bool)
 	for _, word := range wordDict {
 		wordSet[word] = true
@@ -24,5 +26,6 @@ func WordBreak(s string, wordDict []string) bool {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting WordBreak(s=%v,wordDict=%v)", s, wordDict)
 	return dp[len(s)]
 }

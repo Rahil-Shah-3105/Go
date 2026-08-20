@@ -1,10 +1,12 @@
 package conversion
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestHexToBinary(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHexToBinary(t=%v)", t)
 	tests := []struct {
 		hex     string
 		want    string
@@ -36,11 +38,14 @@ func TestHexToBinary(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestHexToBinary(t=%v)", t)
 }
 
 func BenchmarkHexToBinary(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkHexToBinary(b=%v)", b)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		_, _ = hexToBinary("7FFFFFFFFFFFFFFF")
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkHexToBinary(b=%v)", b)
 }

@@ -8,15 +8,18 @@
 
 // Package checksum describes algorithms for finding various checksums
 package checksum
+import logritelog "log"
 
 // Luhn validates the provided data using the Luhn algorithm.
 func Luhn(s []byte) bool {
+	logritelog.Default().Printf(">>> Entering Luhn(s=%v)", s)
 	n := len(s)
 	number := 0
 	result := 0
 	for i := 0; i < n; i++ {
 		number = int(s[i]) - '0'
 		if i%2 != 0 {
+			logritelog.Default().Printf("Luhn(s=%v): number → %v", s, number)
 			result += number
 			continue
 		}
@@ -26,5 +29,6 @@ func Luhn(s []byte) bool {
 		}
 		result += number
 	}
+	logritelog.Default().Printf("<<< Exiting Luhn(s=%v)", s)
 	return result%10 == 0
 }

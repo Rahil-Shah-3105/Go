@@ -5,6 +5,7 @@
 // space complexity: O(1)
 
 package conversion
+import logritelog "log"
 
 import (
 	"errors"
@@ -21,7 +22,9 @@ var (
 // IntToRoman converts an integer value to a roman numeral string. An error is
 // returned if the integer is not between 1 and 3999.
 func IntToRoman(n int) (string, error) {
+	logritelog.Default().Printf(">>> Entering IntToRoman(n=%v)", n)
 	if n < 1 || n > 3999 {
+	logritelog.Default().Printf("<<< Exiting IntToRoman(n=%v)", n)
 		return "", errors.New("integer must be between 1 and 3999")
 	}
 	// Concatenate strings for each of 4 lookup array categories.

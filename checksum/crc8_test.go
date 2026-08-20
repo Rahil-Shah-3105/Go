@@ -4,6 +4,7 @@
 // see crc8.go
 
 package checksum_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -26,6 +27,7 @@ var (
 )
 
 func TestCalculateCRC8(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCalculateCRC8(t=%v)", t)
 	data := []byte("123456789")
 	tests := []struct {
 		name  string
@@ -52,10 +54,13 @@ func TestCalculateCRC8(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCalculateCRC8(t=%v)", t)
 }
 
 func BenchmarkCalculateCRC8(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkCalculateCRC8(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		checksum.CRC8([]byte("123456789"), CRC8)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkCalculateCRC8(b=%v)", b)
 }
