@@ -1,4 +1,5 @@
 package fibonacci
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/dynamic"
@@ -32,6 +33,7 @@ func getTests() []struct {
 }
 
 func TestMatrix(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMatrix(t=%v)", t)
 	tests := getTests()
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -40,9 +42,11 @@ func TestMatrix(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestMatrix(t=%v)", t)
 }
 
 func TestNthFibonacci(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestNthFibonacci(t=%v)", t)
 	tests := getTests()
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -51,9 +55,11 @@ func TestNthFibonacci(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestNthFibonacci(t=%v)", t)
 }
 
 func TestFormula(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFormula(t=%v)", t)
 	tests := getTests()
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -62,9 +68,11 @@ func TestFormula(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestFormula(t=%v)", t)
 }
 
 func TestRecursive(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRecursive(t=%v)", t)
 	tests := getTests()
 	for _, test := range tests {
 		if test.n <= 10 {
@@ -75,22 +83,29 @@ func TestRecursive(t *testing.T) {
 			})
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestRecursive(t=%v)", t)
 }
 
 func BenchmarkNthFibonacci(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkNthFibonacci(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		dynamic.NthFibonacci(90)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkNthFibonacci(b=%v)", b)
 }
 
 func BenchmarkMatrix(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMatrix(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Matrix(90)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMatrix(b=%v)", b)
 }
 
 func BenchmarkFormula(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkFormula(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Formula(90)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkFormula(b=%v)", b)
 }

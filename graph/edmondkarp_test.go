@@ -1,10 +1,12 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestEdmondKarp(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestEdmondKarp(t=%v)", t)
 	var edmondKarpTestData = []struct {
 		description string
 		graph       WeightedGraph
@@ -76,4 +78,5 @@ func TestEdmondKarp(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestEdmondKarp(t=%v)", t)
 }

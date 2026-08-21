@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 // Knapsack Problem
 // https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
@@ -12,12 +13,14 @@ import (
 
 // Max function - possible duplicate
 func Max(a, b int) int {
+	logritelog.Default().Printf(">>> Entering Max(a=%v,b=%v)", a, b)
 	return int(math.Max(float64(a), float64(b)))
 }
 
 // Knapsack solves knapsack problem
 // return maxProfit
 func Knapsack(maxWeight int, weights, values []int) int {
+	logritelog.Default().Printf(">>> Entering Knapsack(maxWeight=%v,weights=%v,values=%v)", maxWeight, weights, values)
 	n := len(weights)
 	m := maxWeight
 	// create dp data structure
@@ -34,11 +37,13 @@ func Knapsack(maxWeight int, weights, values []int) int {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting Knapsack(maxWeight=%v,weights=%v,values=%v)", maxWeight, weights, values)
 	return dp[n][m]
 }
 
 /*
 func main() {
+	logritelog.Default().Printf(">>> Entering main()")
 	maxWeight := 50
 	values := []int{
 		60, 100, 120,
@@ -48,5 +53,6 @@ func main() {
 	}
 	maxProfit := Knapsack(maxWeight, weights, values)
 	fmt.Println(maxProfit)
+	logritelog.Default().Printf("<<< Exiting main()")
 }
 */

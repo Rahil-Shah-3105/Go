@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -10,6 +11,7 @@ import (
 )
 
 func TestPush(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestPush(t=%v)", t)
 	bst := bt.NewBinarySearch[int]()
 
 	bst.Push(90)
@@ -31,9 +33,11 @@ func TestPush(t *testing.T) {
 	if bst.Depth() != 2 {
 		t.Errorf("tree should have depth = 1")
 	}
+	logritelog.Default().Printf("<<< Exiting TestPush(t=%v)", t)
 }
 
 func TestDelete(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDelete(t=%v)", t)
 	t.Run("Delete a node with no child", func(t *testing.T) {
 		bst := bt.NewBinarySearch[int]()
 
@@ -184,9 +188,11 @@ func TestDelete(t *testing.T) {
 				ok := tree.Delete(nums[i])
 				rets = tree.InOrder()
 				if !ok || !sort.IntsAreSorted(rets) {
+				logritelog.Default().Printf("TestDelete(t=%v): rets → %v", t, rets)
 					t.Errorf("Error With Delete")
 				}
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestDelete(t=%v)", t)
 }

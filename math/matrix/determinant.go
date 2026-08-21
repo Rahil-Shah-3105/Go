@@ -8,6 +8,7 @@
 // see determinant_test.go
 
 package matrix
+import logritelog "log"
 
 import (
 	"errors"
@@ -16,6 +17,7 @@ import (
 // Calculates the determinant of the matrix.
 // This method only works for square matrices (e.i. matrices with equal rows and columns).
 func (mat Matrix[T]) Determinant() (T, error) {
+logritelog.Default().Printf(">>> Entering Determinant()")
 
 	var determinant T = 0
 	var elements = mat.elements
@@ -56,6 +58,7 @@ func (mat Matrix[T]) Determinant() (T, error) {
 				determinant += elements[0][i] * minor_det
 			}
 		}
+		logritelog.Default().Printf("<<< Exiting Determinant()")
 		return determinant, nil
 	}
 }

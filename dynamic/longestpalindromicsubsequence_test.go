@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func lpsTestTemplate(t *testing.T, algorithm func(input string) int) {
+	logritelog.Default().Printf(">>> Entering lpsTestTemplate(t=%v,algorithm=%v)", t, algorithm)
 	testCases := []struct {
 		input    string
 		expected int
@@ -29,12 +31,17 @@ func lpsTestTemplate(t *testing.T, algorithm func(input string) int) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting lpsTestTemplate(t=%v,algorithm=%v)", t, algorithm)
 }
 
 func TestLpsRec(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLpsRec(t=%v)", t)
 	lpsTestTemplate(t, dynamic.LpsRec)
+	logritelog.Default().Printf("<<< Exiting TestLpsRec(t=%v)", t)
 }
 
 func TestLpsDp(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestLpsDp(t=%v)", t)
 	lpsTestTemplate(t, dynamic.LpsDp)
+	logritelog.Default().Printf("<<< Exiting TestLpsDp(t=%v)", t)
 }

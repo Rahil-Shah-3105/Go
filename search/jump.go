@@ -9,12 +9,14 @@
 // space complexity: O(1)
 
 package search
+import logritelog "log"
 
 import "math"
 
 // Jump search works by jumping multiple steps ahead in sorted list until it find an item larger than target,
 // then create a sublist of item from the last searched item up to the current item and perform a linear search.
 func Jump(array []int, target int) (int, error) {
+	logritelog.Default().Printf(">>> Entering Jump(array=%v,target=%v)", array, target)
 	n := len(array)
 	if n == 0 {
 		return -1, ErrNotFound
@@ -36,6 +38,7 @@ func Jump(array []int, target int) (int, error) {
 		// prevent jumping over list range
 		if curr > n {
 			curr = n
+			logritelog.Default().Printf("Jump(array=%v,target=%v): curr → %v", array, target, curr)
 		}
 	}
 
@@ -49,6 +52,7 @@ func Jump(array []int, target int) (int, error) {
 		}
 	}
 	if array[prev] == target {
+	logritelog.Default().Printf("<<< Exiting Jump(array=%v,target=%v)", array, target)
 		return prev, nil
 	}
 

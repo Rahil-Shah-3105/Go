@@ -4,6 +4,7 @@
 // see pollard.go
 
 package math
+import logritelog "log"
 
 import (
 	"math/big"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestDefaultPolynomial(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDefaultPolynomial(t=%v)", t)
 	tests := []struct {
 		name string
 		x    *big.Int
@@ -30,9 +32,11 @@ func TestDefaultPolynomial(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestDefaultPolynomial(t=%v)", t)
 }
 
 func TestRho(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRho(t=%v)", t)
 	tests := []struct {
 		name    string
 		n       *big.Int
@@ -61,18 +65,24 @@ func TestRho(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestRho(t=%v)", t)
 }
 
 func BenchmarkDefaultPolynomial(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkDefaultPolynomial(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		DefaultPolynomial(big.NewInt(535))(big.NewInt(11235))
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkDefaultPolynomial(b=%v)", b)
 }
 
 func BenchmarkRho(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkRho(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, err := PollardsRhoFactorization(big.NewInt(535), DefaultPolynomial)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in BenchmarkRho(b=%v): %v", b, err)
+			logritelog.Default().Printf("<<< Exiting BenchmarkRho(b=%v)", b)
 			return
 		}
 	}

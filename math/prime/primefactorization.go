@@ -4,10 +4,12 @@
 // space complexity: O(sqrt(n))
 
 package prime
+import logritelog "log"
 
 // Factorize is a function that computes the exponents
 // of each prime in the prime factorization of n
 func Factorize(n int64) map[int64]int64 {
+	logritelog.Default().Printf(">>> Entering Factorize(n=%v)", n)
 	result := make(map[int64]int64)
 
 	for i := int64(2); i*i <= n; i += 1 {
@@ -23,5 +25,6 @@ func Factorize(n int64) map[int64]int64 {
 	if n > 1 {
 		result[n] += 1
 	}
+	logritelog.Default().Printf("<<< Exiting Factorize(n=%v)", n)
 	return result
 }

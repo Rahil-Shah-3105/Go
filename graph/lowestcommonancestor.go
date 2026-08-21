@@ -10,6 +10,7 @@
 // see lowestcommonancestor_test.go for a test implementation.
 
 package graph
+import logritelog "log"
 
 type TreeEdge struct {
 	from int
@@ -35,11 +36,14 @@ type Tree struct {
 }
 
 func (tree *Tree) addEdge(u, v int) {
+	logritelog.Default().Printf(">>> Entering addEdge(u=%v,v=%v)", u, v)
 	tree.edges[u] = append(tree.edges[u], v)
 	tree.edges[v] = append(tree.edges[v], u)
+	logritelog.Default().Printf("<<< Exiting addEdge(u=%v,v=%v)", u, v)
 }
 
 func (tree *Tree) dfs(u, par int) {
+	logritelog.Default().Printf(">>> Entering dfs(u=%v,par=%v)", u, par)
 	tree.jump[0][u] = par
 	tree.dad[u] = par
 	for _, v := range tree.edges[u] {
@@ -48,13 +52,16 @@ func (tree *Tree) dfs(u, par int) {
 			tree.dfs(v, u)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting dfs(u=%v,par=%v)", u, par)
 }
 
 func (tree *Tree) GetDepth(u int) int {
+	logritelog.Default().Printf(">>> Entering GetDepth(u=%v)", u)
 	return tree.depth[u]
 }
 
 func (tree *Tree) GetDad(u int) int {
+	logritelog.Default().Printf(">>> Entering GetDad(u=%v)", u)
 	return tree.dad[u]
 }
 
@@ -84,8 +91,10 @@ func (tree *Tree) GetLCA(u, v int) int {
 }
 
 func NewTree(numbersVertex, root int, edges []TreeEdge) (tree *Tree) {
+	logritelog.Default().Printf(">>> Entering NewTree(numbersVertex=%v,root=%v,edges=%v)", numbersVertex, root, edges)
 	tree = new(Tree)
 	tree.numbersVertex, tree.root, tree.MAXLOG = numbersVertex, root, 0
+	logritelog.Default().Printf("NewTree(numbersVertex=%v,root=%v,edges=%v): tree → %v", numbersVertex, root, edges, tree)
 	tree.depth = make([]int, numbersVertex)
 	tree.dad = make([]int, numbersVertex)
 
@@ -104,6 +113,7 @@ func NewTree(numbersVertex, root int, edges []TreeEdge) (tree *Tree) {
 		tree.addEdge(e.from, e.to)
 	}
 
+	logritelog.Default().Printf("<<< Exiting NewTree(numbersVertex=%v,root=%v,edges=%v)", numbersVertex, root, edges)
 	return tree
 }
 
@@ -111,6 +121,7 @@ func NewTree(numbersVertex, root int, edges []TreeEdge) (tree *Tree) {
 // Let's call `jump[j][u]` is the `2^j`-th ancestor above the node `u` with `u` in range `[0, numbersVertex)`, `j` in range `[0,MAXLOG)`.
 // These information allow us to jump from any node to any ancestor above it in `O(MAXLOG)` time.
 func LowestCommonAncestor(tree *Tree) {
+	logritelog.Default().Printf(">>> Entering LowestCommonAncestor(tree=%v)", tree)
 	// call dfs to compute depth from the root to each node and the parent of each node.
 	tree.dfs(tree.root, tree.root)
 
@@ -120,4 +131,5 @@ func LowestCommonAncestor(tree *Tree) {
 			tree.jump[j][u] = tree.jump[j-1][tree.jump[j-1][u]]
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting LowestCommonAncestor(tree=%v)", tree)
 }

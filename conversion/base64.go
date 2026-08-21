@@ -8,6 +8,7 @@
 // see base64_test.go
 
 package conversion
+import logritelog "log"
 
 import (
 	"strings" // Used for efficient string builder (more efficient than simply appending strings)
@@ -19,6 +20,7 @@ const Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 // The implementation follows the RFC4648 standard, which is documented
 // at https://datatracker.ietf.org/doc/html/rfc4648#section-4
 func Base64Encode(input []byte) string {
+	logritelog.Default().Printf(">>> Entering Base64Encode(input=%v)", input)
 	var sb strings.Builder
 	// If not 24 bits (3 bytes) multiple, pad with 0 value bytes, and with "=" for the output
 	var padding string
@@ -49,7 +51,9 @@ func Base64Encode(input []byte) string {
 
 	// Apply the output padding
 	encoded = encoded[:len(encoded)-len(padding)] + padding[:]
+	logritelog.Default().Printf("Base64Encode(input=%v): encoded → %v", input, encoded)
 
+	logritelog.Default().Printf("<<< Exiting Base64Encode(input=%v)", input)
 	return encoded
 }
 
@@ -57,6 +61,7 @@ func Base64Encode(input []byte) string {
 // The implementation follows the RFC4648 standard, which is documented
 // at https://datatracker.ietf.org/doc/html/rfc4648#section-4
 func Base64Decode(input string) []byte {
+	logritelog.Default().Printf(">>> Entering Base64Decode(input=%v)", input)
 	padding := strings.Count(input, "=") // Number of bytes which will be ignored
 	var decoded []byte
 
@@ -78,6 +83,8 @@ func Base64Decode(input string) []byte {
 
 		decoded = append(decoded, group[:]...)
 	}
+		logritelog.Default().Printf("Base64Decode(input=%v): decoded → %v", input, decoded)
 
+	logritelog.Default().Printf("<<< Exiting Base64Decode(input=%v)", input)
 	return decoded[:len(decoded)-padding]
 }

@@ -1,7 +1,9 @@
 package kmp
+import logritelog "log"
 
 // Kmp Function kmp performing the Knuth-Morris-Pratt algorithm.
 func Kmp(word, text string, patternTable []int) []int {
+	logritelog.Default().Printf(">>> Entering Kmp(word=%v,text=%v,patternTable=%v)", word, text, patternTable)
 	if len(word) > len(text) {
 		return nil
 	}
@@ -17,6 +19,7 @@ func Kmp(word, text string, patternTable []int) []int {
 			if j == len(word) {
 				matches = append(matches, i)
 
+				logritelog.Default().Printf("Kmp(word=%v,text=%v,patternTable=%v): matches → %v", word, text, patternTable, matches)
 				i = i + j
 				j = 0
 			}
@@ -29,11 +32,13 @@ func Kmp(word, text string, patternTable []int) []int {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting Kmp(word=%v,text=%v,patternTable=%v)", word, text, patternTable)
 	return matches
 }
 
 // table building for kmp algorithm.
 func table(w string) []int {
+	logritelog.Default().Printf(">>> Entering table(w=%v)", w)
 	var (
 		t []int = []int{-1}
 		k int
@@ -45,5 +50,6 @@ func table(w string) []int {
 		}
 		t = append(t, k)
 	}
+	logritelog.Default().Printf("<<< Exiting table(w=%v)", w)
 	return t
 }

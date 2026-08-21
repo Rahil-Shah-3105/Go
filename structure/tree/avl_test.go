@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	bt "github.com/TheAlgorithms/Go/structure/tree"
@@ -9,6 +10,7 @@ import (
 )
 
 func TestAVLPush(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAVLPush(t=%v)", t)
 	t.Run("LLRotation-Test", func(t *testing.T) {
 		tree := bt.NewAVL[int]()
 		tree.Push(5, 4, 3)
@@ -119,9 +121,11 @@ func TestAVLPush(t *testing.T) {
 			t.Errorf("Height of Right should be 1")
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestAVLPush(t=%v)", t)
 }
 
 func TestAVLDelete(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAVLDelete(t=%v)", t)
 	t.Run("LLRotation-Test", func(t *testing.T) {
 		tree := bt.NewAVL[int]()
 		if tree.Delete(5) {
@@ -313,9 +317,11 @@ func TestAVLDelete(t *testing.T) {
 				ok := tree.Delete(nums[i])
 				rets = tree.InOrder()
 				if !ok || !sort.IntsAreSorted(rets) {
+				logritelog.Default().Printf("TestAVLDelete(t=%v): rets → %v", t, rets)
 					t.Errorf("Error With Delete")
 				}
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestAVLDelete(t=%v)", t)
 }

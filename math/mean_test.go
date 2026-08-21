@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestMean(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMean(t=%v)", t)
 	testCases := []struct {
 		name       string
 		testValues []float64
@@ -47,6 +49,7 @@ func TestMean(t *testing.T) {
 			}
 
 		})
+	logritelog.Default().Printf("<<< Exiting TestMean(t=%v)", t)
 	}
 
 }

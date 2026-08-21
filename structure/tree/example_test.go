@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -36,8 +37,10 @@ var (
 var tree TestTree[int]
 
 func TestBinarySearch(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBinarySearch(t=%v)", t)
 	tree = bt.NewBinarySearch[int]()
 
+	logritelog.Default().Printf("TestBinarySearch(t=%v): tree → %v", t, tree)
 	if tree.Empty() {
 		t.Log("Binary Search Tree is empty now.")
 	}
@@ -78,11 +81,14 @@ func TestBinarySearch(t *testing.T) {
 	tree.Delete(18)
 	fmt.Println("Delete 18")
 	fmt.Println(tree.InOrder())
+	logritelog.Default().Printf("<<< Exiting TestBinarySearch(t=%v)", t)
 }
 
 func TestAVL(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestAVL(t=%v)", t)
 	tree = bt.NewAVL[int]()
 
+	logritelog.Default().Printf("TestAVL(t=%v): tree → %v", t, tree)
 	if tree.Empty() {
 		t.Log("AVL Tree is empty now.")
 	}
@@ -123,11 +129,14 @@ func TestAVL(t *testing.T) {
 	tree.Delete(18)
 	fmt.Println("Delete 18")
 	fmt.Println(tree.InOrder())
+	logritelog.Default().Printf("<<< Exiting TestAVL(t=%v)", t)
 }
 
 func TestRB(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestRB(t=%v)", t)
 	tree = bt.NewRB[int]()
 
+	logritelog.Default().Printf("TestRB(t=%v): tree → %v", t, tree)
 	if tree.Empty() {
 		t.Log("RB Tree is empty now.")
 	}
@@ -164,4 +173,5 @@ func TestRB(t *testing.T) {
 
 	fmt.Println(tree.InOrder())
 	fmt.Println(tree.AccessNodesByLayer())
+	logritelog.Default().Printf("<<< Exiting TestRB(t=%v)", t)
 }

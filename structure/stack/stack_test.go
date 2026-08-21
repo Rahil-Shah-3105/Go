@@ -8,6 +8,7 @@
 // see stackarray.go, stacklinkedlist.go, stacklinkedlistwithlist.go
 
 package stack_test
+import logritelog "log"
 
 import (
 	"container/list"
@@ -18,6 +19,7 @@ import (
 
 // TestStackLinkedList for testing Stack with LinkedList
 func TestStackLinkedList(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestStackLinkedList(t=%v)", t)
 	var newStack stack.Stack
 
 	newStack.Push(1)
@@ -64,10 +66,12 @@ func TestStackLinkedList(t *testing.T) {
 			t.Error("Stack Peak should return 99 but got ", newStack.Peek())
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestStackLinkedList(t=%v)", t)
 }
 
 // TestStackArray for testing Stack with Array
 func TestStackArray(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestStackArray(t=%v)", t)
 	newStack := stack.NewStack[int]()
 	t.Run("Stack With Array", func(t *testing.T) {
 
@@ -80,6 +84,7 @@ func TestStackArray(t *testing.T) {
 				poppedElement := newStack.Pop()
 				stackElements = append(stackElements, poppedElement)
 			}
+				logritelog.Default().Printf("TestStackArray(t=%v): stackElements → %v", t, stackElements)
 
 			if !reflect.DeepEqual([]any{3, 2}, stackElements) {
 				t.Errorf("Stack Push is not work we expected %v but got %v", []any{3, 2}, newStack)
@@ -126,10 +131,12 @@ func TestStackArray(t *testing.T) {
 			}
 		})
 	})
+	logritelog.Default().Printf("<<< Exiting TestStackArray(t=%v)", t)
 }
 
 // TestStackLinkedListWithList for testing Stack with Container/List Library (STL)
 func TestStackLinkedListWithList(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestStackLinkedListWithList(t=%v)", t)
 	stackList := &stack.SList{
 		Stack: list.New(),
 	}
@@ -178,6 +185,7 @@ func TestStackLinkedListWithList(t *testing.T) {
 		d3, _ := stackList.Pop()
 
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestStackLinkedListWithList(t=%v): %v", t, err)
 			t.Errorf("got an unexpected error %v, pop1: %v, pop2: %v, pop3: %v", err, d1, d2, d3)
 		}
 
@@ -185,4 +193,5 @@ func TestStackLinkedListWithList(t *testing.T) {
 			t.Errorf("Stack Empty is not work we expected %v but got %v", true, stackList.IsEmpty())
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestStackLinkedListWithList(t=%v)", t)
 }

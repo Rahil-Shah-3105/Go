@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	algmath "github.com/TheAlgorithms/Go/math"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestSin(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestSin(t=%v)", t)
 	tests := []struct {
 		name string
 		n    float64
@@ -27,17 +29,22 @@ func TestSin(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestSin(t=%v)", t)
 }
 
 func BenchmarkSin(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkSin(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		algmath.Sin(180)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkSin(b=%v)", b)
 }
 
 // BenchmarkMathSin is slower because the standard library `math.Sin` calculates a more accurate value.
 func BenchmarkMathSin(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMathSin(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		stdmath.Sin(180)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMathSin(b=%v)", b)
 }

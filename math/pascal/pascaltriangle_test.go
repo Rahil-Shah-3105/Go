@@ -4,6 +4,7 @@
 // see pascaltriangle.go
 
 package pascal
+import logritelog "log"
 
 import (
 	"reflect"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestGenerateTriangle(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestGenerateTriangle(t=%v)", t)
 	tests := []struct {
 		name string
 		n    int
@@ -28,10 +30,13 @@ func TestGenerateTriangle(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestGenerateTriangle(t=%v)", t)
 }
 
 func BenchmarkGenerateTriangle(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkGenerateTriangle(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		GenerateTriangle(10)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkGenerateTriangle(b=%v)", b)
 }

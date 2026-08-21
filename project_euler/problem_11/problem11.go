@@ -12,6 +12,7 @@
 * @author ddaniel27
  */
 package problem11
+import logritelog "log"
 
 var grid = [20][20]uint{
 	{8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8},
@@ -37,6 +38,7 @@ var grid = [20][20]uint{
 }
 
 func Problem11() uint {
+	logritelog.Default().Printf(">>> Entering Problem11()")
 	max := uint(0)
 
 	for i := 0; i < 20; i++ {
@@ -47,6 +49,7 @@ func Problem11() uint {
 				product := grid[i][j] * grid[i+1][j] * grid[i+2][j] * grid[i+3][j]
 				if product > max {
 					max = product
+					logritelog.Default().Printf("Problem11(): max → %v", max)
 				}
 			}
 
@@ -76,5 +79,6 @@ func Problem11() uint {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting Problem11()")
 	return max
 }

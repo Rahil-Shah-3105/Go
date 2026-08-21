@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -15,6 +16,7 @@ type testCaseDiceThrow struct {
 
 // getDiceThrowTestCases provides the test cases for DiceThrow
 func getDiceThrowTestCases() []testCaseDiceThrow {
+	logritelog.Default().Printf(">>> Entering getDiceThrowTestCases()")
 	return []testCaseDiceThrow{
 		{2, 6, 7, 6},  // Two dice, six faces each, sum = 7
 		{1, 6, 3, 1},  // One die, six faces, sum = 3
@@ -31,6 +33,7 @@ func getDiceThrowTestCases() []testCaseDiceThrow {
 
 // TestDiceThrow tests the DiceThrow function with basic test cases
 func TestDiceThrow(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestDiceThrow(t=%v)", t)
 	t.Run("Basic test cases", func(t *testing.T) {
 		for _, tc := range getDiceThrowTestCases() {
 			actual := dynamic.DiceThrow(tc.numDice, tc.numFaces, tc.targetSum)
@@ -39,4 +42,5 @@ func TestDiceThrow(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestDiceThrow(t=%v)", t)
 }

@@ -4,6 +4,7 @@
 // see binomialcoefficient.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestCombinations(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCombinations(t=%v)", t)
 	var tests = []struct {
 		name          string
 		n             int
@@ -34,9 +36,12 @@ func TestCombinations(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCombinations(t=%v)", t)
 }
 func BenchmarkCombinations(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkCombinations(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _ = math.Combinations(65536, 65536)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkCombinations(b=%v)", b)
 }
