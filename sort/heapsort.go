@@ -5,6 +5,7 @@
 // space complexity: O(1)
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
@@ -15,26 +16,32 @@ type MaxHeap struct {
 }
 
 func (h *MaxHeap) Init(slice []Comparable) {
+	logritelog.Default().Printf(">>> Entering Init(slice=%v)", slice)
 	if slice == nil {
 		slice = make([]Comparable, 0)
 	}
 
 	h.slice = slice
+	logritelog.Default().Printf("Init(slice=%v): h.slice → %v", slice, h.slice)
 	h.heapSize = len(slice)
 	h.indices = make(map[int]int)
 	h.Heapify()
+	logritelog.Default().Printf("<<< Exiting Init(slice=%v)", slice)
 }
 
 func (h MaxHeap) Heapify() {
+	logritelog.Default().Printf(">>> Entering Heapify()")
 	for i, v := range h.slice {
 		h.indices[v.Idx()] = i
 	}
 	for i := h.heapSize / 2; i >= 0; i-- {
 		h.heapifyDown(i)
 	}
+	logritelog.Default().Printf("<<< Exiting Heapify()")
 }
 
 func (h *MaxHeap) Pop() Comparable {
+	logritelog.Default().Printf(">>> Entering Pop()")
 	if h.heapSize == 0 {
 		return nil
 	}
@@ -47,10 +54,13 @@ func (h *MaxHeap) Pop() Comparable {
 	h.heapifyDown(0)
 
 	h.slice = h.slice[0:h.heapSize]
+	logritelog.Default().Printf("Pop(): h.slice → %v", h.slice)
+	logritelog.Default().Printf("<<< Exiting Pop()")
 	return i
 }
 
 func (h *MaxHeap) Push(i Comparable) {
+	logritelog.Default().Printf(">>> Entering Push(i=%v)", i)
 	h.slice = append(h.slice, i)
 	h.updateidx(h.heapSize)
 	h.heapifyUp(h.heapSize)
@@ -58,30 +68,39 @@ func (h *MaxHeap) Push(i Comparable) {
 }
 
 func (h MaxHeap) Size() int {
+	logritelog.Default().Printf(">>> Entering Size()")
 	return h.heapSize
 }
 
 func (h MaxHeap) Update(i Comparable) {
+	logritelog.Default().Printf(">>> Entering Update(i=%v)", i)
 	h.slice[h.indices[i.Idx()]] = i
 	h.heapifyUp(h.indices[i.Idx()])
 	h.heapifyDown(h.indices[i.Idx()])
+	logritelog.Default().Printf("<<< Exiting Update(i=%v)", i)
 }
 
 func (h MaxHeap) updateidx(i int) {
+	logritelog.Default().Printf(">>> Entering updateidx(i=%v)", i)
 	h.indices[h.slice[i].Idx()] = i
+	logritelog.Default().Printf("<<< Exiting updateidx(i=%v)", i)
 }
 
 func (h *MaxHeap) swap(i, j int) {
+	logritelog.Default().Printf(">>> Entering swap(i=%v,j=%v)", i, j)
 	h.slice[i], h.slice[j] = h.slice[j], h.slice[i]
 	h.updateidx(i)
 	h.updateidx(j)
+	logritelog.Default().Printf("<<< Exiting swap(i=%v,j=%v)", i, j)
 }
 
 func (h MaxHeap) more(i, j int) bool {
+	logritelog.Default().Printf(">>> Entering more(i=%v,j=%v)", i, j)
 	return h.slice[i].More(h.slice[j])
 }
 
 func (h MaxHeap) heapifyUp(i int) {
+	logritelog.Default().Printf(">>> Entering heapifyUp(i=%v)", i)
 	if i == 0 {
 		return
 	}
@@ -91,10 +110,13 @@ func (h MaxHeap) heapifyUp(i int) {
 		h.swap(i, p)
 		h.heapifyUp(p)
 	}
+	logritelog.Default().Printf("<<< Exiting heapifyUp(i=%v)", i)
 }
 
 func (h MaxHeap) heapifyDown(i int) {
+	logritelog.Default().Printf(">>> Entering heapifyDown(i=%v)", i)
 	heapifyDown(h.slice, h.heapSize, i, h.more, h.swap)
+	logritelog.Default().Printf("<<< Exiting heapifyDown(i=%v)", i)
 }
 
 func heapifyDown[T any](slice []T, N, i int, moreFunc func(i, j int) bool, swapFunc func(i, j int)) {

@@ -1,4 +1,5 @@
 package search
+import logritelog "log"
 
 import (
 	"reflect"
@@ -50,6 +51,7 @@ var testCases = []struct {
 }
 
 func TestNaive(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestNaive(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := Naive(tc.input, tc.pattern)
@@ -58,9 +60,11 @@ func TestNaive(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestNaive(t=%v)", t)
 }
 
 func TestBooyerMoore(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestBooyerMoore(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := BoyerMoore(tc.input, tc.pattern)
@@ -69,4 +73,5 @@ func TestBooyerMoore(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestBooyerMoore(t=%v)", t)
 }

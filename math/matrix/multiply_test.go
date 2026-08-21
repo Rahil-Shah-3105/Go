@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestMultiplyMatrix(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMultiplyMatrix(t=%v)", t)
 	// Test case with compatible NULL matrices
 	t.Run("NULL Matrices", func(t *testing.T) {
 		mat1 := matrix.New(0, 0, 0)
@@ -15,6 +17,7 @@ func TestMultiplyMatrix(t *testing.T) {
 		expected := matrix.New(0, 0, 0)
 		result, err := mat1.Multiply(mat2)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestMultiplyMatrix(t=%v): %v", t, err)
 			t.Errorf("Expected no error, got %v", err)
 		} else if !result.CheckEqual(expected) {
 			t.Errorf("Result matrix does not match the expected result.")
@@ -45,17 +48,20 @@ func TestMultiplyMatrix(t *testing.T) {
 			t.Errorf("Result matrix does not match the expected result.")
 		}
 
+	logritelog.Default().Printf("<<< Exiting TestMultiplyMatrix(t=%v)", t)
 	})
 
 }
 
 func TestMultiplyIncompatibleMatrix(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMultiplyIncompatibleMatrix(t=%v)", t)
 	// Test case with incompatible matrices
 	t.Run("Incompatible Matrices", func(t *testing.T) {
 		mat1 := [][]int{{1, 2, 3}, {4, 5, 6}}
 		mat2 := [][]int{{7, 8}, {9, 10}}
 		m1, err := matrix.NewFromElements(mat1)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestMultiplyIncompatibleMatrix(t=%v): %v", t, err)
 			t.Fatalf("Failed to copy matrix: %v", err)
 		}
 		m2, err := matrix.NewFromElements(mat2)
@@ -86,9 +92,11 @@ func TestMultiplyIncompatibleMatrix(t *testing.T) {
 			t.Error("Expected an error, but got none")
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestMultiplyIncompatibleMatrix(t=%v)", t)
 }
 
 func BenchmarkMatrixMultiply(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMatrixMultiply(b=%v)", b)
 	// Create sample matrices for benchmarking
 	rows := 10
 	columns := 10
@@ -98,4 +106,5 @@ func BenchmarkMatrixMultiply(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = m1.Multiply(m2)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMatrixMultiply(b=%v)", b)
 }

@@ -1,4 +1,5 @@
 package math
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/search"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestFindKthMax(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFindKthMax(t=%v)", t)
 	sortTests := []struct {
 		input    []int
 		k        int
@@ -52,9 +54,11 @@ func TestFindKthMax(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestFindKthMax(t=%v)", t)
 }
 
 func TestFindKthMin(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestFindKthMin(t=%v)", t)
 	sortTests := []struct {
 		input    []int
 		k        int
@@ -101,4 +105,5 @@ func TestFindKthMin(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestFindKthMin(t=%v)", t)
 }

@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	algmath "github.com/TheAlgorithms/Go/math"
@@ -9,6 +10,7 @@ import (
 const epsilon = 0.001
 
 func TestCos(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestCos(t=%v)", t)
 	tests := []struct {
 		name string
 		n    float64
@@ -30,17 +32,22 @@ func TestCos(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestCos(t=%v)", t)
 }
 
 func BenchmarkCos(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkCos(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		algmath.Cos(180)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkCos(b=%v)", b)
 }
 
 // BenchmarkMathCos is slower because the standard library `math.Cos` calculates a more accurate value.
 func BenchmarkMathCos(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMathCos(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		stdmath.Cos(180)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMathCos(b=%v)", b)
 }

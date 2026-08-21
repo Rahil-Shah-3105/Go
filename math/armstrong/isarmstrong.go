@@ -7,6 +7,7 @@
 // author: Kavitha J
 
 package armstrong
+import logritelog "log"
 
 import (
 	"math"
@@ -14,6 +15,7 @@ import (
 )
 
 func IsArmstrong(number int) bool {
+	logritelog.Default().Printf(">>> Entering IsArmstrong(number=%v)", number)
 	var rightMost int
 	var sum int = 0
 	var tempNum int = number
@@ -24,11 +26,13 @@ func IsArmstrong(number int) bool {
 	// get the right most digit and break the loop once all digits are iterated
 	for tempNum > 0 {
 		rightMost = tempNum % 10
+		logritelog.Default().Printf("IsArmstrong(number=%v): rightMost → %v", number, rightMost)
 		sum += int(math.Pow(float64(rightMost), length))
 
 		// update the input digit minus the processed rightMost
 		tempNum /= 10
 	}
 
+	logritelog.Default().Printf("<<< Exiting IsArmstrong(number=%v)", number)
 	return number == sum
 }

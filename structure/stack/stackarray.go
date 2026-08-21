@@ -8,6 +8,7 @@
 // see stacklinkedlist.go, stacklinkedlistwithlist.go, stack_test.go
 
 package stack
+import logritelog "log"
 
 type Array[T any] struct {
 	elements []T
@@ -20,18 +21,23 @@ func NewStack[T any]() *Array[T] {
 
 // Push adds an element to the top of the stack.
 func (s *Array[T]) Push(value T) {
+	logritelog.Default().Printf(">>> Entering Push(value=%v)", value)
 	s.elements = append(s.elements, value)
+	logritelog.Default().Printf("<<< Exiting Push(value=%v)", value)
 }
 
 // Size returns the number of elements in the stack.
 func (s *Array[T]) Length() int {
+	logritelog.Default().Printf(">>> Entering Length()")
 	return len(s.elements)
 }
 
 // Peek returns the top element of the stack without removing it.
 func (s *Array[T]) Peek() T {
+	logritelog.Default().Printf(">>> Entering Peek()")
 	if s.IsEmpty() {
 		var zeroValue T
+	logritelog.Default().Printf("<<< Exiting Peek()")
 		return zeroValue // Stack is empty
 	}
 	return s.elements[len(s.elements)-1]
@@ -39,11 +45,13 @@ func (s *Array[T]) Peek() T {
 
 // IsEmpty returns true if the stack is empty, false otherwise.
 func (s *Array[T]) IsEmpty() bool {
+	logritelog.Default().Printf(">>> Entering IsEmpty()")
 	return len(s.elements) == 0
 }
 
 // Pop removes and returns the top element from the stack.
 func (s *Array[T]) Pop() T {
+	logritelog.Default().Printf(">>> Entering Pop()")
 	if s.IsEmpty() {
 		var zeroValue T
 		return zeroValue // Stack is empty
@@ -51,5 +59,7 @@ func (s *Array[T]) Pop() T {
 	index := len(s.elements) - 1
 	popped := s.elements[index]
 	s.elements = s.elements[:index]
+	logritelog.Default().Printf("Pop(): s.elements → %v", s.elements)
+	logritelog.Default().Printf("<<< Exiting Pop()")
 	return popped
 }

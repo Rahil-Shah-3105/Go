@@ -1,8 +1,10 @@
 package search
+import logritelog "log"
 
 // Implementation of boyer moore string search
 // O(l) where l=len(text)
 func BoyerMoore(text string, pattern string) []int {
+	logritelog.Default().Printf(">>> Entering BoyerMoore(text=%v,pattern=%v)", text, pattern)
 	var positions []int
 
 	l := len(text)
@@ -33,11 +35,13 @@ func BoyerMoore(text string, pattern string) []int {
 	jump := n
 	for i := 0; i < l-n+1; {
 		skip = skips[jump]
+		logritelog.Default().Printf("BoyerMoore(text=%v,pattern=%v): skip → %v", text, pattern, skip)
 		for k := n - 1; k > -1; k-- {
 			if text[i+k] != pattern[k] {
 				jump, ok := bcr[text[i+k]]
 				if !ok {
 					jump = n
+					logritelog.Default().Printf("BoyerMoore(text=%v,pattern=%v): jump → %v", text, pattern, jump)
 				}
 				i += jump
 				break
@@ -48,10 +52,12 @@ func BoyerMoore(text string, pattern string) []int {
 			if k == 0 {
 				positions = append(positions, i)
 				jump = 1
+				logritelog.Default().Printf("BoyerMoore(text=%v,pattern=%v): positions → %v", text, pattern, positions)
 				i += jump
 			}
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting BoyerMoore(text=%v,pattern=%v)", text, pattern)
 	return positions
 }

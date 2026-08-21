@@ -9,20 +9,24 @@
 // see catalannumber_test.go
 
 package catalan
+import logritelog "log"
 
 import (
 	f "github.com/TheAlgorithms/Go/math/factorial"
 )
 
 func factorial(n int) int {
+	logritelog.Default().Printf(">>> Entering factorial(n=%v)", n)
 	result, error := f.Iterative(n)
 	if error != nil {
 		panic(error)
 	}
+	logritelog.Default().Printf("<<< Exiting factorial(n=%v)", n)
 	return result
 }
 
 // CatalanNumber This function returns the `nth` Catalan number
 func CatalanNumber(n int) int {
+	logritelog.Default().Printf(">>> Entering CatalanNumber(n=%v)", n)
 	return factorial(n*2) / (factorial(n) * factorial(n+1))
 }

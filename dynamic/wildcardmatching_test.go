@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -15,6 +16,7 @@ type testCaseWildcardMatching struct {
 
 // getWildcardMatchingTestCases returns a list of test cases for the Wildcard Matching problem
 func getWildcardMatchingTestCases() []testCaseWildcardMatching {
+	logritelog.Default().Printf(">>> Entering getWildcardMatchingTestCases()")
 	return []testCaseWildcardMatching{
 		{"aa", "a*", true},     // '*' can match zero or more characters
 		{"aa", "a", false},     // No match due to no wildcard
@@ -33,6 +35,7 @@ func getWildcardMatchingTestCases() []testCaseWildcardMatching {
 
 // TestIsMatch tests the IsMatch function with various test cases
 func TestIsMatch(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestIsMatch(t=%v)", t)
 	t.Run("Wildcard Matching test cases", func(t *testing.T) {
 		for _, tc := range getWildcardMatchingTestCases() {
 			actual := dynamic.IsMatch(tc.s, tc.p)
@@ -41,4 +44,5 @@ func TestIsMatch(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestIsMatch(t=%v)", t)
 }

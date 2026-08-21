@@ -4,6 +4,7 @@
 // Author(s): [Shivam](https://github.com/Shivam010)
 
 package coloring
+import logritelog "log"
 
 import "sort"
 
@@ -11,6 +12,7 @@ import "sort"
 // total number of different colors used, using a greedy approach, based on
 // the number of edges (or degree) from any vertex.
 func (g *Graph) ColorUsingGreedyApproach() (map[int]Color, int) {
+	logritelog.Default().Printf(">>> Entering ColorUsingGreedyApproach()")
 	degreeOfVertex := make([]struct{ degree, vertex int }, 0, g.vertices)
 	for v, neighbours := range g.edges {
 		degreeOfVertex = append(degreeOfVertex,
@@ -50,5 +52,6 @@ func (g *Graph) ColorUsingGreedyApproach() (map[int]Color, int) {
 			return vertexColors, color
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting ColorUsingGreedyApproach()")
 	return vertexColors, g.vertices
 }

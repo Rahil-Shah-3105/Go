@@ -24,23 +24,30 @@
 * @author ddaniel27
  */
 package problem12
+import logritelog "log"
 
 func Problem12(limit uint) uint {
+	logritelog.Default().Printf(">>> Entering Problem12(limit=%v)", limit)
 	triangle := uint(0)
 	for i := uint(1); ; i++ {
 		triangle += i
 		if numDivisors(triangle) >= limit {
+			logritelog.Default().Printf("<<< Exiting Problem12(limit=%v)", limit)
 			return triangle
+			logritelog.Default().Printf(">>> Entering numDivisors(n=%v)", n)
+			logritelog.Default().Printf("<<< Exiting numDivisors(n=%v)", n)
 		}
 	}
 }
 
 func numDivisors(n uint) uint {
+	logritelog.Default().Printf(">>> Entering numDivisors(n=%v)", n)
 	divisors := uint(0)
 	for i := uint(1); i*i <= n; i++ {
 		if n%i == 0 {
 			divisors += 2
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting numDivisors(n=%v)", n)
 	return divisors
 }

@@ -5,9 +5,11 @@ Output: distance between both strings
 */
 
 package levenshtein
+import logritelog "log"
 
 // Distance Function that gives Levenshtein Distance
 func Distance(str1, str2 string, icost, scost, dcost int) int {
+	logritelog.Default().Printf(">>> Entering Distance(str1=%v,str2=%v,icost=%v,scost=%v,dcost=%v)", str1, str2, icost, scost, dcost)
 	row1 := make([]int, len(str2)+1)
 	row2 := make([]int, len(str2)+1)
 
@@ -38,5 +40,6 @@ func Distance(str1, str2 string, icost, scost, dcost int) int {
 		row1, row2 = row2, row1
 	}
 
+	logritelog.Default().Printf("<<< Exiting Distance(str1=%v,str2=%v,icost=%v,scost=%v,dcost=%v)", str1, str2, icost, scost, dcost)
 	return row1[len(row1)-1]
 }

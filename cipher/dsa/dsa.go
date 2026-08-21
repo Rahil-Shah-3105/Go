@@ -1,6 +1,7 @@
 /*
 dsa.go
 description: DSA encryption and decryption including key generation
+import logritelog "log"
 details: [DSA wiki](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm)
 author(s): [ddaniel27](https://github.com/ddaniel27)
 */
@@ -34,9 +35,11 @@ type (
 
 // New creates a new DSA instance
 func New() *dsa {
+	logritelog.Default().Printf(">>> Entering New()")
 	d := new(dsa)
 	d.dsaParameterGeneration()
 	d.keyGen()
+	logritelog.Default().Printf("<<< Exiting New()")
 	return d
 }
 
@@ -48,12 +51,18 @@ func New() *dsa {
 // 5. Compute g = h^((p-1)/q) mod p
 // 6. Return (p, q, g)
 func (dsa *dsa) dsaParameterGeneration() {
+	logritelog.Default().Printf(">>> Entering dsaParameterGeneration()")
 	var err error
 	p, q, bigInt := new(big.Int), new(big.Int), new(big.Int)
 	one, g, h := big.NewInt(1), big.NewInt(1), big.NewInt(2)
 	pBytes := make([]byte, L/8)
 
 	// GPLoop is a label for the loop
+	logritelog.Default().Printf("[ERROR] Exception in dsaParameterGeneration(): %v", err)
+	logritelog.Default().Printf("dsaParameterGeneration(): dsa.P → %v", dsa.P)
+	logritelog.Default().Printf("dsaParameterGeneration(): dsa.Q → %v", dsa.Q)
+	logritelog.Default().Printf("dsaParameterGeneration(): dsa.G → %v", dsa.G)
+logritelog.Default().Printf("<<< Exiting dsaParameterGeneration()")
 	// We use this loop to change the prime q if we don't find a prime p
 GPLoop:
 	for {
@@ -106,16 +115,20 @@ GPLoop:
 // 1. Choose a random integer x from the range [1, q-1]
 // 2. Compute y = g^x mod p
 func (dsa *dsa) keyGen() {
+	logritelog.Default().Printf(">>> Entering keyGen()")
 	// 1. Choose a random integer x from the range [1, q-1]
 	x, err := rand.Int(rand.Reader, new(big.Int).Sub(dsa.Q, big.NewInt(1)))
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in keyGen(): %v", err)
 		panic(err)
 	}
 
 	dsa.privKey = x
+	logritelog.Default().Printf("keyGen(): dsa.privKey → %v", dsa.privKey)
 
 	// 2. Compute y = g^x mod p
 	dsa.pubKey = new(big.Int).Exp(dsa.G, x, dsa.P)
+	logritelog.Default().Printf("<<< Exiting keyGen()")
 }
 
 // Sign is signature generation for DSA
@@ -123,9 +136,11 @@ func (dsa *dsa) keyGen() {
 // 2. Compute r = (g^k mod p) mod q
 // 3. Compute s = (k^-1 * (H(m) + x*r)) mod q
 func Sign(m []byte, p, q, g, x *big.Int) (r, s *big.Int) {
+	logritelog.Default().Printf(">>> Entering Sign(m=%v,p=%v,q=%v,g=%v,x=%v)", m, p, q, g, x)
 	// 1. Choose a random integer k from the range [1, q-1]
 	k, err := rand.Int(rand.Reader, new(big.Int).Sub(q, big.NewInt(1)))
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in Sign(m=%v,p=%v,q=%v,g=%v,x=%v): %v", m, p, q, g, x, err)
 		panic(err)
 	}
 
@@ -145,6 +160,7 @@ func Sign(m []byte, p, q, g, x *big.Int) (r, s *big.Int) {
 	)
 	s.Mod(s, q) // mod q
 
+	logritelog.Default().Printf("<<< Exiting Sign(m=%v,p=%v,q=%v,g=%v,x=%v)", m, p, q, g, x)
 	return r, s
 }
 
@@ -155,6 +171,7 @@ func Sign(m []byte, p, q, g, x *big.Int) (r, s *big.Int) {
 // 4. Compute v = ((g^u1 * y^u2) mod p) mod q
 // 5. If v == r, the signature is valid
 func Verify(m []byte, r, s, p, q, g, y *big.Int) bool {
+	logritelog.Default().Printf(">>> Entering Verify(m=%v,r=%v,s=%v,p=%v,q=%v,g=%v,y=%v)", m, r, s, p, q, g, y)
 	// 1. Compute w = s^-1 mod q
 	w := new(big.Int).ModInverse(s, q)
 
@@ -177,20 +194,24 @@ func Verify(m []byte, r, s, p, q, g, y *big.Int) bool {
 	v.Mod(v, q)
 
 	// 5. If v == r, the signature is valid
+	logritelog.Default().Printf("<<< Exiting Verify(m=%v,r=%v,s=%v,p=%v,q=%v,g=%v,y=%v)", m, r, s, p, q, g, y)
 	return v.Cmp(r) == 0
 }
 
 // GetPublicKey returns the public key (y)
 func (dsa *dsa) GetPublicKey() *big.Int {
+	logritelog.Default().Printf(">>> Entering GetPublicKey()")
 	return dsa.pubKey
 }
 
 // GetParameters returns the DSA parameters (p, q, g)
 func (dsa *dsa) GetParameters() parameters {
+	logritelog.Default().Printf(">>> Entering GetParameters()")
 	return dsa.parameters
 }
 
 // GetPrivateKey returns the private Key (x)
 func (dsa *dsa) GetPrivateKey() *big.Int {
+	logritelog.Default().Printf(">>> Entering GetPrivateKey()")
 	return dsa.privKey
 }

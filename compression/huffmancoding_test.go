@@ -4,6 +4,7 @@
 // see huffmancoding.go
 
 package compression_test
+import logritelog "log"
 
 import (
 	"sort"
@@ -14,6 +15,7 @@ import (
 
 // SymbolCountOrd computes sorted symbol-frequency list of input message
 func SymbolCountOrd(message string) []compression.SymbolFreq {
+	logritelog.Default().Printf(">>> Entering SymbolCountOrd(message=%v)", message)
 	runeCount := make(map[rune]int)
 	for _, s := range message {
 		runeCount[s]++
@@ -25,10 +27,12 @@ func SymbolCountOrd(message string) []compression.SymbolFreq {
 		i++
 	}
 	sort.Slice(listfreq, func(i, j int) bool { return listfreq[i].Freq < listfreq[j].Freq })
+	logritelog.Default().Printf("<<< Exiting SymbolCountOrd(message=%v)", message)
 	return listfreq
 }
 
 func TestHuffman(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestHuffman(t=%v)", t)
 	messages := []string{
 		"hello world \U0001F600",
 		"colorless green ideas sleep furiously",
@@ -52,4 +56,5 @@ func TestHuffman(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestHuffman(t=%v)", t)
 }

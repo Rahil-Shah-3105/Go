@@ -4,6 +4,7 @@
 // https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 
 package graph
+import logritelog "log"
 
 import "math"
 
@@ -15,6 +16,7 @@ var Inf = math.Inf(1)
 
 // FloydWarshall Returns all pair's shortest path using Floyd Warshall algorithm
 func FloydWarshall(graph WeightedGraph) WeightedGraph {
+	logritelog.Default().Printf(">>> Entering FloydWarshall(graph=%v)", graph)
 	// If graph is empty, returns nil
 	if len(graph) == 0 || len(graph) != len(graph[0]) {
 		return nil
@@ -51,5 +53,6 @@ func FloydWarshall(graph WeightedGraph) WeightedGraph {
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting FloydWarshall(graph=%v)", graph)
 	return result
 }

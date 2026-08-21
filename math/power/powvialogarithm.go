@@ -8,12 +8,14 @@
 // see powvialogarithm_test.go
 
 package power
+import logritelog "log"
 
 import (
 	"math"
 )
 
 func UsingLog(a float64, b float64) float64 {
+	logritelog.Default().Printf(">>> Entering UsingLog(a=%v,b=%v)", a, b)
 	var p float64
 	p = 1
 	if a < 0 && int(b)&1 != 0 {
@@ -22,5 +24,6 @@ func UsingLog(a float64, b float64) float64 {
 	log := math.Log(math.Abs(a))
 	exp := math.Exp(b * log)
 	result := exp * p
+	logritelog.Default().Printf("<<< Exiting UsingLog(a=%v,b=%v)", a, b)
 	return math.Round(result)
 }

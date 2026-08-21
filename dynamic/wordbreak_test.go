@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -13,6 +14,7 @@ type testCaseWordBreak struct {
 }
 
 func getWordBreakTestCases() []testCaseWordBreak {
+	logritelog.Default().Printf(">>> Entering getWordBreakTestCases()")
 	return []testCaseWordBreak{
 		{"leetcode", []string{"leet", "code"}, true},                        // "leetcode" can be segmented into "leet" and "code"
 		{"applepenapple", []string{"apple", "pen"}, true},                   // "applepenapple" can be segmented into "apple", "pen", "apple"
@@ -29,6 +31,7 @@ func getWordBreakTestCases() []testCaseWordBreak {
 }
 
 func TestWordBreak(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestWordBreak(t=%v)", t)
 	t.Run("Word Break test cases", func(t *testing.T) {
 		for _, tc := range getWordBreakTestCases() {
 			actual := dynamic.WordBreak(tc.s, tc.wordDict)
@@ -37,4 +40,5 @@ func TestWordBreak(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("<<< Exiting TestWordBreak(t=%v)", t)
 }

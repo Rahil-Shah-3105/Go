@@ -1,15 +1,18 @@
 package genetic
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestSimple(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestSimple(t=%v)", t)
 	target := "This is a genetic algorithm to evaluate, combine, evolve and mutate a string!"
 	charmap := []rune(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,;!?+-*#@^'èéòà€ù=)(&%$£/\\")
 
 	res, err := GeneticString(target, charmap, &Conf{})
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestSimple(t=%v): %v", t, err)
 		t.Errorf("Unexpected error: %v\n", err)
 	}
 
@@ -22,4 +25,5 @@ func TestSimple(t *testing.T) {
 	if got.Key != target {
 		t.Errorf("Target string not reached\nwant: %s\n, got: %s\n", target, got.Key)
 	}
+	logritelog.Default().Printf("<<< Exiting TestSimple(t=%v)", t)
 }

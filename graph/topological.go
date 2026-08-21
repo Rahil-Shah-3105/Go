@@ -6,12 +6,14 @@
 // reference: https://en.wikipedia.org/wiki/Topological_sorting
 
 package graph
+import logritelog "log"
 
 // Topological assumes that graph given is valid and that its
 // possible to get a topological ordering.
 // constraints are array of []int{a, b}, representing
 // an edge going from a to b
 func Topological(N int, constraints [][]int) []int {
+	logritelog.Default().Printf(">>> Entering Topological(N=%v,constraints=%v)", N, constraints)
 	dependencies := make([]int, N)
 	nodes := make([]int, N)
 	for i := range nodes {
@@ -36,7 +38,9 @@ func Topological(N int, constraints [][]int) []int {
 			route, _ := DepthFirstSearchHelper(s, N, nodes, edges, true)
 			answer = append(answer, route...)
 		}
+			logritelog.Default().Printf("Topological(N=%v,constraints=%v): answer → %v", N, constraints, answer)
 	}
 
+	logritelog.Default().Printf("<<< Exiting Topological(N=%v,constraints=%v)", N, constraints)
 	return answer
 }

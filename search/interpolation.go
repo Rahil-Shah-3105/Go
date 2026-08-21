@@ -1,4 +1,5 @@
 package search
+import logritelog "log"
 
 // Interpolation searches for the entity in the given sortedData.
 // if the entity is present, it will return the index of the entity, if not -1 will be returned.
@@ -13,6 +14,7 @@ package search
 //
 //	fmt.Println(InterpolationSearch([]int{1, 2, 9, 20, 31, 45, 63, 70, 100},100))
 func Interpolation(sortedData []int, guess int) (int, error) {
+	logritelog.Default().Printf(">>> Entering Interpolation(sortedData=%v,guess=%v)", sortedData, guess)
 	if len(sortedData) == 0 {
 		return -1, ErrNotFound
 	}
@@ -45,6 +47,7 @@ func Interpolation(sortedData []int, guess int) (int, error) {
 	}
 
 	if guess == lowVal {
+	logritelog.Default().Printf("<<< Exiting Interpolation(sortedData=%v,guess=%v)", sortedData, guess)
 		return low, nil
 	}
 	return -1, ErrNotFound

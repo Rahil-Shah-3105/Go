@@ -5,9 +5,11 @@
 // space complexity: O(m*n)
 
 package dynamic
+import logritelog "log"
 
 // IsMatch checks if the string `s` matches the wildcard pattern `p`
 func IsMatch(s, p string) bool {
+	logritelog.Default().Printf(">>> Entering IsMatch(s=%v,p=%v)", s, p)
 	dp := make([][]bool, len(s)+1)
 	for i := range dp {
 		dp[i] = make([]bool, len(p)+1)
@@ -29,5 +31,6 @@ func IsMatch(s, p string) bool {
 			}
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting IsMatch(s=%v,p=%v)", s, p)
 	return dp[len(s)][len(p)]
 }

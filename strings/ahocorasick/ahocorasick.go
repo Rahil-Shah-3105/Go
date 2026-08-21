@@ -1,4 +1,5 @@
 package ahocorasick
+import logritelog "log"
 
 import (
 	"fmt"
@@ -13,6 +14,7 @@ type Result struct {
 // AhoCorasick Function performing the Basic Aho-Corasick algorithm.
 // Finds and prints occurrences of each pattern.
 func AhoCorasick(t string, p []string) Result {
+	logritelog.Default().Printf(">>> Entering AhoCorasick(t=%v,p=%v)", t, p)
 	startTime := time.Now()
 	occurrences := make(map[int][]int)
 	ac, f, s := BuildAc(p)
@@ -20,6 +22,7 @@ func AhoCorasick(t string, p []string) Result {
 	for pos := 0; pos < len(t); pos++ {
 		for GetTransition(current, t[pos], ac) == -1 && s[current] != -1 {
 			current = s[current]
+			logritelog.Default().Printf("AhoCorasick(t=%v,p=%v): current → %v", t, p, current)
 		}
 		if GetTransition(current, t[pos], ac) != -1 {
 			current = GetTransition(current, t[pos], ac)
@@ -45,6 +48,7 @@ func AhoCorasick(t string, p []string) Result {
 		resultOccurrences[p[key]] = value
 	}
 
+	logritelog.Default().Printf("<<< Exiting AhoCorasick(t=%v,p=%v)", t, p)
 	return Result{
 		resultOccurrences,
 	}
@@ -52,16 +56,20 @@ func AhoCorasick(t string, p []string) Result {
 
 // Functions that builds Aho Corasick automaton.
 func BuildAc(p []string) (acToReturn map[int]map[uint8]int, f map[int][]int, s []int) {
+	logritelog.Default().Printf(">>> Entering BuildAc(p=%v)", p)
 	acTrie, stateIsTerminal, f := ConstructTrie(p)
 	s = make([]int, len(stateIsTerminal)) //supply function
 	i := 0                                //root of acTrie
 	acToReturn = acTrie
+	logritelog.Default().Printf("BuildAc(p=%v): acToReturn → %v", p, acToReturn)
 	s[i] = -1
 	for current := 1; current < len(stateIsTerminal); current++ {
 		o, parent := GetParent(current, acTrie)
 		down := s[parent]
 		for StateExists(down, acToReturn) && GetTransition(down, o, acToReturn) == -1 {
 			down = s[down]
+			logritelog.Default().Printf("BuildAc(p=%v): down → %v", p, down)
+		logritelog.Default().Printf("<<< Exiting BuildAc(p=%v)", p)
 		}
 		if StateExists(down, acToReturn) {
 			s[current] = GetTransition(down, o, acToReturn)

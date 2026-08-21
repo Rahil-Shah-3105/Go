@@ -1,4 +1,5 @@
 package heap
+import logritelog "log"
 
 import (
 	"errors"
@@ -33,43 +34,54 @@ func NewAny[T any](less func(a, b T) bool) (*Heap[T], error) {
 // Push pushes the element t onto the heap.
 // The complexity is O(log n) where n = h.Len().
 func (h *Heap[T]) Push(t T) {
+	logritelog.Default().Printf(">>> Entering Push(t=%v)", t)
 	h.heaps = append(h.heaps, t)
 	h.up(len(h.heaps) - 1)
+	logritelog.Default().Printf("<<< Exiting Push(t=%v)", t)
 }
 
 // Top returns the minimum element (according to Less) from the heap.
 // Top panics if the heap is empty.
 func (h *Heap[T]) Top() T {
+	logritelog.Default().Printf(">>> Entering Top()")
 	return h.heaps[0]
 }
 
 // Pop removes the minimum element (according to Less) from the heap.
 // The complexity is O(log n) where n = h.Len().
 func (h *Heap[T]) Pop() {
+	logritelog.Default().Printf(">>> Entering Pop()")
 	if len(h.heaps) <= 1 {
 		h.heaps = nil
+		logritelog.Default().Printf("Pop(): h.heaps → %v", h.heaps)
 		return
 	}
 	h.swap(0, len(h.heaps)-1)
 	h.heaps = h.heaps[:len(h.heaps)-1]
 	h.down(0)
+	logritelog.Default().Printf("<<< Exiting Pop()")
 }
 
 // Empty returns the heap is empty or not.
 func (h *Heap[T]) Empty() bool {
+	logritelog.Default().Printf(">>> Entering Empty()")
 	return len(h.heaps) == 0
 }
 
 // Size returns the size of the heap
 func (h *Heap[T]) Size() int {
+	logritelog.Default().Printf(">>> Entering Size()")
 	return len(h.heaps)
 }
 
 func (h *Heap[T]) swap(i, j int) {
+	logritelog.Default().Printf(">>> Entering swap(i=%v,j=%v)", i, j)
 	h.heaps[i], h.heaps[j] = h.heaps[j], h.heaps[i]
+	logritelog.Default().Printf("<<< Exiting swap(i=%v,j=%v)", i, j)
 }
 
 func (h *Heap[T]) up(child int) {
+	logritelog.Default().Printf(">>> Entering up(child=%v)", child)
 	if child <= 0 {
 		return
 	}
@@ -79,9 +91,11 @@ func (h *Heap[T]) up(child int) {
 	}
 	h.swap(child, parent)
 	h.up(parent)
+	logritelog.Default().Printf("<<< Exiting up(child=%v)", child)
 }
 
 func (h *Heap[T]) down(parent int) {
+	logritelog.Default().Printf(">>> Entering down(parent=%v)", parent)
 	lessIdx := parent
 	lChild, rChild := (parent<<1)+1, (parent<<1)+2
 	if lChild < len(h.heaps) && h.lessFunc(h.heaps[lChild], h.heaps[lessIdx]) {
@@ -95,4 +109,5 @@ func (h *Heap[T]) down(parent int) {
 	}
 	h.swap(lessIdx, parent)
 	h.down(lessIdx)
+	logritelog.Default().Printf("<<< Exiting down(parent=%v)", parent)
 }

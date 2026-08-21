@@ -1,4 +1,5 @@
 package parenthesis
+import logritelog "log"
 
 import (
 	"testing"
@@ -42,6 +43,7 @@ var parenthesisTestCases = []struct {
 }
 
 func TestParenthesis(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestParenthesis(t=%v)", t)
 	for _, tc := range parenthesisTestCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := Parenthesis(tc.text)
@@ -50,4 +52,5 @@ func TestParenthesis(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("<<< Exiting TestParenthesis(t=%v)", t)
 }

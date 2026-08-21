@@ -1,4 +1,5 @@
 package problem18
+import logritelog "log"
 
 import (
 	"fmt"
@@ -12,10 +13,13 @@ type Tree struct {
 }
 
 func (t *Tree) BFSInsert(value NodeValue) {
+	logritelog.Default().Printf(">>> Entering BFSInsert(value=%v)", value)
 	t.Nodes = make(map[int]struct{}) // Reset the nodes map
 
 	if t.Root == nil {
 		t.Root = &Root{NodeValue: value, ID: 0}
+		logritelog.Default().Printf("BFSInsert(value=%v): t.Root → %v", value, t.Root)
+		logritelog.Default().Printf("BFSInsert(value=%v): t.ID → %v", value, t.ID)
 		t.ID = 1
 		return
 	}
@@ -24,6 +28,7 @@ func (t *Tree) BFSInsert(value NodeValue) {
 	queue = append(queue, t.Root)
 	t.isInQueue(t.Root.GetID())
 
+	logritelog.Default().Printf("BFSInsert(value=%v): queue → %v", value, queue)
 	head := 0
 
 	for head < len(queue) {
@@ -44,11 +49,13 @@ func (t *Tree) BFSInsert(value NodeValue) {
 			queue = append(queue, current.Right())
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting BFSInsert(value=%v)", value)
 }
 
 // MaxPathValueSearch is a method that searches the maximum path value in a tree
 // given a certain depth
 func (r *Tree) MaxPathValueSearch(deep int) int {
+	logritelog.Default().Printf(">>> Entering MaxPathValueSearch(deep=%v)", deep)
 	if r.Root == nil {
 		return 0
 	}
@@ -68,6 +75,7 @@ func (r *Tree) MaxPathValueSearch(deep int) int {
 	for !pivotEnded {
 		stack = append(stack, DFSNode{Node: pivot, StepsLeft: deep, Sum: maxPathValue})
 
+		logritelog.Default().Printf("MaxPathValueSearch(deep=%v): stack → %v", deep, stack)
 		for len(stack) > 0 {
 			current := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
@@ -77,6 +85,8 @@ func (r *Tree) MaxPathValueSearch(deep int) int {
 			if current.StepsLeft == 0 {
 				if current.Sum > maxPathValue {
 					maxPathValue = current.Sum
+					logritelog.Default().Printf("MaxPathValueSearch(deep=%v): maxPathValue → %v", deep, maxPathValue)
+					logritelog.Default().Printf("MaxPathValueSearch(deep=%v): pivot → %v", deep, pivot)
 					pivot = current.Node
 				}
 				continue
@@ -110,15 +120,18 @@ func (r *Tree) MaxPathValueSearch(deep int) int {
 		// We use the left child only because how the tree is built
 		if pivot.LeftIsNil() {
 			pivotEnded = true
+			logritelog.Default().Printf("MaxPathValueSearch(deep=%v): pivotEnded → %v", deep, pivotEnded)
 		}
 	}
 
+	logritelog.Default().Printf("<<< Exiting MaxPathValueSearch(deep=%v)", deep)
 	return maxPathValue
 }
 
 // PrintReport is a method that prints a report of the tree
 // Node by node
 func (t *Tree) PrintReport() {
+	logritelog.Default().Printf(">>> Entering PrintReport()")
 	t.Nodes = make(map[int]struct{})
 	if t.Root == nil {
 		return
@@ -127,6 +140,7 @@ func (t *Tree) PrintReport() {
 	queue := make([]Node, 0)
 	queue = append(queue, t.Root)
 
+	logritelog.Default().Printf("PrintReport(): queue → %v", queue)
 	head := 0
 
 	for head < len(queue) {
@@ -154,10 +168,12 @@ func (t *Tree) PrintReport() {
 
 		println()
 	}
+	logritelog.Default().Printf("<<< Exiting PrintReport()")
 }
 
 // PrintPyramid is a method that prints the tree as a pyramid
 func (t *Tree) PrintPyramid() {
+	logritelog.Default().Printf(">>> Entering PrintPyramid()")
 	t.Nodes = make(map[int]struct{})
 	if t.Root == nil {
 		return
@@ -180,6 +196,9 @@ func (t *Tree) PrintPyramid() {
 		// Level change
 		if level > currentLevel {
 			currentLevel = level
+			logritelog.Default().Printf("PrintPyramid(): currentLevel → %v", currentLevel)
+			logritelog.Default().Printf("PrintPyramid(): outputByLevel → %v", outputByLevel)
+			logritelog.Default().Printf("PrintPyramid(): output → %v", output)
 			outputByLevel = append(outputByLevel, output+"\n")
 			output = ""
 		}
@@ -197,6 +216,8 @@ func (t *Tree) PrintPyramid() {
 				queue = append(queue, current.Left())
 				levels = append(levels, level+1)
 			}
+				logritelog.Default().Printf("PrintPyramid(): queue → %v", queue)
+				logritelog.Default().Printf("PrintPyramid(): levels → %v", levels)
 		}
 
 		if !current.RightIsNil() {
@@ -216,14 +237,17 @@ func (t *Tree) PrintPyramid() {
 		str := strings.Repeat(" ", 2*(totalLevels-i)) + level
 		print(str)
 	}
+	logritelog.Default().Printf("<<< Exiting PrintPyramid()")
 }
 
 // isInQueue is a method that avoids duplicates in the tree
 func (n *Tree) isInQueue(nv int) bool {
+	logritelog.Default().Printf(">>> Entering isInQueue(nv=%v)", nv)
 	if _, ok := n.Nodes[nv]; ok {
 		return true
 	}
 
 	n.Nodes[nv] = struct{}{}
+	logritelog.Default().Printf("<<< Exiting isInQueue(nv=%v)", nv)
 	return false
 }

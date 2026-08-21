@@ -4,6 +4,7 @@
 // see mobius.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestMu(t *testing.T) {
+	logritelog.Default().Printf(">>> Entering TestMu(t=%v)", t)
 	var tests = []struct {
 		n        int
 		expected int
@@ -33,9 +35,12 @@ func TestMu(t *testing.T) {
 			t.Errorf("Wrong result! Expected:%v, returned:%v ", test.expected, result)
 		}
 	}
+	logritelog.Default().Printf("<<< Exiting TestMu(t=%v)", t)
 }
 func BenchmarkMu(b *testing.B) {
+	logritelog.Default().Printf(">>> Entering BenchmarkMu(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		algmath.Mu(65536)
 	}
+	logritelog.Default().Printf("<<< Exiting BenchmarkMu(b=%v)", b)
 }
