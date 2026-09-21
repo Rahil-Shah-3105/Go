@@ -6,6 +6,7 @@
 // Update: O(log(N))
 // reference: https://brilliant.org/wiki/fenwick-tree/
 package fenwicktree
+import logritelog "log"
 
 // FenwickTree represents the data structure of the Fenwick Tree
 type FenwickTree struct {
@@ -18,6 +19,7 @@ type FenwickTree struct {
 // the values of the array. Note that the queries and updates should have
 // one based indexing.
 func NewFenwickTree(array []int) *FenwickTree {
+	logritelog.Default().Printf("[ERROR] >>> Entering NewFenwickTree(array=%v)", array)
 	newArray := []int{0} // Appending a 0 to the beginning as this implementation uses 1 based indexing
 	fenwickTree := &FenwickTree{
 		n:     len(array),
@@ -30,11 +32,13 @@ func NewFenwickTree(array []int) *FenwickTree {
 			fenwickTree.bit[nextPos] += fenwickTree.bit[i]
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting NewFenwickTree(array=%v)", array)
 	return fenwickTree
 }
 
 // PrefixSum returns the sum of the prefix ending at position pos.
 func (f *FenwickTree) PrefixSum(pos int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering PrefixSum(pos=%v)", pos)
 	if pos > f.n {
 		return 0
 	}
@@ -42,6 +46,7 @@ func (f *FenwickTree) PrefixSum(pos int) int {
 	for i := pos; i > 0; i -= (i & -i) {
 		prefixSum += f.bit[i]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting PrefixSum(pos=%v)", pos)
 	return prefixSum
 }
 
@@ -54,7 +59,9 @@ func (f *FenwickTree) RangeSum(l int, r int) int {
 // Add Adds value to the element at position pos of the array
 // and recomputes the range sums.
 func (f *FenwickTree) Add(pos int, value int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Add(pos=%v,value=%v)", pos, value)
 	for i := pos; i <= f.n; i += (i & -i) {
 		f.bit[i] += value
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Add(pos=%v,value=%v)", pos, value)
 }

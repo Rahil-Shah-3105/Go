@@ -12,26 +12,31 @@
 * @author ddaniel27
  */
 package problem20
+import logritelog "log"
 
 import "math/big"
 
 func Problem20(input int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem20(input=%v)", input)
 	factorial := bigFactorial(input)
 	sum := 0
 	for _, digit := range factorial.String() {
 		sum += int(digit - '0')
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem20(input=%v)", input)
 	return sum
 }
 
 // bigFactorial returns the factorial of n as a big.Int
 // Use big package to handle large numbers
 func bigFactorial(n int) *big.Int {
+	logritelog.Default().Printf("[ERROR] >>> Entering bigFactorial(n=%v)", n)
 	if n < 0 {
 		return big.NewInt(0)
 	}
 	if n == 0 {
 		return big.NewInt(1)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting bigFactorial(n=%v)", n)
 	return big.NewInt(0).Mul(big.NewInt(int64(n)), bigFactorial(n-1))
 }

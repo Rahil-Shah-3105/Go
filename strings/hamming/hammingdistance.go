@@ -12,10 +12,12 @@ Parameters: two strings to compare
 Output: distance between both strings */
 
 package hamming
+import logritelog "log"
 
 import "errors"
 
 func Distance(str1, str2 string) (int, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Distance(str1=%v,str2=%v)", str1, str2)
 	if len(str1) != len(str2) {
 		return -1, errors.New("strings must have a same length")
 	}
@@ -27,5 +29,6 @@ func Distance(str1, str2 string) (int, error) {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Distance(str1=%v,str2=%v)", str1, str2)
 	return hammingDistance, nil
 }

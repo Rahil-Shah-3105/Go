@@ -7,6 +7,7 @@
 // space complexity: O(n)
 
 package password
+import logritelog "log"
 
 import (
 	"crypto/rand"

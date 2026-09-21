@@ -1,4 +1,5 @@
 package matrix
+import logritelog "log"
 
 import (
 	"context"
@@ -8,6 +9,7 @@ import (
 
 // SubMatrix extracts a submatrix from the current matrix.
 func (m Matrix[T]) SubMatrix(rowStart, colStart, numRows, numCols int) (Matrix[T], error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering SubMatrix(rowStart=%v,colStart=%v,numRows=%v,numCols=%v)", rowStart, colStart, numRows, numCols)
 	if rowStart < 0 || colStart < 0 || numRows < 0 || numCols < 0 {
 		return Matrix[T]{}, errors.New("negative dimensions are not allowed")
 	}
@@ -75,5 +77,6 @@ func (m Matrix[T]) SubMatrix(rowStart, colStart, numRows, numCols int) (Matrix[T
 		return Matrix[T]{}, err
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting SubMatrix(rowStart=%v,colStart=%v,numRows=%v,numCols=%v)", rowStart, colStart, numRows, numCols)
 	return subMatrix, nil
 }

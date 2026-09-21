@@ -1,4 +1,5 @@
 package moserdebruijnsequence
+import logritelog "log"
 
 import (
 	"reflect"
@@ -14,6 +15,7 @@ var testCases = []struct {
 }
 
 func TestMoserDeBruijnSequence(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestMoserDeBruijnSequence(t=%v)", t)
 
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
@@ -22,4 +24,5 @@ func TestMoserDeBruijnSequence(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMoserDeBruijnSequence(t=%v)", t)
 }

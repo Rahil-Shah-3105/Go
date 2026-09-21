@@ -1,9 +1,11 @@
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/max"
 
 // MaxCoins returns the maximum coins we can collect by bursting the balloons
 func MaxCoins(nums []int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering MaxCoins(nums=%v)", nums)
 	n := len(nums)
 	if n == 0 {
 		return 0
@@ -27,5 +29,6 @@ func MaxCoins(nums []int) int {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting MaxCoins(nums=%v)", nums)
 	return dp[1][n]
 }

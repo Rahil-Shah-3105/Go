@@ -1,6 +1,7 @@
 // Package nested provides functions for testing
 // strings proper brackets nesting.
 package nested
+import logritelog "log"
 
 // IsBalanced returns true if provided input string is properly nested.
 //
@@ -21,6 +22,7 @@ package nested
 // space complexity: O(n)
 
 func IsBalanced(input string) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsBalanced(input=%v)", input)
 	if len(input) == 0 {
 		return true
 	}
@@ -41,6 +43,7 @@ func IsBalanced(input string) bool {
 			if len(stack) > 0 {
 				pair := string(stack[len(stack)-1]) + string(input[i])
 				stack = stack[:len(stack)-1]
+				logritelog.Default().Printf("[DEBUG] IsBalanced(input=%v): stack → %v", input, stack)
 
 				if pair != "[]" && pair != "{}" && pair != "()" {
 					// This means that two types of brackets has
@@ -61,5 +64,6 @@ func IsBalanced(input string) bool {
 	// has been paired with closing elements. If even one
 	// element has not been paired with a closing bracket,
 	// means that sequence is invalid by definition.
+	logritelog.Default().Printf("[WARN] <<< Exiting IsBalanced(input=%v)", input)
 	return len(stack) == 0
 }

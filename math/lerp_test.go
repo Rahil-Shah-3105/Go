@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestLerp(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLerp(t=%v)", t)
 	tests := []struct {
 		name       string
 		testValues []float64
@@ -26,4 +28,5 @@ func TestLerp(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLerp(t=%v)", t)
 }

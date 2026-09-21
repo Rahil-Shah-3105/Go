@@ -1,10 +1,12 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestKahn(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestKahn(t=%v)", t)
 	testCases := []struct {
 		name         string
 		n            int
@@ -112,4 +114,5 @@ func TestKahn(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestKahn(t=%v)", t)
 }

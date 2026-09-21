@@ -4,10 +4,12 @@
 // see bitcounter.go
 
 package binary
+import logritelog "log"
 
 import "testing"
 
 func TestBitCounter(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestBitCounter(t=%v)", t)
 	tests := []struct {
 		name   string
 		number uint
@@ -30,4 +32,5 @@ func TestBitCounter(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestBitCounter(t=%v)", t)
 }

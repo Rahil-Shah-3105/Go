@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestIsValid(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsValid(t=%v)", t)
 	// Test case 1: Valid matrix with consistent row lengths
 	validMatrix := [][]int{
 		{1, 2, 3},
@@ -38,11 +40,13 @@ func TestIsValid(t *testing.T) {
 	result3 := matrix.IsValid(invalidMatrix)
 	if result3 {
 		t.Errorf("IsValid(invalidMatrix) returned true, expected false (invalid matrix with inconsistent row lengths)")
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsValid(t=%v)", t)
 	}
 
 }
 
 func BenchmarkIsValid(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsValid(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -61,4 +65,5 @@ func BenchmarkIsValid(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = matrix.IsValid(elements)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsValid(b=%v)", b)
 }

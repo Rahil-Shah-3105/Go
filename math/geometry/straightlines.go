@@ -1,5 +1,6 @@
 // Package geometry contains geometric algorithms
 package geometry
+import logritelog "log"
 
 import (
 	"math"
@@ -22,9 +23,11 @@ func Distance(a, b *Point) float64 {
 // Section calculates the Point that divides a line in specific ratio.
 // DO NOT specify the ratio in the form m:n, specify it as r, where r = m / n.
 func Section(p1, p2 *Point, r float64) Point {
+	logritelog.Default().Printf("[ERROR] >>> Entering Section(p1=%v,p2=%v,r=%v)", p1, p2, r)
 	var point Point
 	point.X = (r*p2.X + p1.X) / (r + 1)
 	point.Y = (r*p2.Y + p1.Y) / (r + 1)
+	logritelog.Default().Printf("[WARN] <<< Exiting Section(p1=%v,p2=%v,r=%v)", p1, p2, r)
 	return point
 }
 

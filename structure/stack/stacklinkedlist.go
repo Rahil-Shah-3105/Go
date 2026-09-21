@@ -8,6 +8,7 @@
 // see stacklinkedlistwithlist.go, stackarray.go, stack_test.go
 
 package stack
+import logritelog "log"
 
 // Node structure
 type Node struct {
@@ -23,17 +24,23 @@ type Stack struct {
 
 // push add value to last index
 func (ll *Stack) Push(n any) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Push(n=%v)", n)
 	newStack := &Node{} // new node
 
 	newStack.Val = n
+	logritelog.Default().Printf("[DEBUG] Push(n=%v): newStack.Val → %v", n, newStack.Val)
+	logritelog.Default().Printf("[DEBUG] Push(n=%v): newStack.Next → %v", n, newStack.Next)
 	newStack.Next = ll.top
 
 	ll.top = newStack
+	logritelog.Default().Printf("[DEBUG] Push(n=%v): ll.top → %v", n, ll.top)
+	logritelog.Default().Printf("[WARN] <<< Exiting Push(n=%v)", n)
 	ll.length++
 }
 
 // pop remove last item as first output
 func (ll *Stack) Pop() any {
+	logritelog.Default().Printf("[ERROR] >>> Entering Pop()")
 	result := ll.top.Val
 	if ll.top.Next == nil {
 		ll.top = nil
@@ -42,6 +49,7 @@ func (ll *Stack) Pop() any {
 	}
 
 	ll.length--
+	logritelog.Default().Printf("[WARN] <<< Exiting Pop()")
 	return result
 }
 
@@ -62,11 +70,14 @@ func (ll *Stack) Peek() any {
 
 // show all value as an interface array
 func (ll *Stack) Show() (in []any) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Show()")
 	current := ll.top
 
 	for current != nil {
 		in = append(in, current.Val)
 		current = current.Next
+		logritelog.Default().Printf("[DEBUG] Show(): current → %v", current)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Show()")
 	return
 }

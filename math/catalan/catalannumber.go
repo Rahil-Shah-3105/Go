@@ -9,16 +9,19 @@
 // see catalannumber_test.go
 
 package catalan
+import logritelog "log"
 
 import (
 	f "github.com/TheAlgorithms/Go/math/factorial"
 )
 
 func factorial(n int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering factorial(n=%v)", n)
 	result, error := f.Iterative(n)
 	if error != nil {
 		panic(error)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting factorial(n=%v)", n)
 	return result
 }
 

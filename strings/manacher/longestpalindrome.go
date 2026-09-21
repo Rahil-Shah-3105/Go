@@ -6,6 +6,7 @@
 // see longestpalindrome_test.go
 
 package manacher
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/min"
@@ -13,6 +14,7 @@ import (
 )
 
 func makeBoundaries(s string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering makeBoundaries(s=%v)", s)
 	var result strings.Builder
 	result.WriteRune('#')
 	for _, ch := range s {
@@ -21,20 +23,24 @@ func makeBoundaries(s string) string {
 		}
 		result.WriteRune('#')
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting makeBoundaries(s=%v)", s)
 	return result.String()
 }
 
 func nextBoundary(s string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering nextBoundary(s=%v)", s)
 	var result strings.Builder
 	for _, ch := range s {
 		if ch != '#' {
 			result.WriteRune(ch)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting nextBoundary(s=%v)", s)
 	return result.String()
 }
 
 func LongestPalindrome(s string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering LongestPalindrome(s=%v)", s)
 	boundaries := makeBoundaries(s)
 	b := make([]int, len(boundaries))
 	k := 0
@@ -52,12 +58,16 @@ func LongestPalindrome(s string) string {
 		}
 		if maxLen < b[i]-1 {
 			maxLen = b[i] - 1
+			logritelog.Default().Printf("[DEBUG] LongestPalindrome(s=%v): maxLen → %v", s, maxLen)
+			logritelog.Default().Printf("[DEBUG] LongestPalindrome(s=%v): maxCenterSize → %v", s, maxCenterSize)
 			maxCenterSize = i
 		}
 		if b[i]+i-1 > k {
 			k = b[i] + i - 1
 			index = i
+			logritelog.Default().Printf("[DEBUG] LongestPalindrome(s=%v): index → %v", s, index)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting LongestPalindrome(s=%v)", s)
 	return nextBoundary(boundaries[maxCenterSize-maxLen : maxCenterSize+maxLen])
 }

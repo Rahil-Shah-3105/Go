@@ -1,4 +1,5 @@
 package matrix
+import logritelog "log"
 
 import (
 	"context"
@@ -8,6 +9,7 @@ import (
 
 // Subtract subtracts two matrices.
 func (m1 Matrix[T]) Subtract(m2 Matrix[T]) (Matrix[T], error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Subtract(m2=%v)", m2)
 	// Check if the matrices have the same dimensions.
 	if !m1.MatchDimensions(m2) {
 		return Matrix[T]{}, errors.New("matrices are not compatible for subtraction")
@@ -60,5 +62,6 @@ func (m1 Matrix[T]) Subtract(m2 Matrix[T]) (Matrix[T], error) {
 		return Matrix[T]{}, err
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Subtract(m2=%v)", m2)
 	return result, nil
 }

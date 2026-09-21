@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"errors"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestBellmanford(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestBellmanford(t=%v)", t)
 
 	var testCases = []struct {
 		name        string
@@ -114,6 +116,7 @@ func TestBellmanford(t *testing.T) {
 			// Initializing graph, adding edges
 			graph := New(test.vertices)
 			graph.Directed = true
+			logritelog.Default().Printf("[DEBUG] TestBellmanford(t=%v): graph.Directed → %v", t, graph.Directed)
 			for _, edge := range test.edges {
 				graph.AddWeightedEdge(edge[0], edge[1], edge[2])
 			}
@@ -134,4 +137,5 @@ func TestBellmanford(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestBellmanford(t=%v)", t)
 }

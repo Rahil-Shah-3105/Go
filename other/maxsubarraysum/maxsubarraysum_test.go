@@ -1,10 +1,12 @@
 package maxsubarraysum
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestMaxSubarraySum(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMaxSubarraySum(t=%v)", t)
 	testCases := []struct {
 		name     string
 		slice    []int
@@ -38,4 +40,5 @@ func TestMaxSubarraySum(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMaxSubarraySum(t=%v)", t)
 }

@@ -1,10 +1,12 @@
 package set
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestNew(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestNew(t=%v)", t)
 	set := New(1, 2, 3)
 	if set.Len() != 3 {
 		t.Errorf("expecting 3 elements in the set but got %v: %v", set.Len(), set.GetItems())
@@ -17,9 +19,11 @@ func TestNew(t *testing.T) {
 	if set.In(5) {
 		t.Errorf("expecting 5 not to be present in the set but it was; set is %v", set.GetItems())
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestNew(t=%v)", t)
 }
 
 func TestAdd(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestAdd(t=%v)", t)
 	td := []struct {
 		name     string
 		input    int
@@ -42,9 +46,11 @@ func TestAdd(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestAdd(t=%v)", t)
 }
 
 func TestDelete(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDelete(t=%v)", t)
 	td := []struct {
 		name     string
 		input    int
@@ -67,9 +73,11 @@ func TestDelete(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDelete(t=%v)", t)
 }
 
 func TestIsSubsetOf(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsSubsetOf(t=%v)", t)
 	s1, s2 := New(1, 2, 3), New(1, 2, 3, 4)
 	if !s1.IsSubsetOf(s2) {
 		t.Errorf("expecting %v to be a subset of %v", s1, s2)
@@ -80,9 +88,11 @@ func TestIsSubsetOf(t *testing.T) {
 	if s3 := New(1, 2, 5, 6); s1.IsSubsetOf(s3) {
 		t.Errorf("expecting %v not to be a subset of %v", s1, s3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsSubsetOf(t=%v)", t)
 }
 
 func TestIsProperSubsetOf(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsProperSubsetOf(t=%v)", t)
 	s1, s2 := New(1, 2, 3), New(1, 2, 3, 4)
 	if !s1.IsProperSubsetOf(s2) {
 		t.Errorf("expecting %v to be a proper subset of %v", s1, s2)
@@ -90,9 +100,11 @@ func TestIsProperSubsetOf(t *testing.T) {
 	if s3 := New(3, 2, 1); s1.IsProperSubsetOf(s3) {
 		t.Errorf("expecting %v not to be a proper subset of %v", s1, s3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsProperSubsetOf(t=%v)", t)
 }
 
 func TestIsSupersetOf(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsSupersetOf(t=%v)", t)
 	s1, s2 := New(1, 2, 3), New(1, 2, 3, 4)
 	if !s2.IsSupersetOf(s1) {
 		t.Errorf("expecting %v to be a superset of %v", s2, s1)
@@ -103,9 +115,11 @@ func TestIsSupersetOf(t *testing.T) {
 	if s3 := New(1, 2, 5); s2.IsSupersetOf(s3) {
 		t.Errorf("expecting %v not to be a superset of %v", s2, s3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsSupersetOf(t=%v)", t)
 }
 
 func TestIsProperSupersetOf(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsProperSupersetOf(t=%v)", t)
 	s1, s2 := New(1, 2, 3), New(1, 2, 3, 4)
 	if !s2.IsProperSupersetOf(s1) {
 		t.Errorf("expecting %v to be a proper superset of %v", s2, s1)
@@ -113,9 +127,11 @@ func TestIsProperSupersetOf(t *testing.T) {
 	if s3 := New(3, 2, 1); s1.IsProperSupersetOf(s3) {
 		t.Errorf("expecting %v not to be a proper superset of %v", s1, s3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsProperSupersetOf(t=%v)", t)
 }
 
 func TestUnion(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestUnion(t=%v)", t)
 	td := []struct {
 		name   string
 		s1     Set[int]
@@ -139,9 +155,11 @@ func TestUnion(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestUnion(t=%v)", t)
 }
 
 func TestIntersection(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIntersection(t=%v)", t)
 	td := []struct {
 		name   string
 		s1     Set[int]
@@ -165,9 +183,11 @@ func TestIntersection(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIntersection(t=%v)", t)
 }
 
 func TestDifference(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDifference(t=%v)", t)
 	td := []struct {
 		name   string
 		s1     Set[int]
@@ -191,9 +211,11 @@ func TestDifference(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDifference(t=%v)", t)
 }
 
 func TestSymmetricDifference(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSymmetricDifference(t=%v)", t)
 	td := []struct {
 		name   string
 		s1     Set[int]
@@ -217,4 +239,5 @@ func TestSymmetricDifference(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSymmetricDifference(t=%v)", t)
 }

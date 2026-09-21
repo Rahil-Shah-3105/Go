@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,10 +8,12 @@ import (
 )
 
 func TestMatrixSubMatrix(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixSubMatrix(t=%v)", t)
 	// Create a sample matrix
 	data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	matrix, err := matrix.NewFromElements(data)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixSubMatrix(t=%v): %v", t, err)
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	// Extract a submatrix
@@ -46,13 +49,16 @@ func TestMatrixSubMatrix(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixSubMatrix(t=%v)", t)
 }
 
 func TestMatrixInvalidSubMatrix(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixInvalidSubMatrix(t=%v)", t)
 	// Create a sample matrix
 	data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	matrix, err := matrix.NewFromElements(data)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixInvalidSubMatrix(t=%v): %v", t, err)
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	// Attempt to extract an invalid submatrix
@@ -68,10 +74,12 @@ func TestMatrixInvalidSubMatrix(t *testing.T) {
 	if err.Error() != expectedErrorMessage {
 		t.Errorf("Expected error message '%s', but got '%s'", expectedErrorMessage, err.Error())
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixInvalidSubMatrix(t=%v)", t)
 }
 
 // BenchmarkSubMatrix benchmarks the SubMatrix function.
 func BenchmarkSubMatrix(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSubMatrix(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -85,4 +93,5 @@ func BenchmarkSubMatrix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = matrix.SubMatrix(rowStart, colStart, numRows, numCols)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSubMatrix(b=%v)", b)
 }

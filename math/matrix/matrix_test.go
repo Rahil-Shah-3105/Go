@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"errors"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestNewMatrix(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestNewMatrix(t=%v)", t)
 
 	nullMatrix := matrix.New(0, 0, 0)
 	if nullMatrix.Rows() != 0 || nullMatrix.Columns() != 0 {
@@ -19,9 +21,11 @@ func TestNewMatrix(t *testing.T) {
 		t.Errorf("matrix.New( 3, 4, 0) returned nil, expected a matrix")
 	}
 
+logritelog.Default().Printf("[WARN] <<< Exiting TestNewMatrix(t=%v)", t)
 }
 
 func TestNewFromElements(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestNewFromElements(t=%v)", t)
 	// Test case 1: Valid matrix
 	validElements := [][]int{
 		{1, 2, 3},
@@ -32,6 +36,7 @@ func TestNewFromElements(t *testing.T) {
 		for j := 0; j < len(validElements[0]); j++ {
 			err := expectedm1.Set(i, j, validElements[i][j])
 			if err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestNewFromElements(t=%v): %v", t, err)
 				t.Errorf("copyMatrix.Set error: %s", err.Error())
 			}
 		}
@@ -66,13 +71,16 @@ func TestNewFromElements(t *testing.T) {
 	if m3.Rows() != 0 || m3.Columns() != 0 {
 		t.Errorf("NewFromElements(emptyElements) returned %v, expected nil", m3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestNewFromElements(t=%v)", t)
 }
 
 func TestMatrixGet(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixGet(t=%v)", t)
 	// Create a sample matrix for testing
 	matrix := matrix.New(3, 3, 0)
 	err := matrix.Set(1, 1, 42) // Set a specific value for testing
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixGet(t=%v): %v", t, err)
 		t.Errorf("copyMatrix.Set error: %s", err.Error())
 	}
 	// Test case 1: Valid Get
@@ -96,9 +104,11 @@ func TestMatrixGet(t *testing.T) {
 	if err3 == nil || err3.Error() != expectedError3.Error() {
 		t.Errorf("matrix.Get(10, 10) returned error: %v, expected error: %v", err3, expectedError3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixGet(t=%v)", t)
 }
 
 func TestMatrixSet(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixSet(t=%v)", t)
 	// Create a sample matrix for testing
 	matrix := matrix.New(3, 3, 0)
 
@@ -109,6 +119,7 @@ func TestMatrixSet(t *testing.T) {
 	}
 	val1, err := matrix.Get(1, 1)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixSet(t=%v): %v", t, err)
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	if val1 != 42 {
@@ -127,13 +138,16 @@ func TestMatrixSet(t *testing.T) {
 	if err3 == nil || err3.Error() != expectedError3.Error() {
 		t.Errorf("matrix.Get(10, 10) returned error: %v, expected error: %v", err3, expectedError3)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixSet(t=%v)", t)
 }
 
 func TestMatrixRows(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixRows(t=%v)", t)
 	// Create a sample matrix
 	data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	matrix, err := matrix.NewFromElements(data)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixRows(t=%v): %v", t, err)
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	// Check the number of rows
@@ -142,13 +156,16 @@ func TestMatrixRows(t *testing.T) {
 	if rows != expectedRows {
 		t.Errorf("Expected %d rows, but got %d", expectedRows, rows)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixRows(t=%v)", t)
 }
 
 func TestMatrixColumns(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixColumns(t=%v)", t)
 	// Create a sample matrix
 	data := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	matrix, err := matrix.NewFromElements(data)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixColumns(t=%v): %v", t, err)
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	// Check the number of columns
@@ -157,9 +174,11 @@ func TestMatrixColumns(t *testing.T) {
 	if columns != expectedColumns {
 		t.Errorf("Expected %d columns, but got %d", expectedColumns, columns)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixColumns(t=%v)", t)
 }
 
 func TestMatrixEmptyRowsAndColumns(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixEmptyRowsAndColumns(t=%v)", t)
 	// Create an empty matrix
 	emptyMatrix := matrix.New(0, 0, 0)
 
@@ -174,17 +193,21 @@ func TestMatrixEmptyRowsAndColumns(t *testing.T) {
 	if columns != 0 {
 		t.Errorf("Expected 0 columns for an empty matrix, but got %d", columns)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixEmptyRowsAndColumns(t=%v)", t)
 }
 
 // BenchmarkNew benchmarks the New function.
 func BenchmarkNew(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkNew(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = matrix.New(100, 100, 0) // Change the arguments to match your use case
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkNew(b=%v)", b)
 }
 
 // BenchmarkNewFromElements benchmarks the NewFromElements function.
 func BenchmarkNewFromElements(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkNewFromElements(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -199,10 +222,12 @@ func BenchmarkNewFromElements(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = matrix.NewFromElements(elements)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkNewFromElements(b=%v)", b)
 }
 
 // BenchmarkGet benchmarks the Get method.
 func BenchmarkGet(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkGet(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -211,10 +236,12 @@ func BenchmarkGet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = matrix.Get(50, 50) // Change the row and column indices as needed
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkGet(b=%v)", b)
 }
 
 // BenchmarkSet benchmarks the Set method.
 func BenchmarkSet(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSet(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -223,10 +250,12 @@ func BenchmarkSet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = matrix.Set(50, 50, 42) // Change the row, column, and value as needed
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSet(b=%v)", b)
 }
 
 // BenchmarkRows benchmarks the Rows method.
 func BenchmarkRows(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkRows(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -235,10 +264,12 @@ func BenchmarkRows(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = matrix.Rows()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkRows(b=%v)", b)
 }
 
 // BenchmarkColumns benchmarks the Columns method.
 func BenchmarkColumns(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkColumns(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -247,4 +278,5 @@ func BenchmarkColumns(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = matrix.Columns()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkColumns(b=%v)", b)
 }

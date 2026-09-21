@@ -8,6 +8,7 @@
 // see montecarlopi_test.go
 
 package pi
+import logritelog "log"
 
 import (
 	"fmt"       // Used for error formatting
@@ -17,6 +18,7 @@ import (
 )
 
 func MonteCarloPi(randomPoints int) float64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering MonteCarloPi(randomPoints=%v)", randomPoints)
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	inside := 0
 	for i := 0; i < randomPoints; i++ {
@@ -27,6 +29,7 @@ func MonteCarloPi(randomPoints int) float64 {
 		}
 	}
 	pi := float64(inside) / float64(randomPoints) * 4
+	logritelog.Default().Printf("[WARN] <<< Exiting MonteCarloPi(randomPoints=%v)", randomPoints)
 	return pi
 }
 
@@ -36,10 +39,14 @@ func MonteCarloPi(randomPoints int) float64 {
 // More details on the Monte Carlo method available at https://en.wikipedia.org/wiki/Monte_Carlo_method.
 // More details on goroutines parallelization available at https://go.dev/doc/effective_go#parallel.
 func MonteCarloPiConcurrent(n int) (float64, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering MonteCarloPiConcurrent(n=%v)", n)
 	numCPU := runtime.GOMAXPROCS(0)
 	c := make(chan int, numCPU)
 	pointsToDraw, err := splitInt(n, numCPU) // split the task in sub-tasks of approximately equal sizes
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in MonteCarloPiConcurrent(n=%v): %v", n, err)
+		logritelog.Default().Printf("[ERROR] >>> Entering splitInt(x=%v,n=%v)", x, n)
+		logritelog.Default().Printf("[WARN] <<< Exiting splitInt(x=%v,n=%v)", x, n)
 		return 0, err
 	}
 
@@ -52,13 +59,17 @@ func MonteCarloPiConcurrent(n int) (float64, error) {
 	inside := 0
 	for i := 0; i < numCPU; i++ {
 		inside += <-c
+		logritelog.Default().Printf("[ERROR] >>> Entering drawPoints(n=%v,c=%v)", n, c)
+		logritelog.Default().Printf("[WARN] <<< Exiting drawPoints(n=%v,c=%v)", n, c)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting MonteCarloPiConcurrent(n=%v)", n)
 	return float64(inside) / float64(n) * 4, nil
 }
 
 // drawPoints draws n random two-dimensional points in the interval [0, 1), [0, 1) and sends through c
 // the number of points which where within the circle of center 0 and radius 1 (unit circle)
 func drawPoints(n int, c chan<- int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering drawPoints(n=%v,c=%v)", n, c)
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	inside := 0
 	for i := 0; i < n; i++ {
@@ -68,6 +79,7 @@ func drawPoints(n int, c chan<- int) {
 		}
 	}
 	c <- inside
+	logritelog.Default().Printf("[WARN] <<< Exiting drawPoints(n=%v,c=%v)", n, c)
 }
 
 // splitInt takes an integer x and splits it within an integer slice of length n in the most uniform

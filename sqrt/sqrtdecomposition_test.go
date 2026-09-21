@@ -1,4 +1,5 @@
 package sqrt_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/sqrt"
@@ -17,6 +18,7 @@ type update struct {
 }
 
 func TestSqrtDecomposition(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSqrtDecomposition(t=%v)", t)
 	var sqrtDecompositionTestData = []struct {
 		description string
 		array       []int
@@ -77,4 +79,5 @@ func TestSqrtDecomposition(t *testing.T) {
 
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSqrtDecomposition(t=%v)", t)
 }

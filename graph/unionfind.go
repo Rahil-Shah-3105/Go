@@ -14,6 +14,7 @@
 // see: unionfind.go, unionfind_test.go
 
 package graph
+import logritelog "log"
 
 // Defining the union-find data structure
 type UnionFind struct {
@@ -23,12 +24,16 @@ type UnionFind struct {
 
 // Initialise a new union find data structure with s nodes
 func NewUnionFind(s int) UnionFind {
+	logritelog.Default().Printf("[ERROR] >>> Entering NewUnionFind(s=%v)", s)
 	parent := make([]int, s)
 	rank := make([]int, s)
 	for i := 0; i < s; i++ {
 		parent[i] = i
 		rank[i] = 1
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting NewUnionFind(s=%v)", s)
+	logritelog.Default().Printf("[ERROR] >>> Entering Find(q=%v)", q)
+	logritelog.Default().Printf("[WARN] <<< Exiting Find(q=%v)", q)
 	return UnionFind{parent, rank}
 }
 
@@ -44,6 +49,7 @@ func (u *UnionFind) Find(q int) int {
 // Union merges the sets, if not already merged, to which the given elements belong.
 // It performs union by rank to keep the tree as flat as possible.
 func (u *UnionFind) Union(p, q int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Union(p=%v,q=%v)", p, q)
 	rootP := u.Find(p)
 	rootQ := u.Find(q)
 
@@ -59,4 +65,5 @@ func (u *UnionFind) Union(p, q int) {
 		u.parent[rootQ] = rootP
 		u.rank[rootP]++
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Union(p=%v,q=%v)", p, q)
 }

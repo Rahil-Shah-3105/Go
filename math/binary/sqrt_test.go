@@ -4,6 +4,7 @@
 // see sqrt.go
 
 package binary
+import logritelog "log"
 
 import (
 	"math"
@@ -13,6 +14,7 @@ import (
 const epsilon = 0.001
 
 func TestSquareRootCalculation(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSquareRootCalculation(t=%v)", t)
 	tests := []struct {
 		name   string
 		number float32
@@ -35,16 +37,21 @@ func TestSquareRootCalculation(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSquareRootCalculation(t=%v)", t)
 }
 
 func BenchmarkSquareRootCalculation(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSquareRootCalculation(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Sqrt(225)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSquareRootCalculation(b=%v)", b)
 }
 
 func BenchmarkMathSqrt(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMathSqrt(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math.Sqrt(225)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMathSqrt(b=%v)", b)
 }

@@ -1,4 +1,5 @@
 package tree_test
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -10,6 +11,7 @@ import (
 )
 
 func TestRBTreePush(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRBTreePush(t=%v)", t)
 	tree := bt.NewRB[int]()
 
 	ret := tree.InOrder()
@@ -32,6 +34,7 @@ func TestRBTreePush(t *testing.T) {
 
 	ret = tree.InOrder()
 
+	logritelog.Default().Printf("[DEBUG] TestRBTreePush(t=%v): ret → %v", t, ret)
 	if !sort.IntsAreSorted(ret) {
 		t.Errorf("Error with Push: %v", ret)
 	}
@@ -43,9 +46,11 @@ func TestRBTreePush(t *testing.T) {
 	if r, ok := tree.Max(); !ok || ret[len(ret)-1] != r {
 		t.Errorf("Error with Max: %v", r)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRBTreePush(t=%v)", t)
 }
 
 func TestRBTreeDelete(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRBTreeDelete(t=%v)", t)
 	tree := bt.NewRB[int]()
 	var ok bool
 
@@ -80,9 +85,11 @@ func TestRBTreeDelete(t *testing.T) {
 	if ret, ok := tree.Min(); !ok || ret != -(1<<62) {
 		t.Errorf("Error with Delete, min: %v, want: %v", ret, (1 << 32))
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRBTreeDelete(t=%v)", t)
 }
 
 func TestRBTree(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRBTree(t=%v)", t)
 	testcases := []int{100, 200, 1000, 10000}
 	for _, n := range testcases {
 		rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -114,13 +121,16 @@ func TestRBTree(t *testing.T) {
 			ok := tree.Delete(nums[i])
 			rets = tree.InOrder()
 			if !ok || !sort.IntsAreSorted(rets) {
+			logritelog.Default().Printf("[DEBUG] TestRBTree(t=%v): rets → %v", t, rets)
 				t.Errorf("Error With Delete")
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRBTree(t=%v)", t)
 }
 
 func TestRBTreeString(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRBTreeString(t=%v)", t)
 	tree := bt.NewRB[string]()
 
 	if tree.Has("Golang") {
@@ -164,4 +174,5 @@ func TestRBTreeString(t *testing.T) {
 	if ret, ok := tree.Max(); !ok || ret != "ZZ" {
 		t.Errorf("Error with Max when T is string")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRBTreeString(t=%v)", t)
 }

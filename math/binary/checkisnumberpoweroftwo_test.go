@@ -4,6 +4,7 @@
 // see checkisnumberpoweroftwo.go
 
 package binary
+import logritelog "log"
 
 import (
 	math2 "github.com/TheAlgorithms/Go/math"
@@ -36,6 +37,7 @@ func getTestsForPowerOfTwo() []struct {
 }
 
 func TestIsPowerOfTwo(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPowerOfTwo(t=%v)", t)
 	tests := getTestsForPowerOfTwo()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -46,9 +48,11 @@ func TestIsPowerOfTwo(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPowerOfTwo(t=%v)", t)
 }
 
 func TestIsPowerOfTwoLeftShift(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPowerOfTwoLeftShift(t=%v)", t)
 	tests := getTestsForPowerOfTwo()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -59,9 +63,11 @@ func TestIsPowerOfTwoLeftShift(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPowerOfTwoLeftShift(t=%v)", t)
 }
 
 func TestIsPowOfTwoUseLog(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPowOfTwoUseLog(t=%v)", t)
 	tests := getTestsForPowerOfTwo()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -72,22 +78,29 @@ func TestIsPowOfTwoUseLog(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPowOfTwoUseLog(t=%v)", t)
 }
 
 func BenchmarkIsPowerOfTwoBinaryMethod(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsPowerOfTwoBinaryMethod(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		IsPowerOfTwo(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsPowerOfTwoBinaryMethod(b=%v)", b)
 }
 
 func BenchmarkIsPowerOfTwoUseCycleAndLeftShift(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsPowerOfTwoUseCycleAndLeftShift(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		IsPowerOfTwoLeftShift(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsPowerOfTwoUseCycleAndLeftShift(b=%v)", b)
 }
 
 func BenchmarkIsPowerOfTwoUseLog(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsPowerOfTwoUseLog(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math2.IsPowOfTwoUseLog(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsPowerOfTwoUseLog(b=%v)", b)
 }

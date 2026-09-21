@@ -13,6 +13,7 @@ Date: 19-Oct-2021
 // space complexity: O(1)
 
 package conversion
+import logritelog "log"
 
 // Importing necessary package.
 import (
@@ -25,6 +26,7 @@ var isValid = regexp.MustCompile("^[0-1]{1,}$").MatchString
 // BinaryToDecimal() function that will take Binary number as string,
 // and return its Decimal equivalent as an integer.
 func BinaryToDecimal(binary string) (int, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BinaryToDecimal(binary=%v)", binary)
 	if !isValid(binary) {
 		return -1, errors.New("not a valid binary string")
 	}
@@ -38,5 +40,6 @@ func BinaryToDecimal(binary string) (int, error) {
 		}
 		base *= 2
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BinaryToDecimal(binary=%v)", binary)
 	return result, nil
 }

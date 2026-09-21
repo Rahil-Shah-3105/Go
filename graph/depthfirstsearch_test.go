@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestDfsWhenPathIsFound(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDfsWhenPathIsFound(t=%v)", t)
 	nodes := []int{
 		1, 2, 3, 4, 5, 6,
 	}
@@ -32,9 +34,11 @@ func TestDfsWhenPathIsFound(t *testing.T) {
 			t.Errorf("got isFound: %v, want isFound: %v", actualIsFound, expectedIsFound)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDfsWhenPathIsFound(t=%v)", t)
 }
 
 func TestDfsWhenPathIsNotFound(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDfsWhenPathIsNotFound(t=%v)", t)
 	nodes := []int{
 		1, 2, 3, 4, 5, 6,
 	}
@@ -61,4 +65,5 @@ func TestDfsWhenPathIsNotFound(t *testing.T) {
 			t.Errorf("got isFound: %v, want isFound: %v", actualIsFound, expectedIsFound)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDfsWhenPathIsNotFound(t=%v)", t)
 }

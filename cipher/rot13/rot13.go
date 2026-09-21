@@ -5,6 +5,7 @@
 // space complexity: O(n)
 // ref: https://en.wikipedia.org/wiki/ROT13
 package rot13
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/cipher/caesar"

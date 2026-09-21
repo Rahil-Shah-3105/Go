@@ -10,6 +10,7 @@
 
 // Package queue provides an implementation of a circular queue data structure.
 package circularqueue
+import logritelog "log"
 
 // errors package: Provides functions to create and manipulate error values
 import (
@@ -41,20 +42,24 @@ func NewCircularQueue[T any](size int) (*CircularQueue[T], error) {
 // Enqueue adds an item to the rear of the queue.
 // Returns an error if the queue is full.
 func (cq *CircularQueue[T]) Enqueue(item T) error {
+	logritelog.Default().Printf("[ERROR] >>> Entering Enqueue(item=%v)", item)
 	if cq.IsFull() {
 		return errors.New("queue is full")
 	}
 	if cq.IsEmpty() {
 		cq.front = 0
+		logritelog.Default().Printf("[DEBUG] Enqueue(item=%v): cq.front → %v", item, cq.front)
 	}
 	cq.rear = (cq.rear + 1) % cq.size
 	cq.items[cq.rear] = item
+	logritelog.Default().Printf("[WARN] <<< Exiting Enqueue(item=%v)", item)
 	return nil
 }
 
 // Dequeue removes and returns the item from the front of the queue.
 // Returns an error if the queue is empty.
 func (cq *CircularQueue[T]) Dequeue() (T, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Dequeue()")
 	if cq.IsEmpty() {
 		var zeroValue T
 		return zeroValue, errors.New("queue is empty")
@@ -62,10 +67,13 @@ func (cq *CircularQueue[T]) Dequeue() (T, error) {
 	retVal := cq.items[cq.front]
 	if cq.front == cq.rear {
 		cq.front = -1
+		logritelog.Default().Printf("[DEBUG] Dequeue(): cq.front → %v", cq.front)
+		logritelog.Default().Printf("[DEBUG] Dequeue(): cq.rear → %v", cq.rear)
 		cq.rear = -1
 	} else {
 		cq.front = (cq.front + 1) % cq.size
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Dequeue()")
 	return retVal, nil
 }
 
@@ -82,11 +90,13 @@ func (cq *CircularQueue[T]) IsEmpty() bool {
 // Peek returns the item at the front of the queue without removing it.
 // Returns an error if the queue is empty.
 func (cq *CircularQueue[T]) Peek() (T, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Peek()")
 	if cq.IsEmpty() {
 		var zeroValue T
 		return zeroValue, errors.New("queue is empty")
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Peek()")
 	return cq.items[cq.front], nil
 }
 

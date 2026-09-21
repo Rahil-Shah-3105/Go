@@ -5,9 +5,11 @@
 // Author: sanjibgirics
 
 package strings
+import logritelog "log"
 
 // Returns true if s is subsequence of t, otherwise return false.
 func IsSubsequence(s string, t string) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsSubsequence(s=%v,t=%v)", s, t)
 	if len(s) > len(t) {
 		return false
 	}
@@ -31,5 +33,6 @@ func IsSubsequence(s string, t string) bool {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting IsSubsequence(s=%v,t=%v)", s, t)
 	return false
 }

@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/max"
@@ -8,6 +9,7 @@ import (
 // EggDropping finds the minimum number of attempts needed to find the critical floor
 // with `eggs` number of eggs and `floors` number of floors
 func EggDropping(eggs, floors int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering EggDropping(eggs=%v,floors=%v)", eggs, floors)
 	// Edge case: If there are no floors, no attempts needed
 	if floors == 0 {
 		return 0
@@ -43,5 +45,6 @@ func EggDropping(eggs, floors int) int {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting EggDropping(eggs=%v,floors=%v)", eggs, floors)
 	return dp[eggs][floors]
 }

@@ -4,6 +4,7 @@
 // see rbc.go
 
 package binary
+import logritelog "log"
 
 import (
 	"reflect"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestSequenceGrayCode(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSequenceGrayCode(t=%v)", t)
 	tests := []struct {
 		name string
 		n    uint
@@ -28,10 +30,13 @@ func TestSequenceGrayCode(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSequenceGrayCode(t=%v)", t)
 }
 
 func BenchmarkSequenceGrayCode(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSequenceGrayCode(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		SequenceGrayCode(6)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSequenceGrayCode(b=%v)", b)
 }

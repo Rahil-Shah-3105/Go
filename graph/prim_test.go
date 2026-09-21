@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"fmt"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestPrimMST(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestPrimMST(t=%v)", t)
 
 	var testCases = []struct {
 		edges    []Edge
@@ -124,6 +126,7 @@ func TestPrimMST(t *testing.T) {
 			// Initializing graph, adding edges
 			graph := New(testCase.vertices)
 			graph.Directed = false
+			logritelog.Default().Printf("[DEBUG] TestPrimMST(t=%v): graph.Directed → %v", t, graph.Directed)
 			for _, edge := range testCase.edges {
 				graph.AddWeightedEdge(int(edge.Start), int(edge.End), edge.Weight)
 			}
@@ -140,4 +143,5 @@ func TestPrimMST(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestPrimMST(t=%v)", t)
 }

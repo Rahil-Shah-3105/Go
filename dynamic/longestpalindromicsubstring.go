@@ -5,9 +5,11 @@
 // space complexity: O(n^2)
 
 package dynamic
+import logritelog "log"
 
 // LongestPalindromicSubstring returns the longest palindromic substring in the input string
 func LongestPalindromicSubstring(s string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering LongestPalindromicSubstring(s=%v)", s)
 	n := len(s)
 	if n == 0 {
 		return ""
@@ -35,6 +37,7 @@ func LongestPalindromicSubstring(s string) string {
 
 			if dp[i][j] && length > maxLength {
 				maxLength = length
+				logritelog.Default().Printf("[DEBUG] LongestPalindromicSubstring(s=%v): maxLength → %v", s, maxLength)
 				start = i
 			}
 		}

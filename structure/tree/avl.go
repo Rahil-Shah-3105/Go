@@ -5,6 +5,7 @@
 // see avl.go
 
 package tree
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
@@ -65,18 +66,22 @@ func (avl *AVL[T]) Empty() bool {
 
 // Push a chain of Node's into the AVL Tree
 func (avl *AVL[T]) Push(keys ...T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Push(keys=%v)", keys)
 	for _, k := range keys {
 		avl.Root = avl.pushHelper(avl.Root, k)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Push(keys=%v)", keys)
 }
 
 // Delete a Node from the AVL Tree
 func (avl *AVL[T]) Delete(key T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering Delete(key=%v)", key)
 	if !avl.Has(key) {
 		return false
 	}
 
 	avl.Root = avl.deleteHelper(avl.Root, key)
+	logritelog.Default().Printf("[WARN] <<< Exiting Delete(key=%v)", key)
 	return true
 }
 
@@ -87,14 +92,17 @@ func (avl *AVL[T]) Get(key T) (Node[T], bool) {
 
 // Has Determines the tree has the node of Key
 func (avl *AVL[T]) Has(key T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering Has(key=%v)", key)
 	_, ok := searchTreeHelper[T](avl.Root, avl._NIL, key)
 	return ok
 }
 
 // PreOrder Traverses the tree in the following order Root --> Left --> Right
 func (avl *AVL[T]) PreOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering PreOrder()")
 	traversal := make([]T, 0)
 	preOrderRecursive[T](avl.Root, avl._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting PreOrder()")
 	return traversal
 }
 
@@ -105,15 +113,19 @@ func (avl *AVL[T]) InOrder() []T {
 
 // PostOrder traverses the tree in the following order Left --> Right --> Root
 func (avl *AVL[T]) PostOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering PostOrder()")
 	traversal := make([]T, 0)
 	postOrderRecursive[T](avl.Root, avl._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting PostOrder()")
 	return traversal
 }
 
 // LevelOrder returns the level order traversal of the tree
 func (avl *AVL[T]) LevelOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering LevelOrder()")
 	traversal := make([]T, 0)
 	levelOrderHelper[T](avl.Root, avl._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting LevelOrder()")
 	return traversal
 }
 
@@ -129,21 +141,25 @@ func (avl *AVL[T]) Depth() int {
 
 // Max returns the Max value of the tree
 func (avl *AVL[T]) Max() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Max()")
 	ret := maximum[T](avl.Root, avl._NIL)
 	if ret == avl._NIL {
 		var dft T
 		return dft, false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Max()")
 	return ret.Key(), true
 }
 
 // Min returns the Min value of the tree
 func (avl *AVL[T]) Min() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Min()")
 	ret := minimum[T](avl.Root, avl._NIL)
 	if ret == avl._NIL {
 		var dft T
 		return dft, false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Min()")
 	return ret.Key(), true
 }
 
@@ -151,11 +167,13 @@ func (avl *AVL[T]) Min() (T, bool) {
 // if there is no predecessor, return default value of type T and false
 // otherwise return the Key of predecessor and true
 func (avl *AVL[T]) Predecessor(key T) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Predecessor(key=%v)", key)
 	node, ok := searchTreeHelper[T](avl.Root, avl._NIL, key)
 	if !ok {
 		var dft T
 		return dft, ok
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Predecessor(key=%v)", key)
 	return predecessorHelper[T](node, avl._NIL)
 }
 
@@ -163,15 +181,18 @@ func (avl *AVL[T]) Predecessor(key T) (T, bool) {
 // if there is no successor, return default value of type T and false
 // otherwise return the Key of successor and true
 func (avl *AVL[T]) Successor(key T) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Successor(key=%v)", key)
 	node, ok := searchTreeHelper[T](avl.Root, avl._NIL, key)
 	if !ok {
 		var dft T
 		return dft, ok
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Successor(key=%v)", key)
 	return successorHelper[T](node, avl._NIL)
 }
 
 func (avl *AVL[T]) pushHelper(root *AVLNode[T], key T) *AVLNode[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering pushHelper(root=%v,key=%v)", root, key)
 	if root == avl._NIL {
 		return &AVLNode[T]{
 			key:    key,
@@ -186,11 +207,13 @@ func (avl *AVL[T]) pushHelper(root *AVLNode[T], key T) *AVLNode[T] {
 	case key < root.key:
 		tmp := avl.pushHelper(root.left, key)
 		tmp.parent = root
+		logritelog.Default().Printf("[DEBUG] pushHelper(root=%v,key=%v): root.left → %v", root, key, root.left)
 		root.left = tmp
 	case key > root.key:
 		tmp := avl.pushHelper(root.right, key)
 		tmp.parent = root
 		root.right = tmp
+		logritelog.Default().Printf("[DEBUG] pushHelper(root=%v,key=%v): root.right → %v", root, key, root.right)
 	default:
 		return root
 	}
@@ -204,6 +227,10 @@ func (avl *AVL[T]) pushHelper(root *AVLNode[T], key T) *AVLNode[T] {
 			return avl.rightRotate(root)
 		case key > root.left.key:
 			root.left = avl.leftRotate(root.left)
+			logritelog.Default().Printf("[ERROR] >>> Entering balanceFactor(root=%v)", root)
+			logritelog.Default().Printf("[DEBUG] balanceFactor(root=%v): leftHeight → %v", root, leftHeight)
+			logritelog.Default().Printf("[DEBUG] balanceFactor(root=%v): rightHeight → %v", root, rightHeight)
+			logritelog.Default().Printf("[WARN] <<< Exiting balanceFactor(root=%v)", root)
 			return avl.rightRotate(root)
 		}
 	}
@@ -218,10 +245,12 @@ func (avl *AVL[T]) pushHelper(root *AVLNode[T], key T) *AVLNode[T] {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting pushHelper(root=%v,key=%v)", root, key)
 	return root
 }
 
 func (avl *AVL[T]) deleteHelper(root *AVLNode[T], key T) *AVLNode[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering deleteHelper(root=%v,key=%v)", root, key)
 	if root == avl._NIL {
 		return root
 	}
@@ -230,12 +259,15 @@ func (avl *AVL[T]) deleteHelper(root *AVLNode[T], key T) *AVLNode[T] {
 	case key < root.key:
 		tmp := avl.deleteHelper(root.left, key)
 		root.left = tmp
+		logritelog.Default().Printf("[DEBUG] deleteHelper(root=%v,key=%v): root.left → %v", root, key, root.left)
 		if tmp != avl._NIL {
 			tmp.parent = root
+			logritelog.Default().Printf("[DEBUG] deleteHelper(root=%v,key=%v): tmp.parent → %v", root, key, tmp.parent)
 		}
 	case key > root.key:
 		tmp := avl.deleteHelper(root.right, key)
 		root.right = tmp
+		logritelog.Default().Printf("[DEBUG] deleteHelper(root=%v,key=%v): root.right → %v", root, key, root.right)
 		if tmp != avl._NIL {
 			tmp.parent = root
 		}
@@ -255,10 +287,12 @@ func (avl *AVL[T]) deleteHelper(root *AVLNode[T], key T) *AVLNode[T] {
 		} else {
 			tmp := minimum[T](root.right, avl._NIL).(*AVLNode[T])
 			root.key = tmp.key
+			logritelog.Default().Printf("[DEBUG] deleteHelper(root=%v,key=%v): root.key → %v", root, key, root.key)
 			del := avl.deleteHelper(root.right, tmp.key)
 			root.right = del
 			if del != avl._NIL {
 				del.parent = root
+				logritelog.Default().Printf("[DEBUG] deleteHelper(root=%v,key=%v): del.parent → %v", root, key, del.parent)
 			}
 		}
 	}
@@ -289,10 +323,12 @@ func (avl *AVL[T]) deleteHelper(root *AVLNode[T], key T) *AVLNode[T] {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting deleteHelper(root=%v,key=%v)", root, key)
 	return root
 }
 
 func (avl *AVL[T]) height(root *AVLNode[T]) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering height(root=%v)", root)
 	if root == avl._NIL {
 		return 1
 	}
@@ -300,10 +336,13 @@ func (avl *AVL[T]) height(root *AVLNode[T]) int {
 	var leftHeight, rightHeight int
 	if root.left != avl._NIL {
 		leftHeight = root.left.height
+		logritelog.Default().Printf("[DEBUG] height(root=%v): leftHeight → %v", root, leftHeight)
 	}
 	if root.right != avl._NIL {
 		rightHeight = root.right.height
+		logritelog.Default().Printf("[DEBUG] height(root=%v): rightHeight → %v", root, rightHeight)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting height(root=%v)", root)
 	return 1 + max.Int(leftHeight, rightHeight)
 }
 
@@ -321,37 +360,51 @@ func (avl *AVL[T]) balanceFactor(root *AVLNode[T]) int {
 }
 
 func (avl *AVL[T]) leftRotate(x *AVLNode[T]) *AVLNode[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering leftRotate(x=%v)", x)
 	y := x.right
 	yl := y.left
 	y.left = x
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): y.left → %v", x, y.left)
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): x.right → %v", x, x.right)
 	x.right = yl
 
 	if yl != avl._NIL {
 		yl.parent = x
+		logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): yl.parent → %v", x, yl.parent)
 	}
 
 	y.parent = x.parent
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): y.parent → %v", x, y.parent)
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): x.parent → %v", x, x.parent)
 	x.parent = y
 
 	x.height = avl.height(x)
 	y.height = avl.height(y)
+	logritelog.Default().Printf("[WARN] <<< Exiting leftRotate(x=%v)", x)
 	return y
 }
 
 func (avl *AVL[T]) rightRotate(x *AVLNode[T]) *AVLNode[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering rightRotate(x=%v)", x)
 	y := x.left
 	yr := y.right
 	y.right = x
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): y.right → %v", x, y.right)
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): x.left → %v", x, x.left)
 	x.left = yr
 
 	if yr != avl._NIL {
 		yr.parent = x
+		logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): yr.parent → %v", x, yr.parent)
 	}
 
 	y.parent = x.parent
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): y.parent → %v", x, y.parent)
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): x.parent → %v", x, x.parent)
 	x.parent = y
 
 	x.height = avl.height(x)
 	y.height = avl.height(y)
+	logritelog.Default().Printf("[WARN] <<< Exiting rightRotate(x=%v)", x)
 	return y
 }

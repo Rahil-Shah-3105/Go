@@ -4,10 +4,12 @@
 // see arithmeticmean.go
 
 package binary
+import logritelog "log"
 
 import "testing"
 
 func TestMeanUsingAndXor(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMeanUsingAndXor(t=%v)", t)
 	tests := getTests()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -16,11 +18,13 @@ func TestMeanUsingAndXor(t *testing.T) {
 				t.Errorf("Wrong result! Expected:%d, returned:%d ", tv.result, result)
 			}
 		})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMeanUsingAndXor(t=%v)", t)
 	}
 
 }
 
 func TestMeanUsingRightShift(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMeanUsingRightShift(t=%v)", t)
 	tests := getTests()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -29,6 +33,7 @@ func TestMeanUsingRightShift(t *testing.T) {
 				t.Errorf("Wrong result! Expected:%d, returned:%d ", tv.result, result)
 			}
 		})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMeanUsingRightShift(t=%v)", t)
 	}
 
 }
@@ -53,13 +58,17 @@ func getTests() []struct {
 	return tests
 }
 func BenchmarkMeanUsingAndXor(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMeanUsingAndXor(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		MeanUsingAndXor(222, 888)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMeanUsingAndXor(b=%v)", b)
 }
 
 func BenchmarkMeanUsingRightShift(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMeanUsingRightShift(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		MeanUsingRightShift(222, 888)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMeanUsingRightShift(b=%v)", b)
 }

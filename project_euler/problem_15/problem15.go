@@ -11,12 +11,14 @@
 * @author ddaniel27
  */
 package problem15
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/factorial"
 )
 
 func Problem15(gridSize int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem15(gridSize=%v)", gridSize)
 	/**
 	Author note:
 	We can solve this problem using combinatorics.
@@ -38,5 +40,6 @@ func Problem15(gridSize int) int {
 	denominator, _ := factorial.Iterative(n)
 	denominator *= denominator
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem15(gridSize=%v)", gridSize)
 	return numerator / denominator
 }

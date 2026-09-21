@@ -1,4 +1,5 @@
 package rsa_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestRSA(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRSA(t=%v)", t)
 	tests := []struct {
 		name    string
 		message string
@@ -31,19 +33,24 @@ func TestRSA(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRSA(t=%v)", t)
 }
 
 func BenchmarkRSAEncryption(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkRSAEncryption(b=%v)", b)
 	rsa := rsa.New()
 	for i := 0; i < b.N; i++ {
 		rsa.EncryptString("Hello, World!")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkRSAEncryption(b=%v)", b)
 }
 
 func BenchmarkRSADecryption(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkRSADecryption(b=%v)", b)
 	rsa := rsa.New()
 	encrypted := rsa.EncryptString("Hello, World!")
 	for i := 0; i < b.N; i++ {
 		rsa.DecryptString(encrypted)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkRSADecryption(b=%v)", b)
 }

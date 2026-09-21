@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -22,6 +23,7 @@ func getOptimalBSTTestCases() []testCaseOptimalBST {
 }
 
 func TestOptimalBST(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestOptimalBST(t=%v)", t)
 	t.Run("Optimal Binary Search Tree test cases", func(t *testing.T) {
 		for _, tc := range getOptimalBSTTestCases() {
 			t.Run("testing optimal BST", func(t *testing.T) {
@@ -32,4 +34,5 @@ func TestOptimalBST(t *testing.T) {
 			})
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestOptimalBST(t=%v)", t)
 }

@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseTilingProblem struct {
 }
 
 func getTilingProblemTestCases() []testCaseTilingProblem {
+	logritelog.Default().Printf("[ERROR] >>> Entering getTilingProblemTestCases()")
 	return []testCaseTilingProblem{
 		{1, 1},   // Base case: 1 way to tile a 2x1 grid
 		{2, 2},   // 2 ways to tile a 2x2 grid
@@ -27,6 +29,7 @@ func getTilingProblemTestCases() []testCaseTilingProblem {
 }
 
 func TestTilingProblem(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestTilingProblem(t=%v)", t)
 	t.Run("Tiling Problem test cases", func(t *testing.T) {
 		for _, tc := range getTilingProblemTestCases() {
 			actual := dynamic.TilingProblem(tc.n)
@@ -35,4 +38,5 @@ func TestTilingProblem(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestTilingProblem(t=%v)", t)
 }

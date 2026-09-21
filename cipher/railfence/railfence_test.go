@@ -1,10 +1,12 @@
 package railfence
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestEncrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestEncrypt(t=%v)", t)
 	var railFenceTestData = []struct {
 		description string
 		input       string
@@ -45,9 +47,11 @@ func TestEncrypt(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestEncrypt(t=%v)", t)
 }
 
 func TestDecrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDecrypt(t=%v)", t)
 	var railFenceTestData = []struct {
 		description string
 		input       string
@@ -88,4 +92,5 @@ func TestDecrypt(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDecrypt(t=%v)", t)
 }

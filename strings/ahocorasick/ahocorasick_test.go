@@ -1,4 +1,5 @@
 package ahocorasick
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestAhoCorasick(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestAhoCorasick(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := AhoCorasick(tc.text, tc.words)
@@ -19,9 +21,11 @@ func TestAhoCorasick(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestAhoCorasick(t=%v)", t)
 }
 
 func convertToString(res Result) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering convertToString(res=%v)", res)
 	var r strings.Builder
 	for key, val := range res.occurrences {
 		r.WriteString(fmt.Sprintf("Word: '%s' at positions: ", key))
@@ -33,5 +37,6 @@ func convertToString(res Result) string {
 		}
 		r.WriteString(". ")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting convertToString(res=%v)", res)
 	return r.String()
 }

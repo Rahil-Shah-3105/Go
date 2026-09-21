@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func longestIncreasingSubsequenceTest(t *testing.T, algorithm func(nums []int) int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering longestIncreasingSubsequenceTest(t=%v,algorithm=%v)", t, algorithm)
 	td := []struct {
 		elements    []int
 		expectedLen int
@@ -27,12 +29,17 @@ func longestIncreasingSubsequenceTest(t *testing.T, algorithm func(nums []int) i
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting longestIncreasingSubsequenceTest(t=%v,algorithm=%v)", t, algorithm)
 }
 
 func TestLongestIncreasingSubsequence(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLongestIncreasingSubsequence(t=%v)", t)
 	longestIncreasingSubsequenceTest(t, dynamic.LongestIncreasingSubsequence)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLongestIncreasingSubsequence(t=%v)", t)
 }
 
 func TestLongestIncreasingSubsequenceGreedy(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLongestIncreasingSubsequenceGreedy(t=%v)", t)
 	longestIncreasingSubsequenceTest(t, dynamic.LongestIncreasingSubsequenceGreedy)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLongestIncreasingSubsequenceGreedy(t=%v)", t)
 }

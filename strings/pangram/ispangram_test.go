@@ -1,4 +1,5 @@
 package pangram
+import logritelog "log"
 
 import (
 	"testing"
@@ -42,6 +43,7 @@ var testCases = []struct {
 }
 
 func TestIsPangram(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPangram(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			func_result := IsPangram(test.input)
@@ -50,4 +52,5 @@ func TestIsPangram(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPangram(t=%v)", t)
 }

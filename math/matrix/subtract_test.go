@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestSubtract(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSubtract(t=%v)", t)
 	// Create two matrices with the same dimensions for Subtraction
 	m1 := matrix.New(2, 2, 1)
 	m2 := matrix.New(2, 2, 2)
@@ -15,6 +17,7 @@ func TestSubtract(t *testing.T) {
 	// Test case 1: Valid matrix Subtraction
 	subMatrix, err := m1.Subtract(m2)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestSubtract(t=%v): %v", t, err)
 		t.Errorf("Add(m1, m2) returned an error: %v, expected no error", err)
 	}
 	expectedMatrix := matrix.New(2, 2, -1)
@@ -32,12 +35,14 @@ func TestSubtract(t *testing.T) {
 	expectedError2 := fmt.Errorf("matrices are not compatible for subtraction")
 	if err2 == nil || err2.Error() != expectedError2.Error() {
 		t.Errorf("m3.Subtract(m4) returned error: %v, expected error: %v", err2, expectedError2)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSubtract(t=%v)", t)
 	}
 
 }
 
 // BenchmarkSubtract benchmarks the Subtract function.
 func BenchmarkSubtract(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSubtract(b=%v)", b)
 	// Create sample matrices for benchmarking
 	rows := 100
 	columns := 100
@@ -47,4 +52,5 @@ func BenchmarkSubtract(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = m1.Subtract(m2)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSubtract(b=%v)", b)
 }

@@ -1,4 +1,5 @@
 package linkedlist
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestSingly(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSingly(t=%v)", t)
 	list := NewSingly[int]()
 	list.AddAtBeg(1)
 	list.AddAtBeg(2)
@@ -17,7 +19,9 @@ func TestSingly(t *testing.T) {
 		current := list.Head
 		got = append(got, current.Val)
 		for current.Next != nil {
+		logritelog.Default().Printf("[DEBUG] TestSingly(t=%v): got → %v", t, got)
 			current = current.Next
+			logritelog.Default().Printf("[DEBUG] TestSingly(t=%v): current → %v", t, current)
 			got = append(got, current.Val)
 		}
 		if !reflect.DeepEqual(got, want) {
@@ -100,6 +104,7 @@ func TestSingly(t *testing.T) {
 		err := list2.ReversePartition(2, 5)
 
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestSingly(t=%v): %v", t, err)
 			t.Errorf("Incorrect boundary conditions entered%v", err)
 		}
 		current := list2.Head
@@ -112,4 +117,5 @@ func TestSingly(t *testing.T) {
 			t.Errorf("got: %v, want: %v", got, want)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSingly(t=%v)", t)
 }

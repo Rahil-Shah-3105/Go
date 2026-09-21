@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -13,6 +14,7 @@ type testCaseLCS struct {
 }
 
 func getLCSTestCases() []testCaseLCS {
+	logritelog.Default().Printf("[ERROR] >>> Entering getLCSTestCases()")
 	return []testCaseLCS{
 		{"ABCDGH", "AEDFHR", 3},
 		{"AGGTAB", "GXTXAYB", 4},
@@ -34,6 +36,7 @@ func getLCSTestCases() []testCaseLCS {
 }
 
 func TestLongestCommonSubsequence(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLongestCommonSubsequence(t=%v)", t)
 	t.Run("Simple test", func(t *testing.T) {
 		for _, tc := range getLCSTestCases() {
 			actual := dynamic.LongestCommonSubsequence(tc.stringA, tc.stringB)
@@ -51,4 +54,5 @@ func TestLongestCommonSubsequence(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLongestCommonSubsequence(t=%v)", t)
 }

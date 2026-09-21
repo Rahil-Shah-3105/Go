@@ -3,11 +3,13 @@
 // time complexity: O(n)
 // space complexity: O(1)
 package dynamic
+import logritelog "log"
 
 // https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/
 
 // NthFibonacci returns the nth Fibonacci Number
 func NthFibonacci(n uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering NthFibonacci(n=%v)", n)
 	if n == 0 {
 		return 0
 	}
@@ -21,5 +23,6 @@ func NthFibonacci(n uint) uint {
 		n2 = n3
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting NthFibonacci(n=%v)", n)
 	return n2
 }

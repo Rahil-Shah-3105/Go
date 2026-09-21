@@ -2,6 +2,7 @@
 // Reference: https://en.wikipedia.org/wiki/Timsort
 
 package sort
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
@@ -20,15 +21,18 @@ func Timsort[T constraints.Ordered](data []T) []T {
 // calculateRunSize returns a run size parameter that is further used
 // to slice the data slice.
 func calculateRunSize(dataLength int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering calculateRunSize(dataLength=%v)", dataLength)
 	remainder := 0
 	for dataLength >= runSizeThreshold {
 		if dataLength%2 == 1 {
 			remainder = 1
+			logritelog.Default().Printf("[DEBUG] calculateRunSize(dataLength=%v): remainder → %v", dataLength, remainder)
 		}
 
 		dataLength = dataLength / 2
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting calculateRunSize(dataLength=%v)", dataLength)
 	return dataLength + remainder
 }
 

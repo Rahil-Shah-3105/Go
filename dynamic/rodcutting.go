@@ -5,9 +5,11 @@
 // space complexity: O(n)
 
 package dynamic
+import logritelog "log"
 
 // CutRodRec solve the problem recursively: initial approach
 func CutRodRec(price []int, length int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering CutRodRec(price=%v,length=%v)", price, length)
 	if length == 0 {
 		return 0
 	}
@@ -16,11 +18,13 @@ func CutRodRec(price []int, length int) int {
 	for i := 1; i <= length; i++ {
 		q = Max(q, price[i]+CutRodRec(price, length-i))
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting CutRodRec(price=%v,length=%v)", price, length)
 	return q
 }
 
 // CutRodDp solve the same problem using dynamic programming
 func CutRodDp(price []int, length int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering CutRodDp(price=%v,length=%v)", price, length)
 	r := make([]int, length+1) // a.k.a the memoization array
 	r[0] = 0                   // cost of 0 length rod is 0
 
@@ -32,6 +36,7 @@ func CutRodDp(price []int, length int) int {
 		r[j] = q
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting CutRodDp(price=%v,length=%v)", price, length)
 	return r[length]
 }
 

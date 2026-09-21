@@ -8,13 +8,16 @@
 // see xorsearch_test.go
 
 package binary
+import logritelog "log"
 
 // XorSearchMissingNumber This function finds a missing number in a sequence
 func XorSearchMissingNumber(a []int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering XorSearchMissingNumber(a=%v)", a)
 	n := len(a)
 	result := len(a)
 	for i := 0; i < n; i++ {
 		result ^= i ^ a[i]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting XorSearchMissingNumber(a=%v)", a)
 	return result
 }

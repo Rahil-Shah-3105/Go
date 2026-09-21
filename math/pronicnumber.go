@@ -10,14 +10,17 @@
 // see pronicnumber_test.go
 
 package math
+import logritelog "log"
 
 import "math"
 
 // PronicNumber returns true if argument passed to the function is pronic and false otherwise.
 func PronicNumber(n int) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering PronicNumber(n=%v)", n)
 	if n < 0 || n%2 == 1 {
 		return false
 	}
 	x := int(math.Sqrt(float64(n)))
+	logritelog.Default().Printf("[WARN] <<< Exiting PronicNumber(n=%v)", n)
 	return n == x*(x+1)
 }

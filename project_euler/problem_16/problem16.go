@@ -9,12 +9,14 @@
 * @author ddaniel27
  */
 package problem16
+import logritelog "log"
 
 import (
 	"math/big"
 )
 
 func Problem16(exponent int64) int64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem16(exponent=%v)", exponent)
 	var result big.Int
 
 	bigTwo := big.NewInt(2)
@@ -29,5 +31,6 @@ func Problem16(exponent int64) int64 {
 		sum += int64(digit - '0')
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem16(exponent=%v)", exponent)
 	return sum
 }

@@ -2,6 +2,7 @@
 // see sin_test.go
 
 package math
+import logritelog "log"
 
 import "math"
 

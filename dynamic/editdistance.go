@@ -5,11 +5,13 @@
 // https://leetcode.com/problems/edit-distance/
 
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
 // EditDistanceRecursive is a naive implementation with exponential time complexity.
 func EditDistanceRecursive(first string, second string, pointerFirst int, pointerSecond int) int {
+logritelog.Default().Printf("[ERROR] >>> Entering EditDistanceRecursive(first=%v,second=%v,pointerFirst=%v,pointerSecond=%v)", first, second, pointerFirst, pointerSecond)
 
 	if pointerFirst == 0 {
 		return pointerSecond
@@ -25,6 +27,7 @@ func EditDistanceRecursive(first string, second string, pointerFirst int, pointe
 	}
 
 	// We have three choices, all with cost of 1 unit
+	logritelog.Default().Printf("[WARN] <<< Exiting EditDistanceRecursive(first=%v,second=%v,pointerFirst=%v,pointerSecond=%v)", first, second, pointerFirst, pointerSecond)
 	return 1 + min.Int(EditDistanceRecursive(first, second, pointerFirst, pointerSecond-1), // Insert
 		EditDistanceRecursive(first, second, pointerFirst-1, pointerSecond),   // Delete
 		EditDistanceRecursive(first, second, pointerFirst-1, pointerSecond-1)) // Replace
@@ -35,6 +38,7 @@ func EditDistanceRecursive(first string, second string, pointerFirst int, pointe
 // of first[0..i-1] and second[0..j-1]. Time complexity is O(m * n) where m and n are lengths of the strings,
 // first and second respectively.
 func EditDistanceDP(first string, second string) int {
+logritelog.Default().Printf("[ERROR] >>> Entering EditDistanceDP(first=%v,second=%v)", first, second)
 
 	m := len(first)
 	n := len(second)
@@ -67,5 +71,6 @@ func EditDistanceDP(first string, second string) int {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting EditDistanceDP(first=%v,second=%v)", first, second)
 	return dp[m][n]
 }

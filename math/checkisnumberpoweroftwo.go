@@ -1,4 +1,5 @@
 package math
+import logritelog "log"
 
 import (
 	"math"
@@ -8,9 +9,11 @@ import (
 // The limiting degree can be from 0 to 63.
 // See alternatives in the binary package.
 func IsPowOfTwoUseLog(number float64) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsPowOfTwoUseLog(number=%v)", number)
 	if number == 0 || math.Round(number) == math.MaxInt64 {
 		return false
 	}
 	log := math.Log2(number)
+	logritelog.Default().Printf("[WARN] <<< Exiting IsPowOfTwoUseLog(number=%v)", number)
 	return log == math.Round(log)
 }

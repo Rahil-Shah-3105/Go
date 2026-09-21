@@ -3,9 +3,11 @@
 // space complexity: O(m*n) where m and n are the dimensions of the grid
 // author: Rares Mateizer (https://github.com/rares985)
 package dynamic
+import logritelog "log"
 
 // UniquePaths implements the solution to the "Unique Paths" problem
 func UniquePaths(m, n int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering UniquePaths(m=%v,n=%v)", m, n)
 	if m <= 0 || n <= 0 {
 		return 0
 	}
@@ -29,5 +31,6 @@ func UniquePaths(m, n int) int {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting UniquePaths(m=%v,n=%v)", m, n)
 	return grid[m-1][n-1]
 }

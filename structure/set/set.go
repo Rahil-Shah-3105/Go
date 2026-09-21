@@ -2,6 +2,7 @@
 // This implies that only the types that are accepted as valid map keys can be used as set elements.
 // For instance, do not try to Add a slice, or the program will panic.
 package set
+import logritelog "log"
 
 // New gives new set.
 func New[T comparable](items ...T) Set[T] {
@@ -55,18 +56,25 @@ type set[T comparable] struct {
 }
 
 func (st *set[T]) Add(value T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Add(value=%v)", value)
 	st.elements[value] = true
+	logritelog.Default().Printf("[WARN] <<< Exiting Add(value=%v)", value)
 }
 
 func (st *set[T]) Delete(value T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Delete(value=%v)", value)
 	delete(st.elements, value)
+	logritelog.Default().Printf("[WARN] <<< Exiting Delete(value=%v)", value)
 }
 
 func (st *set[T]) GetItems() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering GetItems()")
 	keys := make([]T, 0, len(st.elements))
 	for k := range st.elements {
 		keys = append(keys, k)
 	}
+		logritelog.Default().Printf("[DEBUG] GetItems(): keys → %v", keys)
+	logritelog.Default().Printf("[WARN] <<< Exiting GetItems()")
 	return keys
 }
 
@@ -75,13 +83,16 @@ func (st *set[T]) Len() int {
 }
 
 func (st *set[T]) In(value T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering In(value=%v)", value)
 	if _, in := st.elements[value]; in {
 		return true
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting In(value=%v)", value)
 	return false
 }
 
 func (st *set[T]) IsSubsetOf(superSet Set[T]) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsSubsetOf(superSet=%v)", superSet)
 	if st.Len() > superSet.Len() {
 		return false
 	}
@@ -91,13 +102,16 @@ func (st *set[T]) IsSubsetOf(superSet Set[T]) bool {
 			return false
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsSubsetOf(superSet=%v)", superSet)
 	return true
 }
 
 func (st *set[T]) IsProperSubsetOf(superSet Set[T]) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsProperSubsetOf(superSet=%v)", superSet)
 	if st.Len() == superSet.Len() {
 		return false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsProperSubsetOf(superSet=%v)", superSet)
 	return st.IsSubsetOf(superSet)
 }
 
@@ -106,13 +120,16 @@ func (st *set[T]) IsSupersetOf(subSet Set[T]) bool {
 }
 
 func (st *set[T]) IsProperSupersetOf(subSet Set[T]) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsProperSupersetOf(subSet=%v)", subSet)
 	if st.Len() == subSet.Len() {
 		return false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsProperSupersetOf(subSet=%v)", subSet)
 	return st.IsSupersetOf(subSet)
 }
 
 func (st *set[T]) Union(st2 Set[T]) Set[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering Union(st2=%v)", st2)
 	unionSet := New[T]()
 	for _, item := range st.GetItems() {
 		unionSet.Add(item)
@@ -120,14 +137,18 @@ func (st *set[T]) Union(st2 Set[T]) Set[T] {
 	for _, item := range st2.GetItems() {
 		unionSet.Add(item)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Union(st2=%v)", st2)
 	return unionSet
 }
 
 func (st *set[T]) Intersection(st2 Set[T]) Set[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering Intersection(st2=%v)", st2)
 	intersectionSet := New[T]()
 	var minSet, maxSet Set[T]
 	if st.Len() > st2.Len() {
 		minSet = st2
+		logritelog.Default().Printf("[DEBUG] Intersection(st2=%v): minSet → %v", st2, minSet)
+		logritelog.Default().Printf("[DEBUG] Intersection(st2=%v): maxSet → %v", st2, maxSet)
 		maxSet = st
 	} else {
 		minSet = st
@@ -138,20 +159,24 @@ func (st *set[T]) Intersection(st2 Set[T]) Set[T] {
 			intersectionSet.Add(item)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Intersection(st2=%v)", st2)
 	return intersectionSet
 }
 
 func (st *set[T]) Difference(st2 Set[T]) Set[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering Difference(st2=%v)", st2)
 	differenceSet := New[T]()
 	for _, item := range st.GetItems() {
 		if !st2.In(item) {
 			differenceSet.Add(item)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Difference(st2=%v)", st2)
 	return differenceSet
 }
 
 func (st *set[T]) SymmetricDifference(st2 Set[T]) Set[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering SymmetricDifference(st2=%v)", st2)
 	symmetricDifferenceSet := New[T]()
 	dropSet := New[T]()
 	for _, item := range st.GetItems() {
@@ -166,5 +191,6 @@ func (st *set[T]) SymmetricDifference(st2 Set[T]) Set[T] {
 			symmetricDifferenceSet.Add(item)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting SymmetricDifference(st2=%v)", st2)
 	return symmetricDifferenceSet
 }

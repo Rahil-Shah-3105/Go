@@ -5,6 +5,7 @@
 // space complexity: O(1)
 // for more information watch : https://www.youtube.com/watch?v=NmM9HA2MQGI
 package diffiehellman
+import logritelog "log"
 
 const (
 	generator         = 3
@@ -26,6 +27,7 @@ func GenerateMutualKey(prvKey, shareKey int64) int64 {
 
 // r = (b^e)%mod
 func modularExponentiation(b, e, mod int64) int64 {
+logritelog.Default().Printf("[ERROR] >>> Entering modularExponentiation(b=%v,e=%v,mod=%v)", b, e, mod)
 
 	//runs in O(log(n)) where n = e
 	//uses exponentiation by squaring to speed up the process
@@ -41,5 +43,6 @@ func modularExponentiation(b, e, mod int64) int64 {
 		e = e >> 1
 		b = (b * b) % mod
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting modularExponentiation(b=%v,e=%v,mod=%v)", b, e, mod)
 	return r
 }

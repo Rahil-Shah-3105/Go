@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"bytes"
@@ -11,9 +12,11 @@ import (
 )
 
 func TestMatrixString(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixString(t=%v)", t)
 	// Create a sample matrix for testing
 	m1, err := matrix.NewFromElements([][]int{{1, 2}, {3, 4}})
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixString(t=%v): %v", t, err)
 		t.Errorf("Error creating matrix: %v", err)
 	}
 
@@ -24,6 +27,7 @@ func TestMatrixString(t *testing.T) {
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	os.Stdout = w
+	logritelog.Default().Printf("[DEBUG] TestMatrixString(t=%v): os.Stdout → %v", t, os.Stdout)
 
 	// Call the String method
 	fmt.Print(m1)
@@ -47,9 +51,11 @@ func TestMatrixString(t *testing.T) {
 	if capturedOutput != expectedOutput {
 		t.Errorf("Matrix.Print() produced incorrect output:\n%s\nExpected:\n%s", capturedOutput, expectedOutput)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixString(t=%v)", t)
 }
 
 func TestNullMatrixString(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestNullMatrixString(t=%v)", t)
 
 	m1 := matrix.New(0, 0, 0)
 	// Redirect stdout to capture Stringed output
@@ -59,6 +65,7 @@ func TestNullMatrixString(t *testing.T) {
 		t.Fatalf("Failed to copy matrix: %v", err)
 	}
 	os.Stdout = w
+	logritelog.Default().Printf("[DEBUG] TestNullMatrixString(t=%v): os.Stdout → %v", t, os.Stdout)
 
 	// Call the String method
 	fmt.Print(m1)
@@ -71,6 +78,7 @@ func TestNullMatrixString(t *testing.T) {
 	var buf bytes.Buffer
 	_, err = io.Copy(&buf, r)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestNullMatrixString(t=%v): %v", t, err)
 		t.Errorf("Error copying output: %v", err)
 	}
 	capturedOutput := buf.String()
@@ -82,9 +90,11 @@ func TestNullMatrixString(t *testing.T) {
 	if capturedOutput != expectedOutput {
 		t.Errorf("Matrix.Print() produced incorrect output:\n%s\nExpected:\n%s", capturedOutput, expectedOutput)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestNullMatrixString(t=%v)", t)
 }
 
 func BenchmarkString(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkString(b=%v)", b)
 	// Create a sample matrix for benchmarking
 	rows := 100
 	columns := 100
@@ -93,4 +103,5 @@ func BenchmarkString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = m.String()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkString(b=%v)", b)
 }

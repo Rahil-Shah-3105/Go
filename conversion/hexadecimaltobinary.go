@@ -10,6 +10,7 @@ GitHub: https://github.com/mapcrafter2048
 // Supported Hexadecimal number range is 0 to 7FFFFFFFFFFFFFFF.
 
 package conversion
+import logritelog "log"
 
 import (
 	"errors"
@@ -22,6 +23,7 @@ var isValidHex = regexp.MustCompile("^[0-9A-Fa-f]+$").MatchString
 // hexToBinary() function that will take Hexadecimal number as string,
 // and return its Binary equivalent as a string.
 func hexToBinary(hex string) (string, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering hexToBinary(hex=%v)", hex)
 	// Trim any leading or trailing whitespace
 	hex = strings.TrimSpace(hex)
 
@@ -40,6 +42,9 @@ func hexToBinary(hex string) (string, error) {
 	for i := 0; i < len(hex); i++ {
 		char := hex[i]
 		var value int64
+		logritelog.Default().Printf("[DEBUG] hexToBinary(hex=%v): value → %v", hex, value)
+		logritelog.Default().Printf("[DEBUG] hexToBinary(hex=%v): value → %v", hex, value)
+		logritelog.Default().Printf("[DEBUG] hexToBinary(hex=%v): value → %v", hex, value)
 		if char >= '0' && char <= '9' {
 			value = int64(char - '0')
 		} else if char >= 'A' && char <= 'F' {
@@ -74,5 +79,6 @@ func hexToBinary(hex string) (string, error) {
 		binaryRunes[i], binaryRunes[j] = binaryRunes[j], binaryRunes[i]
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting hexToBinary(hex=%v)", hex)
 	return string(binaryRunes), nil
 }
