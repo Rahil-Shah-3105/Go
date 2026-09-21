@@ -10,9 +10,11 @@
 // author: mapcrafter2048
 
 package graph
+import logritelog "log"
 
 // Kosaraju returns a list of Strongly Connected Components (SCCs).
 func (g *Graph) Kosaraju() [][]int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Kosaraju()")
 	stack := []int{}
 	visited := make([]bool, g.vertices)
 
@@ -29,11 +31,13 @@ func (g *Graph) Kosaraju() [][]int {
 	// Step 3: Perform DFS on the transposed graph in the order defined by the stack.
 	visited = make([]bool, g.vertices)
 	var sccs [][]int
+	logritelog.Default().Printf("[DEBUG] Kosaraju(): visited → %v", visited)
 
 	for len(stack) > 0 {
 		// Pop vertex from stack
 		v := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
+		logritelog.Default().Printf("[DEBUG] Kosaraju(): stack → %v", stack)
 
 		// Perform DFS if not already visited.
 		if !visited[v] {
@@ -41,13 +45,16 @@ func (g *Graph) Kosaraju() [][]int {
 			transposed.dfs(v, visited, &scc)
 			sccs = append(sccs, scc)
 		}
+			logritelog.Default().Printf("[DEBUG] Kosaraju(): sccs → %v", sccs)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Kosaraju()")
 	return sccs
 }
 
 // Helper function to fill the stack with vertices in the order of their finish times.
 func (g *Graph) fillOrder(v int, visited []bool, stack *[]int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering fillOrder(v=%v,visited=%v,stack=%v)", v, visited, stack)
 	visited[v] = true
 
 	for neighbor := range g.edges[v] {
@@ -58,10 +65,12 @@ func (g *Graph) fillOrder(v int, visited []bool, stack *[]int) {
 
 	// Push the current vertex to the stack after exploring all neighbors.
 	*stack = append(*stack, v)
+	logritelog.Default().Printf("[WARN] <<< Exiting fillOrder(v=%v,visited=%v,stack=%v)", v, visited, stack)
 }
 
 // Helper function to create a transposed (reversed) graph.
 func (g *Graph) transpose() *Graph {
+	logritelog.Default().Printf("[ERROR] >>> Entering transpose()")
 	transposed := &Graph{
 		vertices: g.vertices,
 		edges:    make(map[int]map[int]int),
@@ -76,11 +85,13 @@ func (g *Graph) transpose() *Graph {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting transpose()")
 	return transposed
 }
 
 // Helper DFS function used in the transposed graph to collect SCCs.
 func (g *Graph) dfs(v int, visited []bool, scc *[]int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering dfs(v=%v,visited=%v,scc=%v)", v, visited, scc)
 	visited[v] = true
 	*scc = append(*scc, v)
 
@@ -89,4 +100,5 @@ func (g *Graph) dfs(v int, visited []bool, scc *[]int) {
 			g.dfs(neighbor, visited, scc)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting dfs(v=%v,visited=%v,scc=%v)", v, visited, scc)
 }

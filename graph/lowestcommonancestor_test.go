@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -13,6 +14,7 @@ type Query struct {
 }
 
 func TestLCA(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLCA(t=%v)", t)
 	testSuites := []struct {
 		numbersVertex int
 		root          int
@@ -144,9 +146,11 @@ func TestLCA(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLCA(t=%v)", t)
 }
 
 func generateTree() *Tree {
+	logritelog.Default().Printf("[ERROR] >>> Entering generateTree()")
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	const MAXVERTEX int = 2000
@@ -157,6 +161,7 @@ func generateTree() *Tree {
 	var fullGraph []TreeEdge
 	for u := 0; u < numbersVertex; u++ {
 		for v := 0; v < numbersVertex; v++ {
+			logritelog.Default().Printf("[DEBUG] generateTree(): fullGraph → %v", fullGraph)
 			fullGraph = append(fullGraph, TreeEdge{
 				from: u,
 				to:   v,
@@ -174,6 +179,7 @@ func generateTree() *Tree {
 
 	var findp func(int) int
 	findp = func(u int) int {
+		logritelog.Default().Printf("[DEBUG] generateTree(): findp → %v", findp)
 		if u == par[u] {
 			return u
 		} else {
@@ -195,12 +201,15 @@ func generateTree() *Tree {
 		if join(e.from, e.to) == true {
 			edges = append(edges, e)
 		}
+			logritelog.Default().Printf("[DEBUG] generateTree(): edges → %v", edges)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting generateTree()")
 	return NewTree(numbersVertex, root, edges)
 }
 
 func generateQuery(tree *Tree) []Query {
+	logritelog.Default().Printf("[ERROR] >>> Entering generateQuery(tree=%v)", tree)
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	const MAXQUERY = 50
 	var queries []Query
@@ -226,11 +235,13 @@ func generateQuery(tree *Tree) []Query {
 		})
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting generateQuery(tree=%v)", tree)
 	return queries
 }
 
 // Test with the tree with up to 2000 vertices.
 func TestLCAWithLargeTree(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLCAWithLargeTree(t=%v)", t)
 	const MAXTEST int = 20
 
 	for test := 1; test <= MAXTEST; test++ {
@@ -247,4 +258,5 @@ func TestLCAWithLargeTree(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLCAWithLargeTree(t=%v)", t)
 }

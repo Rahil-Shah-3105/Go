@@ -6,11 +6,14 @@
 // see abs_test.go
 
 package math
+import logritelog "log"
 
 // Abs returns absolute value
 func Abs(n int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Abs(n=%v)", n)
 	if n < 0 {
 		return -n
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Abs(n=%v)", n)
 	return n
 }

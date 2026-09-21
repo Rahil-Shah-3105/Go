@@ -4,10 +4,12 @@
 // see catalannumber.go
 
 package catalan
+import logritelog "log"
 
 import "testing"
 
 func TestCatalanNumber(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestCatalanNumber(t=%v)", t)
 	tests := []struct {
 		name string
 		n    int
@@ -28,10 +30,13 @@ func TestCatalanNumber(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestCatalanNumber(t=%v)", t)
 }
 
 func BenchmarkCatalanNumber(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkCatalanNumber(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		CatalanNumber(10)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkCatalanNumber(b=%v)", b)
 }

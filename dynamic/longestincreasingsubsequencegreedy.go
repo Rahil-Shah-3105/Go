@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 // LongestIncreasingSubsequenceGreedy is a function to find the longest increasing
 // subsequence in a given array using a greedy approach.
@@ -7,6 +8,7 @@ package dynamic
 // Auxiliary Space: O(n), where n is the length of the array(slice).
 // Reference: https://www.geeksforgeeks.org/construction-of-longest-monotonically-increasing-subsequence-n-log-n/
 func LongestIncreasingSubsequenceGreedy(nums []int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering LongestIncreasingSubsequenceGreedy(nums=%v)", nums)
 	longestIncreasingSubsequence := make([]int, 0)
 
 	for _, num := range nums {
@@ -16,10 +18,12 @@ func LongestIncreasingSubsequenceGreedy(nums []int) int {
 		if leftmostIndex == len(longestIncreasingSubsequence) {
 			longestIncreasingSubsequence = append(longestIncreasingSubsequence, num)
 		} else {
+			logritelog.Default().Printf("[DEBUG] LongestIncreasingSubsequenceGreedy(nums=%v): longestIncreasingSubsequence → %v", nums, longestIncreasingSubsequence)
 			longestIncreasingSubsequence[leftmostIndex] = num
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting LongestIncreasingSubsequenceGreedy(nums=%v)", nums)
 	return len(longestIncreasingSubsequence)
 }
 
@@ -27,6 +31,7 @@ func LongestIncreasingSubsequenceGreedy(nums []int) int {
 // Time Complexity: O(logn)
 // Auxiliary Space: O(1)
 func lowerBound(arr []int, val int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering lowerBound(arr=%v,val=%v)", arr, val)
 	searchWindowLeft, searchWindowRight := 0, len(arr)-1
 
 	for searchWindowLeft <= searchWindowRight {
@@ -36,8 +41,10 @@ func lowerBound(arr []int, val int) int {
 			searchWindowLeft = middle + 1
 		} else {
 			searchWindowRight = middle - 1
+			logritelog.Default().Printf("[DEBUG] lowerBound(arr=%v,val=%v): searchWindowRight → %v", arr, val, searchWindowRight)
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting lowerBound(arr=%v,val=%v)", arr, val)
 	return searchWindowRight + 1
 }

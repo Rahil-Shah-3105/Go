@@ -4,6 +4,7 @@
 // see rsa.go
 
 package rsa
+import logritelog "log"
 
 import (
 	"testing"
@@ -36,6 +37,7 @@ var rsaTestData = []struct {
 }
 
 func testPrecondition(t *testing.T) (int64, int64, int64) {
+	logritelog.Default().Printf("[ERROR] >>> Entering testPrecondition(t=%v)", t)
 	// Both prime numbers
 	t.Helper()
 	p := int64(61)
@@ -48,18 +50,22 @@ func testPrecondition(t *testing.T) (int64, int64, int64) {
 	}
 	d, err := modular.Inverse(e, delta)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in testPrecondition(t=%v): %v", t, err)
 		t.Fatalf("something went wrong: problem with %q: %v", "modular.Inverse", err)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting testPrecondition(t=%v)", t)
 	return e, d, n
 }
 
 func TestEncryptDecrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestEncryptDecrypt(t=%v)", t)
 	for _, test := range rsaTestData {
 		t.Run(test.description, func(t *testing.T) {
 			e, d, n := testPrecondition(t)
 			message := []rune(test.input)
 			encrypted, err := Encrypt(message, e, n)
 			if err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestEncryptDecrypt(t=%v): %v", t, err)
 				t.Fatalf("Failed to Encrypt test string:\n\tDescription: %v\n\tErrMessage: %v", test.description, err)
 			}
 
@@ -74,9 +80,11 @@ func TestEncryptDecrypt(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestEncryptDecrypt(t=%v)", t)
 }
 
 func FuzzRsa(f *testing.F) {
+	logritelog.Default().Printf("[ERROR] >>> Entering FuzzRsa(f=%v)", f)
 	for _, rsaTestInput := range rsaTestData {
 		f.Add(rsaTestInput.input)
 	}
@@ -84,6 +92,7 @@ func FuzzRsa(f *testing.F) {
 		e, d, n := testPrecondition(t)
 		encrypted, err := Encrypt([]rune(input), e, n)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in FuzzRsa(f=%v): %v", f, err)
 			t.Fatalf("failed to encrypt string: %v", err)
 		}
 		decrypted, err := Decrypt(encrypted, d, n)
@@ -94,4 +103,5 @@ func FuzzRsa(f *testing.F) {
 			t.Fatalf("expected: %q, got: %q", input, decrypted)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting FuzzRsa(f=%v)", f)
 }

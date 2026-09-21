@@ -1,8 +1,10 @@
 package binary
+import logritelog "log"
 
 import "testing"
 
 func TestAbs(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestAbs(t=%v)", t)
 	tests := getAbsTests()
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -11,6 +13,7 @@ func TestAbs(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestAbs(t=%v)", t)
 }
 
 func getAbsTests() []struct {

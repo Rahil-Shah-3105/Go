@@ -1,9 +1,11 @@
 package problem9
+import logritelog "log"
 
 import "testing"
 
 // Tests
 func TestProblem9_Func(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestProblem9_Func(t=%v)", t)
 	tests := []struct {
 		name string
 		want uint
@@ -23,11 +25,14 @@ func TestProblem9_Func(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestProblem9_Func(t=%v)", t)
 }
 
 // Benchmarks
 func BenchmarkProblem9(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkProblem9(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = Problem9()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkProblem9(b=%v)", b)
 }

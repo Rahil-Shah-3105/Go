@@ -8,18 +8,25 @@
 // see queuelinkedlist.go, queuelinkedlistwithlist.go, queue_test.go
 
 package queue
+import logritelog "log"
 
 var ListQueue []any
 
 // EnQueue it will be added new value into our list
 func EnQueue(n any) {
+	logritelog.Default().Printf("[ERROR] >>> Entering EnQueue(n=%v)", n)
+	logritelog.Default().Printf("[DEBUG] EnQueue(n=%v): ListQueue → %v", n, ListQueue)
+logritelog.Default().Printf("[WARN] <<< Exiting EnQueue(n=%v)", n)
 	ListQueue = append(ListQueue, n)
 }
 
 // DeQueue it will be removed the first value that added into the list
 func DeQueue() any {
+	logritelog.Default().Printf("[ERROR] >>> Entering DeQueue()")
 	data := ListQueue[0]
 	ListQueue = ListQueue[1:]
+	logritelog.Default().Printf("[DEBUG] DeQueue(): ListQueue → %v", ListQueue)
+	logritelog.Default().Printf("[WARN] <<< Exiting DeQueue()")
 	return data
 }
 

@@ -1,9 +1,11 @@
 package dynamic
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
 // OptimalBST returns the minimum cost of constructing a Binary Search Tree
 func OptimalBST(keys []int, freq []int, n int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering OptimalBST(keys=%v,freq=%v,n=%v)", keys, freq, n)
 	// Initialize DP table with size n x n
 	dp := make([][]int, n)
 	for i := range dp {
@@ -48,14 +50,17 @@ func OptimalBST(keys []int, freq []int, n int) int {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting OptimalBST(keys=%v,freq=%v,n=%v)", keys, freq, n)
 	return dp[0][n-1]
 }
 
 // Helper function to sum the frequencies
 func sum(freq []int, i, j int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering sum(freq=%v,i=%v,j=%v)", freq, i, j)
 	total := 0
 	for k := i; k <= j; k++ {
 		total += freq[k]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting sum(freq=%v,i=%v,j=%v)", freq, i, j)
 	return total
 }

@@ -1,10 +1,12 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestUniquePaths(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestUniquePaths(t=%v)", t)
 	testCases := map[string]struct {
 		m    int
 		n    int
@@ -25,4 +27,5 @@ func TestUniquePaths(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestUniquePaths(t=%v)", t)
 }

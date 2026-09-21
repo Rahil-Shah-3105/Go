@@ -1,8 +1,10 @@
 package circularqueue
+import logritelog "log"
 
 import "testing"
 
 func TestCircularQueue(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestCircularQueue(t=%v)", t)
 	t.Run("Size Check", func(t *testing.T) {
 		_, err := NewCircularQueue[int](-3)
 		if err == nil {
@@ -38,6 +40,8 @@ func TestCircularQueue(t *testing.T) {
 		}
 
 		expectedSize = 5
+		logritelog.Default().Printf("[DEBUG] TestCircularQueue(t=%v): expectedSize → %v", t, expectedSize)
+		logritelog.Default().Printf("[DEBUG] TestCircularQueue(t=%v): gotSize → %v", t, gotSize)
 		gotSize = queue.Size()
 		if gotSize != expectedSize {
 			t.Errorf("Expected size: %v, got: %v\n", expectedSize, gotSize)
@@ -52,6 +56,7 @@ func TestCircularQueue(t *testing.T) {
 
 		err = queue.Enqueue(6)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestCircularQueue(t=%v): %v", t, err)
 			t.Errorf("Expected nil, got error: %v\n", err.Error())
 		}
 
@@ -106,6 +111,7 @@ func TestCircularQueue(t *testing.T) {
 		}
 
 		expected = "two"
+		logritelog.Default().Printf("[DEBUG] TestCircularQueue(t=%v): expected → %v", t, expected)
 		got, err = queue.Peek()
 		if err != nil {
 			t.Error(err.Error())
@@ -176,6 +182,7 @@ func TestCircularQueue(t *testing.T) {
 		expected = false
 		got = queue.IsFull()
 		if got != expected {
+		logritelog.Default().Printf("[DEBUG] TestCircularQueue(t=%v): got → %v", t, got)
 			t.Errorf("Expected: %v got: %v\n", expected, got)
 		}
 	})
@@ -222,10 +229,12 @@ func TestCircularQueue(t *testing.T) {
 			t.Errorf("Expected: %v got: %v\n", expected, got)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestCircularQueue(t=%v)", t)
 }
 
 // BenchmarkCircularQueue benchmarks the CircularQueue implementation.
 func BenchmarkCircularQueue(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkCircularQueue(b=%v)", b)
 	b.Run("Enqueue", func(b *testing.B) {
 		queue, _ := NewCircularQueue[int](1000)
 		for i := 0; i < b.N; i++ {
@@ -264,4 +273,5 @@ func BenchmarkCircularQueue(b *testing.B) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkCircularQueue(b=%v)", b)
 }

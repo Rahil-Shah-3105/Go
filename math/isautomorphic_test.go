@@ -1,4 +1,5 @@
 package math
+import logritelog "log"
 
 import (
 	"testing"
@@ -47,6 +48,7 @@ var testCases = []struct {
 }
 
 func TestIsAutomorphic(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsAutomorphic(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			funcResult := IsAutomorphic(test.input)
@@ -55,4 +57,5 @@ func TestIsAutomorphic(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsAutomorphic(t=%v)", t)
 }

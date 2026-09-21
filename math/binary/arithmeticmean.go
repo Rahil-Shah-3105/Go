@@ -9,6 +9,7 @@
 
 // Package binary describes algorithms that use binary operations for different calculations.
 package binary
+import logritelog "log"
 
 // MeanUsingAndXor This function finds arithmetic mean using "AND" and "XOR" operations
 func MeanUsingAndXor(a int, b int) int {

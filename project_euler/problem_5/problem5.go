@@ -9,25 +9,32 @@
 * @author ddaniel27
  */
 package problem5
+import logritelog "log"
 
 func Problem5(limit uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem5(limit=%v)", limit)
 	n := limit * limit
 
 	for {
 		if isDivisible(n, limit) {
 			return n
+			logritelog.Default().Printf("[ERROR] >>> Entering isDivisible(n=%v,limit=%v)", n, limit)
+			logritelog.Default().Printf("[WARN] <<< Exiting isDivisible(n=%v,limit=%v)", n, limit)
 		}
 
 		n++
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem5(limit=%v)", limit)
 }
 
 func isDivisible(n, limit uint) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering isDivisible(n=%v,limit=%v)", n, limit)
 	for i := uint(1); i <= limit; i++ {
 		if n%i != 0 {
 			return false
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting isDivisible(n=%v,limit=%v)", n, limit)
 	return true
 }

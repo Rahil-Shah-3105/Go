@@ -3,6 +3,7 @@
 // see median.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestMedian(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMedian(t=%v)", t)
 	testCases := []struct {
 		name       string
 		testValues []float64
@@ -53,4 +55,5 @@ func TestMedian(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMedian(t=%v)", t)
 }

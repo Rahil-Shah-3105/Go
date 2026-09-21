@@ -9,14 +9,17 @@
 // author(s): Mohit Raghav(https://github.com/mohit07raghav19)
 // See strassenmatrixmultiply_test.go for test cases
 package matrix
+import logritelog "log"
 
 // Perform matrix multiplication using Strassen's algorithm
 func (A Matrix[T]) StrassenMatrixMultiply(B Matrix[T]) (Matrix[T], error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering StrassenMatrixMultiply(B=%v)", B)
 	n := A.rows
 	// Check if matrices are 2x2 or smaller
 	if n == 1 {
 		a1, err := A.Get(0, 0)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in StrassenMatrixMultiply(B=%v): %v", B, err)
 			return Matrix[T]{}, err
 		}
 		b1, err := B.Get(0, 0)
@@ -192,6 +195,7 @@ func (A Matrix[T]) StrassenMatrixMultiply(B Matrix[T]) (Matrix[T], error) {
 
 				err = C.Set(i, j, val)
 				if err != nil {
+				logritelog.Default().Printf("[DEBUG] StrassenMatrixMultiply(B=%v): err → %v", B, err)
 					return Matrix[T]{}, err
 				}
 
@@ -224,6 +228,7 @@ func (A Matrix[T]) StrassenMatrixMultiply(B Matrix[T]) (Matrix[T], error) {
 				}
 			}
 		}
+		logritelog.Default().Printf("[WARN] <<< Exiting StrassenMatrixMultiply(B=%v)", B)
 		return C, nil
 	}
 }

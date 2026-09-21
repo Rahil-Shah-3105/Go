@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -14,6 +15,7 @@ type testCasePartitionProblem struct {
 
 // getPartitionProblemTestCases returns a list of test cases for the Partition Problem
 func getPartitionProblemTestCases() []testCasePartitionProblem {
+	logritelog.Default().Printf("[ERROR] >>> Entering getPartitionProblemTestCases()")
 	return []testCasePartitionProblem{
 		{[]int{1, 5, 11, 5}, true},    // Example with a partitionable set
 		{[]int{1, 2, 3, 5}, false},    // Example where partition is not possible
@@ -28,6 +30,7 @@ func getPartitionProblemTestCases() []testCasePartitionProblem {
 
 // TestPartitionProblem tests the PartitionProblem function with different test cases
 func TestPartitionProblem(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestPartitionProblem(t=%v)", t)
 	t.Run("Partition Problem test cases", func(t *testing.T) {
 		for _, tc := range getPartitionProblemTestCases() {
 			actual := dynamic.PartitionProblem(tc.nums)
@@ -36,4 +39,5 @@ func TestPartitionProblem(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestPartitionProblem(t=%v)", t)
 }

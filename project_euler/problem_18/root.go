@@ -1,4 +1,5 @@
 package problem18
+import logritelog "log"
 
 type Root struct {
 	ID        int
@@ -38,11 +39,13 @@ func (n *Root) GetID() int {
 }
 
 func (n *Root) Insert(node Node) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Insert(node=%v)", node)
 	if n.NodeLeft == nil {
 		n.NodeLeft = node.(*Edge)
 	} else {
 		n.NodeRight = node.(*Edge)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Insert(node=%v)", node)
 }
 
 func (n *Root) HasSpace() bool {
@@ -58,5 +61,7 @@ func (n *Root) RightIsNil() bool {
 }
 
 func (n *Root) SetParent(node Node) {
+	logritelog.Default().Printf("[ERROR] >>> Entering SetParent(node=%v)", node)
 	panic("Root node cannot have a parent")
+	logritelog.Default().Printf("[WARN] <<< Exiting SetParent(node=%v)", node)
 }

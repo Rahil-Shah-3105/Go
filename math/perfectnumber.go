@@ -14,9 +14,11 @@
 // see perfectnumber_test.go
 
 package math
+import logritelog "log"
 
 // Returns the sum of proper divisors of inNumber.
 func SumOfProperDivisors(inNumber uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering SumOfProperDivisors(inNumber=%v)", inNumber)
 	var res = uint(0)
 	if inNumber > 1 {
 		res = uint(1)
@@ -29,6 +31,7 @@ func SumOfProperDivisors(inNumber uint) uint {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting SumOfProperDivisors(inNumber=%v)", inNumber)
 	return res
 }
 

@@ -4,6 +4,7 @@
 // see checkisnumberpoweroftwo.go
 
 package math
+import logritelog "log"
 
 import (
 	"math"
@@ -35,6 +36,7 @@ func getTestsForPowerOfTwo() []struct {
 }
 
 func TestIsPowOfTwoUseLog(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPowOfTwoUseLog(t=%v)", t)
 	tests := getTestsForPowerOfTwo()
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
@@ -45,10 +47,13 @@ func TestIsPowOfTwoUseLog(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPowOfTwoUseLog(t=%v)", t)
 }
 
 func BenchmarkIsPowerOfTwoUseLog(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsPowerOfTwoUseLog(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		IsPowOfTwoUseLog(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsPowerOfTwoUseLog(b=%v)", b)
 }

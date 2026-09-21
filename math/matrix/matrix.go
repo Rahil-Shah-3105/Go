@@ -1,4 +1,5 @@
 package matrix
+import logritelog "log"
 
 import (
 	"errors"
@@ -64,19 +65,23 @@ func NewFromElements[T constraints.Integer](elements [][]T) (Matrix[T], error) {
 }
 
 func (m Matrix[T]) Get(row, col int) (T, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Get(row=%v,col=%v)", row, col)
 	if row < 0 || row >= m.rows || col < 0 || col >= m.columns {
 		var zeroVal T
 		return zeroVal, errors.New("index out of range")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Get(row=%v,col=%v)", row, col)
 	return m.elements[row][col], nil
 }
 
 func (m Matrix[T]) Set(row, col int, val T) error {
+	logritelog.Default().Printf("[ERROR] >>> Entering Set(row=%v,col=%v,val=%v)", row, col, val)
 	if row < 0 || row >= m.rows || col < 0 || col >= m.columns {
 		return errors.New("index out of bounds")
 	}
 
 	m.elements[row][col] = val
+	logritelog.Default().Printf("[WARN] <<< Exiting Set(row=%v,col=%v,val=%v)", row, col, val)
 	return nil
 }
 
@@ -85,8 +90,10 @@ func (m Matrix[T]) Rows() int {
 }
 
 func (m Matrix[T]) Columns() int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Columns()")
 	if len(m.elements) == 0 {
 		return 0
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Columns()")
 	return len(m.elements[0])
 }

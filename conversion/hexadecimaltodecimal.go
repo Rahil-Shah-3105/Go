@@ -10,6 +10,7 @@ GitHub: https://github.com/mapcrafter2048
 // Supported Hexadecimal number range is 0 to 7FFFFFFFFFFFFFFF.
 
 package conversion
+import logritelog "log"
 
 import (
 	"fmt"
@@ -21,6 +22,7 @@ var isValidHexadecimal = regexp.MustCompile("^[0-9A-Fa-f]+$").MatchString
 
 // hexToDecimal converts a hexadecimal string to a decimal integer.
 func hexToDecimal(hexStr string) (int64, error) {
+logritelog.Default().Printf("[ERROR] >>> Entering hexToDecimal(hexStr=%v)", hexStr)
 
 	hexStr = strings.TrimSpace(hexStr)
 
@@ -41,6 +43,9 @@ func hexToDecimal(hexStr string) (int64, error) {
 	var decimalValue int64
 	for _, char := range hexStr {
 		var digit int64
+		logritelog.Default().Printf("[DEBUG] hexToDecimal(hexStr=%v): digit → %v", hexStr, digit)
+		logritelog.Default().Printf("[DEBUG] hexToDecimal(hexStr=%v): digit → %v", hexStr, digit)
+		logritelog.Default().Printf("[DEBUG] hexToDecimal(hexStr=%v): digit → %v", hexStr, digit)
 		if char >= '0' && char <= '9' {
 			digit = int64(char - '0')
 		} else if char >= 'A' && char <= 'F' {
@@ -51,7 +56,9 @@ func hexToDecimal(hexStr string) (int64, error) {
 			return 0, fmt.Errorf("invalid character in hexadecimal string: %c", char)
 		}
 		decimalValue = decimalValue*16 + digit
+		logritelog.Default().Printf("[DEBUG] hexToDecimal(hexStr=%v): decimalValue → %v", hexStr, decimalValue)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting hexToDecimal(hexStr=%v)", hexStr)
 	return decimalValue, nil
 }

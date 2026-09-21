@@ -4,6 +4,7 @@
 // see transposition.go
 
 package transposition
+import logritelog "log"
 
 import (
 	"errors"
@@ -23,15 +24,18 @@ var texts = []string{
 }
 
 func getRandomString() string {
+	logritelog.Default().Printf("[ERROR] >>> Entering getRandomString()")
 	enRunes := []rune(enAlphabet)
 	b := make([]rune, rand.Intn(100))
 	for i := range b {
 		b[i] = enRunes[rand.Intn(len(enRunes))]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getRandomString()")
 	return string(b)
 }
 
 func TestEncrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestEncrypt(t=%v)", t)
 	fn := func(text string, keyWord string) (bool, error) {
 		encrypt, err := Encrypt([]rune(text), keyWord)
 		if err != nil && !errors.Is(err, ErrNoTextToEncrypt) && !errors.Is(err, ErrKeyMissing) {
@@ -47,9 +51,11 @@ func TestEncrypt(t *testing.T) {
 	if _, err := fn(getRandomString(), ""); err == nil {
 		t.Error("Error! empty string encryption")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestEncrypt(t=%v)", t)
 }
 
 func TestDecrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDecrypt(t=%v)", t)
 	for _, s := range texts {
 		keyWord := getRandomString()
 		encrypt, errEncrypt := Encrypt([]rune(s), keyWord)
@@ -77,9 +83,11 @@ func TestDecrypt(t *testing.T) {
 			t.Error("String ", s, " not encrypted")
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDecrypt(t=%v)", t)
 }
 
 func TestEncryptDecrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestEncryptDecrypt(t=%v)", t)
 	text := []rune("Test text for checking the algorithm")
 	key1 := "testKey"
 	key2 := "Test Key2"
@@ -98,9 +106,11 @@ func TestEncryptDecrypt(t *testing.T) {
 	if reflect.DeepEqual(decrypt, text) {
 		t.Errorf("The string was decrypted with a different key: %q %q", decrypt, text)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestEncryptDecrypt(t=%v)", t)
 }
 
 func FuzzTransposition(f *testing.F) {
+	logritelog.Default().Printf("[ERROR] >>> Entering FuzzTransposition(f=%v)", f)
 	for _, transpositionTestInput := range texts {
 		f.Add(transpositionTestInput)
 	}
@@ -130,4 +140,5 @@ func FuzzTransposition(f *testing.F) {
 			t.Fatalf("expected: %+v, got: %+v", message, []rune(decrypted))
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting FuzzTransposition(f=%v)", f)
 }

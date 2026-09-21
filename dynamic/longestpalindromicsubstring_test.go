@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseLongestPalindromicSubstring struct {
 }
 
 func getLongestPalindromicSubstringTestCases() []testCaseLongestPalindromicSubstring {
+	logritelog.Default().Printf("[ERROR] >>> Entering getLongestPalindromicSubstringTestCases()")
 	return []testCaseLongestPalindromicSubstring{
 		{"babad", "bab"},                   // Example with multiple palindromes
 		{"cbbd", "bb"},                     // Example with longest even palindrome
@@ -26,6 +28,7 @@ func getLongestPalindromicSubstringTestCases() []testCaseLongestPalindromicSubst
 }
 
 func TestLongestPalindromicSubstring(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLongestPalindromicSubstring(t=%v)", t)
 	t.Run("Longest Palindromic Substring test cases", func(t *testing.T) {
 		for _, tc := range getLongestPalindromicSubstringTestCases() {
 			actual := dynamic.LongestPalindromicSubstring(tc.s)
@@ -34,4 +37,5 @@ func TestLongestPalindromicSubstring(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLongestPalindromicSubstring(t=%v)", t)
 }

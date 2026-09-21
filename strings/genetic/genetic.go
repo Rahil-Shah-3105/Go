@@ -3,6 +3,7 @@
 //
 // Author: D4rkia
 package genetic
+import logritelog "log"
 
 import (
 	"errors"
@@ -69,6 +70,7 @@ type Result struct {
 // Link to the same algorithm implemented in python:
 // https://github.com/TheAlgorithms/Python/blob/master/genetic_algorithm/basic_string.py
 func GeneticString(target string, charmap []rune, conf *Conf) (*Result, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering GeneticString(target=%v,charmap=%v,conf=%v)", target, charmap, conf)
 	populationNum := conf.PopulationNum
 	if populationNum == 0 {
 		populationNum = 200
@@ -100,6 +102,7 @@ func GeneticString(target string, charmap []rune, conf *Conf) (*Result, error) {
 		for _, n := range charmap {
 			if n == r {
 				invalid = false
+				logritelog.Default().Printf("[DEBUG] GeneticString(target=%v,charmap=%v,conf=%v): invalid → %v", target, charmap, conf, invalid)
 			}
 		}
 		if invalid {
@@ -156,6 +159,7 @@ func GeneticString(target string, charmap []rune, conf *Conf) (*Result, error) {
 		var popChildren []PopulationItem
 		popChildren = append(popChildren, pop[0:int(selectionNum/3)]...)
 
+		logritelog.Default().Printf("[DEBUG] GeneticString(target=%v,charmap=%v,conf=%v): popChildren → %v", target, charmap, conf, popChildren)
 		// This is Selection
 		for i := 0; i < int(selectionNum); i++ {
 			parent1 := pop[i]
@@ -163,6 +167,7 @@ func GeneticString(target string, charmap []rune, conf *Conf) (*Result, error) {
 			nChild := (parent1.Value * 100) + 1
 			if nChild >= 10 {
 				nChild = 10
+				logritelog.Default().Printf("[DEBUG] GeneticString(target=%v,charmap=%v,conf=%v): nChild → %v", target, charmap, conf, nChild)
 			}
 			for x := 0.0; x < nChild; x++ {
 				parent2 := pop[rnd.Intn(selectionNum)]
@@ -192,6 +197,8 @@ func GeneticString(target string, charmap []rune, conf *Conf) (*Result, error) {
 			}
 		}
 		pop = popChildren
+		logritelog.Default().Printf("[DEBUG] GeneticString(target=%v,charmap=%v,conf=%v): pop → %v", target, charmap, conf, pop)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting GeneticString(target=%v,charmap=%v,conf=%v)", target, charmap, conf)
 	return &Result{gen, generatedPop, pop[0]}, nil
 }

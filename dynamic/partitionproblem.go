@@ -5,10 +5,12 @@
 // space complexity: O(n*sum)
 
 package dynamic
+import logritelog "log"
 
 // PartitionProblem checks whether the given set can be partitioned into two subsets
 // such that the sum of the elements in both subsets is the same.
 func PartitionProblem(nums []int) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering PartitionProblem(nums=%v)", nums)
 	sum := 0
 	for _, num := range nums {
 		sum += num
@@ -26,5 +28,6 @@ func PartitionProblem(nums []int) bool {
 			dp[i] = dp[i] || dp[i-num]
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting PartitionProblem(nums=%v)", nums)
 	return dp[target]
 }

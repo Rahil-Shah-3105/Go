@@ -4,6 +4,7 @@
 // see luhn.go
 
 package checksum_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestLuhn(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLuhn(t=%v)", t)
 	tests := []struct {
 		name string
 		s    []byte
@@ -32,10 +34,13 @@ func TestLuhn(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLuhn(t=%v)", t)
 }
 
 func BenchmarkBruteForceFactorial(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkBruteForceFactorial(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		checksum.Luhn([]byte("4242424242424242"))
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkBruteForceFactorial(b=%v)", b)
 }

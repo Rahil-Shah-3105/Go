@@ -5,14 +5,17 @@
 // Reference: https://www.geeksforgeeks.org/comb-sort/
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 func getNextGap(gap int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering getNextGap(gap=%v)", gap)
 	gap = (gap * 10) / 13
 	if gap < 1 {
 		return 1
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getNextGap(gap=%v)", gap)
 	return gap
 }
 

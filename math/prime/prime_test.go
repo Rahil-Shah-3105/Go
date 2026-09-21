@@ -1,4 +1,5 @@
 package prime
+import logritelog "log"
 
 import (
 	"fmt"
@@ -11,6 +12,7 @@ var testLimit = 127
 type primalityTest func(int64) bool
 
 func primalityTestTestingHelper(t *testing.T, name string, f primalityTest) {
+	logritelog.Default().Printf("[ERROR] >>> Entering primalityTestTestingHelper(t=%v,name=%v,f=%v)", t, name, f)
 	arrayIndex := 0
 	for i := 1; i <= testLimit; i++ {
 		isPrime := i == primeList[arrayIndex]
@@ -28,68 +30,93 @@ func primalityTestTestingHelper(t *testing.T, name string, f primalityTest) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting primalityTestTestingHelper(t=%v,name=%v,f=%v)", t, name, f)
 }
 
 func primalityTestBenchmarkHelper(b *testing.B, f primalityTest) {
+	logritelog.Default().Printf("[ERROR] >>> Entering primalityTestBenchmarkHelper(b=%v,f=%v)", b, f)
 	for i := 0; i < b.N; i++ {
 		f(104729)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting primalityTestBenchmarkHelper(b=%v,f=%v)", b, f)
 }
 
 // Miller-Rabin Probabilistic test
 
 func millerRabinProbabilisticTester(n int64) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering millerRabinProbabilisticTester(n=%v)", n)
 	result, err := MillerRabinProbabilistic(n, 40)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in millerRabinProbabilisticTester(n=%v): %v", n, err)
 		panic(err)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting millerRabinProbabilisticTester(n=%v)", n)
 	return result
 }
 
 func TestMillerRabinProbabilistic(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMillerRabinProbabilistic(t=%v)", t)
 	primalityTestTestingHelper(t, "Miller-Rabin Probabilistic", millerRabinProbabilisticTester)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMillerRabinProbabilistic(t=%v)", t)
 }
 
 func BenchmarkMillerRabinProbabilistic(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMillerRabinProbabilistic(b=%v)", b)
 	primalityTestBenchmarkHelper(b, millerRabinProbabilisticTester)
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMillerRabinProbabilistic(b=%v)", b)
 }
 
 // Miller-Rabin deterministic test
 
 func millerRabinDeterministicTester(n int64) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering millerRabinDeterministicTester(n=%v)", n)
 	result, err := MillerRabinDeterministic(n)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in millerRabinDeterministicTester(n=%v): %v", n, err)
 		panic(err)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting millerRabinDeterministicTester(n=%v)", n)
 	return result
 }
 
 func TestMillerRabinDeterministic(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMillerRabinDeterministic(t=%v)", t)
 	primalityTestTestingHelper(t, "Miller-Rabin Deterministic", millerRabinDeterministicTester)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMillerRabinDeterministic(t=%v)", t)
 }
 
 func BenchmarkMillerRabinDeterministic(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMillerRabinDeterministic(b=%v)", b)
 	primalityTestBenchmarkHelper(b, millerRabinDeterministicTester)
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMillerRabinDeterministic(b=%v)", b)
 }
 
 // Trial Division test
 
 func TestTrialDivision(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestTrialDivision(t=%v)", t)
 	primalityTestTestingHelper(t, "Trial Division", TrialDivision)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestTrialDivision(t=%v)", t)
 }
 
 func BenchmarkTrialDivision(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkTrialDivision(b=%v)", b)
 	primalityTestBenchmarkHelper(b, TrialDivision)
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkTrialDivision(b=%v)", b)
 }
 
 // Trial Division (optimized)
 
 func TestOptimizedTrialDivision(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestOptimizedTrialDivision(t=%v)", t)
 	primalityTestTestingHelper(t, "Trial Division (optimized)", OptimizedTrialDivision)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestOptimizedTrialDivision(t=%v)", t)
 }
 
 func BenchmarkOptimizedTrialDivision(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkOptimizedTrialDivision(b=%v)", b)
 	primalityTestBenchmarkHelper(b, OptimizedTrialDivision)
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkOptimizedTrialDivision(b=%v)", b)
 }

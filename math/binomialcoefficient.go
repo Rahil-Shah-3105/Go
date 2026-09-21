@@ -10,6 +10,7 @@
 // see binomialcoefficient_test.go
 
 package math
+import logritelog "log"
 
 import (
 	"errors"
@@ -20,6 +21,7 @@ var ErrPosArgsOnly error = errors.New("arguments must be positive")
 // C is Binomial Coefficient function
 // This function returns C(n, k) for given n and k
 func Combinations(n int, k int) (int, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Combinations(n=%v,k=%v)", n, k)
 	if n < 0 || k < 0 {
 		return -1, ErrPosArgsOnly
 	}
@@ -31,5 +33,6 @@ func Combinations(n int, k int) (int, error) {
 		res *= (n - i)
 		res /= (i + 1)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Combinations(n=%v,k=%v)", n, k)
 	return res, nil
 }

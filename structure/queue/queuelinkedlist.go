@@ -8,6 +8,7 @@
 // see queuearray.go, queuelinkedlistwithlist.go, queue_test.go
 
 package queue
+import logritelog "log"
 
 // Node will be store the value and the next node as well
 type Node struct {
@@ -24,35 +25,44 @@ type Queue struct {
 
 // enqueue it will be added new value into queue
 func (ll *Queue) enqueue(n any) {
+	logritelog.Default().Printf("[ERROR] >>> Entering enqueue(n=%v)", n)
 	var newNode Node // create new Node
 	newNode.Data = n // set the data
+	logritelog.Default().Printf("[DEBUG] enqueue(n=%v): newNode.Data → %v", n, newNode.Data)
 
 	if ll.tail != nil {
 		ll.tail.Next = &newNode
 	}
 
 	ll.tail = &newNode
+	logritelog.Default().Printf("[DEBUG] enqueue(n=%v): ll.tail → %v", n, ll.tail)
 
 	if ll.head == nil {
 		ll.head = &newNode
+		logritelog.Default().Printf("[DEBUG] enqueue(n=%v): ll.head → %v", n, ll.head)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting enqueue(n=%v)", n)
 	ll.length++
 }
 
 // dequeue it will be removed the first value into queue (First In First Out)
 func (ll *Queue) dequeue() any {
+	logritelog.Default().Printf("[ERROR] >>> Entering dequeue()")
 	if ll.isEmpty() {
 		return -1 // if is empty return -1
 	}
 	data := ll.head.Data
 
 	ll.head = ll.head.Next
+	logritelog.Default().Printf("[DEBUG] dequeue(): ll.head → %v", ll.head)
 
 	if ll.head == nil {
 		ll.tail = nil
+		logritelog.Default().Printf("[DEBUG] dequeue(): ll.tail → %v", ll.tail)
 	}
 
 	ll.length--
+	logritelog.Default().Printf("[WARN] <<< Exiting dequeue()")
 	return data
 }
 

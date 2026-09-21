@@ -1,4 +1,5 @@
 package problem18
+import logritelog "log"
 
 type Edge struct {
 	ID        int
@@ -25,6 +26,7 @@ func (n *Edge) Kind() string {
 }
 
 func (n *Edge) CreateChild(value NodeValue, id int) Node {
+	logritelog.Default().Printf("[ERROR] >>> Entering CreateChild(value=%v,id=%v)", value, id)
 	// When the left child is nil, it's a left edge
 	if n.NodeLeft == nil {
 		return &Edge{
@@ -47,6 +49,7 @@ func (n *Edge) CreateChild(value NodeValue, id int) Node {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting CreateChild(value=%v,id=%v)", value, id)
 	return &Leaf{
 		ID:        id,
 		NodeValue: value,
@@ -61,16 +64,19 @@ func (n *Edge) GetID() int {
 }
 
 func (n *Edge) Insert(node Node) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Insert(node=%v)", node)
 	// If Left is nil, always simply insert the node
 	if n.NodeLeft == nil {
 		node.SetParent(n)
 		n.NodeLeft = node
+		logritelog.Default().Printf("[DEBUG] Insert(node=%v): n.NodeLeft → %v", node, n.NodeLeft)
 
 		return
 	}
 
 	// If Right is nil, insert the node
 	n.NodeRight = node
+	logritelog.Default().Printf("[DEBUG] Insert(node=%v): n.NodeRight → %v", node, n.NodeRight)
 
 	// If the node to insert is an edge, set the parent
 	if node.Kind() == "edge" {
@@ -81,6 +87,7 @@ func (n *Edge) Insert(node Node) {
 
 	// If the node to insert is a leaf, send it to the sibling right
 	n.Parent.Right().Insert(node)
+	logritelog.Default().Printf("[WARN] <<< Exiting Insert(node=%v)", node)
 }
 
 func (n *Edge) HasSpace() bool {
@@ -96,5 +103,8 @@ func (n *Edge) RightIsNil() bool {
 }
 
 func (n *Edge) SetParent(node Node) {
+	logritelog.Default().Printf("[ERROR] >>> Entering SetParent(node=%v)", node)
+	logritelog.Default().Printf("[DEBUG] SetParent(node=%v): n.Parent → %v", node, n.Parent)
+logritelog.Default().Printf("[WARN] <<< Exiting SetParent(node=%v)", node)
 	n.Parent = node
 }

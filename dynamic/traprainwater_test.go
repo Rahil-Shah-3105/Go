@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestTrapRainWater(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestTrapRainWater(t=%v)", t)
 	heights := [][]int{
 		{},
 		{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1},
@@ -31,4 +33,5 @@ func TestTrapRainWater(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestTrapRainWater(t=%v)", t)
 }

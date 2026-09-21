@@ -4,6 +4,7 @@
 // space complexity: O(n^2)
 
 package matrix
+import logritelog "log"
 
 import (
 	"context"
@@ -13,6 +14,7 @@ import (
 
 // Add adds two matrices.
 func (m1 Matrix[T]) Add(m2 Matrix[T]) (Matrix[T], error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Add(m2=%v)", m2)
 	// Check if the matrices have the same dimensions.
 	if !m1.MatchDimensions(m2) {
 		return Matrix[T]{}, errors.New("matrices are not compatible for addition")
@@ -65,5 +67,6 @@ func (m1 Matrix[T]) Add(m2 Matrix[T]) (Matrix[T], error) {
 		return Matrix[T]{}, err
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Add(m2=%v)", m2)
 	return result, nil
 }

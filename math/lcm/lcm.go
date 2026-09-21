@@ -1,4 +1,5 @@
 package lcm
+import logritelog "log"
 
 import (
 	"math"

@@ -6,6 +6,7 @@
 // ref : https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)
 
 package cache
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/structure/linkedlist"
@@ -39,21 +40,26 @@ func NewLRU(capacity int) LRU {
 // Get value from lru
 // if not found, return nil
 func (c *LRU) Get(key string) any {
+	logritelog.Default().Printf("[ERROR] >>> Entering Get(key=%v)", key)
 	v, ok := c.storage[key]
 	if ok {
 		c.dl.MoveToBack(v)
 		return v.Val.(item).value
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Get(key=%v)", key)
 	return nil
 }
 
 // Put cache with key and value to lru
 func (c *LRU) Put(key string, value any) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Put(key=%v,value=%v)", key, value)
 	e, ok := c.storage[key]
 	if ok {
 		n := e.Val.(item)
 		n.value = value
+		logritelog.Default().Printf("[DEBUG] Put(key=%v,value=%v): n.value → %v", key, value, n.value)
+		logritelog.Default().Printf("[DEBUG] Put(key=%v,value=%v): e.Val → %v", key, value, e.Val)
 		e.Val = n
 		c.dl.MoveToBack(e)
 		return
@@ -72,4 +78,5 @@ func (c *LRU) Put(key string, value any) {
 	ne := c.dl.Back()
 	c.storage[key] = ne
 	c.size++
+	logritelog.Default().Printf("[WARN] <<< Exiting Put(key=%v,value=%v)", key, value)
 }

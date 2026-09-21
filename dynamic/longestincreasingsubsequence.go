@@ -5,6 +5,7 @@
 // space complexity: O(n)
 
 package dynamic
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/max"
@@ -13,6 +14,7 @@ import (
 // LongestIncreasingSubsequence returns the longest increasing subsequence
 // where all elements of the subsequence are sorted in increasing order
 func LongestIncreasingSubsequence(elements []int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering LongestIncreasingSubsequence(elements=%v)", elements)
 	n := len(elements)
 	lis := make([]int, n)
 	for i := range lis {
@@ -29,5 +31,7 @@ func LongestIncreasingSubsequence(elements []int) int {
 	for _, value := range lis {
 		res = max.Int(res, value)
 	}
+		logritelog.Default().Printf("[DEBUG] LongestIncreasingSubsequence(elements=%v): res → %v", elements, res)
+	logritelog.Default().Printf("[WARN] <<< Exiting LongestIncreasingSubsequence(elements=%v)", elements)
 	return res
 }

@@ -7,6 +7,7 @@
 // see kruskal.go, kruskal_test.go
 
 package graph
+import logritelog "log"
 
 import (
 	"sort"
@@ -21,6 +22,7 @@ type Edge struct {
 }
 
 func KruskalMST(n int, edges []Edge) ([]Edge, int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering KruskalMST(n=%v,edges=%v)", n, edges)
 	// Initialize variables to store the minimum spanning tree and its total cost
 	var mst []Edge
 	var cost int
@@ -40,6 +42,7 @@ func KruskalMST(n int, edges []Edge) ([]Edge, int) {
 			// Add the edge to the minimum spanning tree
 			mst = append(mst, edge)
 			// Add the weight of the edge to the total cost
+			logritelog.Default().Printf("[DEBUG] KruskalMST(n=%v,edges=%v): mst → %v", n, edges, mst)
 			cost += edge.Weight
 			// Merge the sets containing the start and end vertices of the current edge
 			u.Union(int(edge.Start), int(edge.End))
@@ -47,5 +50,6 @@ func KruskalMST(n int, edges []Edge) ([]Edge, int) {
 	}
 
 	// Return the minimum spanning tree and its total cost
+	logritelog.Default().Printf("[WARN] <<< Exiting KruskalMST(n=%v,edges=%v)", n, edges)
 	return mst, cost
 }

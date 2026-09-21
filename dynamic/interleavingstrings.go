@@ -5,9 +5,11 @@
 // space complexity: O(m*n)
 
 package dynamic
+import logritelog "log"
 
 // IsInterleave checks if string `s1` and `s2` can be interleaved to form string `s3`
 func IsInterleave(s1, s2, s3 string) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsInterleave(s1=%v,s2=%v,s3=%v)", s1, s2, s3)
 	if len(s1)+len(s2) != len(s3) {
 		return false
 	}
@@ -32,5 +34,6 @@ func IsInterleave(s1, s2, s3 string) bool {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting IsInterleave(s1=%v,s2=%v,s3=%v)", s1, s2, s3)
 	return dp[len(s1)][len(s2)]
 }

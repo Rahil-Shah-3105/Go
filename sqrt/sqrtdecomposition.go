@@ -1,5 +1,6 @@
 // Package sqrt contains algorithms and data structures that contains a √n in their complexity
 package sqrt
+import logritelog "log"
 
 import "math"
 
@@ -63,6 +64,8 @@ func NewSqrtDecomposition[E any, Q any](
 //   - start < end
 //   - start and end are valid
 func (s *SqrtDecomposition[E, Q]) Query(start uint64, end uint64) Q {
+	logritelog.Default().Printf("[ERROR] >>> Entering Query(start=%v,end=%v)", start, end)
+	logritelog.Default().Printf("[ERROR] >>> Entering Query(start=%v,end=%v)", start, end)
 	firstIndexNextBlock := ((start / s.blockSize) + 1) * s.blockSize
 	q := s.querySingleElement(s.elements[start])
 	if firstIndexNextBlock > end { // if in same block
@@ -90,13 +93,16 @@ func (s *SqrtDecomposition[E, Q]) Query(start uint64, end uint64) Q {
 			q = s.unionQ(q, s.querySingleElement(s.elements[i]))
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Query(start=%v,end=%v)", start, end)
 	return q
 }
 
 // Assumptions:
 //   - index is valid
 func (s *SqrtDecomposition[E, Q]) Update(index uint64, newElement E) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Update(index=%v,newElement=%v)", index, newElement)
 	i := index / s.blockSize
 	s.blocks[i] = s.updateQ(s.blocks[i], s.elements[index], newElement)
 	s.elements[index] = newElement
+	logritelog.Default().Printf("[WARN] <<< Exiting Update(index=%v,newElement=%v)", index, newElement)
 }

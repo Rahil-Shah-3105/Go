@@ -8,6 +8,7 @@
 // see rbtree.go
 
 package tree
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
@@ -70,9 +71,11 @@ func (t *RB[T]) Empty() bool {
 
 // Push a chain of Node's into the Red-Black Tree
 func (t *RB[T]) Push(keys ...T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Push(keys=%v)", keys)
 	for _, key := range keys {
 		t.pushHelper(t.Root, key)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Push(keys=%v)", keys)
 }
 
 // Delete a node of Red-Black Tree
@@ -88,14 +91,17 @@ func (t *RB[T]) Get(key T) (Node[T], bool) {
 
 // Has Determines the tree has the node of Key
 func (t *RB[T]) Has(key T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering Has(key=%v)", key)
 	_, ok := searchTreeHelper[T](t.Root, t._NIL, key)
 	return ok
 }
 
 // PreOrder Traverses the tree in the following order Root --> Left --> Right
 func (t *RB[T]) PreOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering PreOrder()")
 	traversal := make([]T, 0)
 	preOrderRecursive[T](t.Root, t._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting PreOrder()")
 	return traversal
 }
 
@@ -106,15 +112,19 @@ func (t *RB[T]) InOrder() []T {
 
 // PostOrder traverses the tree in the following order Left --> Right --> Root
 func (t *RB[T]) PostOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering PostOrder()")
 	traversal := make([]T, 0)
 	postOrderRecursive[T](t.Root, t._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting PostOrder()")
 	return traversal
 }
 
 // LevelOrder returns the level order traversal of the tree
 func (t *RB[T]) LevelOrder() []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering LevelOrder()")
 	traversal := make([]T, 0)
 	levelOrderHelper[T](t.Root, t._NIL, &traversal)
+	logritelog.Default().Printf("[WARN] <<< Exiting LevelOrder()")
 	return traversal
 }
 
@@ -130,21 +140,25 @@ func (t *RB[T]) Depth() int {
 
 // Max returns the Max value of the tree
 func (t *RB[T]) Max() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Max()")
 	ret := maximum[T](t.Root, t._NIL)
 	if ret == t._NIL {
 		var dft T
 		return dft, false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Max()")
 	return ret.Key(), true
 }
 
 // Min returns the Min value of the tree
 func (t *RB[T]) Min() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Min()")
 	ret := minimum[T](t.Root, t._NIL)
 	if ret == t._NIL {
 		var dft T
 		return dft, false
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Min()")
 	return ret.Key(), true
 }
 
@@ -152,11 +166,13 @@ func (t *RB[T]) Min() (T, bool) {
 // if there is no predecessor, return default value of type T and false
 // otherwise return the Key of predecessor and true
 func (t *RB[T]) Predecessor(key T) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Predecessor(key=%v)", key)
 	node, ok := searchTreeHelper[T](t.Root, t._NIL, key)
 	if !ok {
 		var dft T
 		return dft, ok
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Predecessor(key=%v)", key)
 	return predecessorHelper[T](node, t._NIL)
 }
 
@@ -164,15 +180,18 @@ func (t *RB[T]) Predecessor(key T) (T, bool) {
 // if there is no successor, return default value of type T and false
 // otherwise return the Key of successor and true
 func (t *RB[T]) Successor(key T) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Successor(key=%v)", key)
 	node, ok := searchTreeHelper[T](t.Root, t._NIL, key)
 	if !ok {
 		var dft T
 		return dft, ok
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Successor(key=%v)", key)
 	return successorHelper[T](node, t._NIL)
 }
 
 func (t *RB[T]) pushHelper(x *RBNode[T], key T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering pushHelper(x=%v,key=%v)", x, key)
 	y := t._NIL
 	for x != t._NIL {
 		y = x
@@ -203,6 +222,7 @@ func (t *RB[T]) pushHelper(x *RBNode[T], key T) {
 
 	if node.parent == t._NIL {
 		node.color = Black
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,key=%v): node.color → %v", x, key, node.color)
 		return
 	}
 
@@ -211,11 +231,14 @@ func (t *RB[T]) pushHelper(x *RBNode[T], key T) {
 	}
 
 	t.pushFix(node)
+	logritelog.Default().Printf("[WARN] <<< Exiting pushHelper(x=%v,key=%v)", x, key)
 }
 
 func (t *RB[T]) leftRotate(x *RBNode[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering leftRotate(x=%v)", x)
 	y := x.right
 	x.right = y.left
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): x.right → %v", x, x.right)
 
 	if y.left != t._NIL {
 		y.left.parent = x
@@ -231,12 +254,16 @@ func (t *RB[T]) leftRotate(x *RBNode[T]) {
 	}
 
 	y.left = x
+	logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): x.parent → %v", x, x.parent)
+logritelog.Default().Printf("[WARN] <<< Exiting leftRotate(x=%v)", x)
 	x.parent = y
 }
 
 func (t *RB[T]) rightRotate(x *RBNode[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering rightRotate(x=%v)", x)
 	y := x.left
 	x.left = y.right
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): x.left → %v", x, x.left)
 	if y.right != t._NIL {
 		y.right.parent = x
 	}
@@ -251,10 +278,13 @@ func (t *RB[T]) rightRotate(x *RBNode[T]) {
 	}
 
 	y.right = x
+	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): x.parent → %v", x, x.parent)
+logritelog.Default().Printf("[WARN] <<< Exiting rightRotate(x=%v)", x)
 	x.parent = y
 }
 
 func (t *RB[T]) pushFix(k *RBNode[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering pushFix(k=%v)", k)
 	for k.parent.color == Red {
 		if k.parent == k.parent.parent.right {
 			u := k.parent.parent.left
@@ -295,9 +325,11 @@ func (t *RB[T]) pushFix(k *RBNode[T]) {
 	}
 
 	t.Root.color = Black
+	logritelog.Default().Printf("[WARN] <<< Exiting pushFix(k=%v)", k)
 }
 
 func (t *RB[T]) deleteHelper(node *RBNode[T], key T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering deleteHelper(node=%v,key=%v)", node, key)
 	z := t._NIL
 	for node != t._NIL {
 		switch {
@@ -333,29 +365,35 @@ func (t *RB[T]) deleteHelper(node *RBNode[T], key T) bool {
 		} else {
 			t.transplant(y, y.right)
 			y.right = z.right
+			logritelog.Default().Printf("[DEBUG] deleteHelper(node=%v,key=%v): y.right → %v", node, key, y.right)
 			y.right.parent = y
 		}
 
 		t.transplant(z, y)
 		y.left = z.left
+		logritelog.Default().Printf("[DEBUG] deleteHelper(node=%v,key=%v): y.left → %v", node, key, y.left)
 		y.left.parent = y
 		y.color = z.color
+		logritelog.Default().Printf("[DEBUG] deleteHelper(node=%v,key=%v): y.color → %v", node, key, y.color)
 	}
 
 	if yOriginColor == Black {
 		t.deleteFix(x)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting deleteHelper(node=%v,key=%v)", node, key)
 	return true
 }
 
 func (t *RB[T]) deleteFix(x *RBNode[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering deleteFix(x=%v)", x)
 	var s *RBNode[T]
 	for x != t.Root && x.color == Black {
 		if x == x.parent.left {
 			s = x.parent.right
 			if s.color == Red {
 				s.color = Black
+				logritelog.Default().Printf("[DEBUG] deleteFix(x=%v): s.color → %v", x, s.color)
 				x.parent.color = Red
 				t.leftRotate(x.parent)
 				s = x.parent.right
@@ -408,12 +446,16 @@ func (t *RB[T]) deleteFix(x *RBNode[T]) {
 	}
 
 	x.color = Black
+	logritelog.Default().Printf("[DEBUG] deleteFix(x=%v): x.color → %v", x, x.color)
+logritelog.Default().Printf("[WARN] <<< Exiting deleteFix(x=%v)", x)
 }
 
 func (t *RB[T]) transplant(u, v *RBNode[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering transplant(u=%v,v=%v)", u, v)
 	switch {
 	case u.parent == t._NIL:
 		t.Root = v
+		logritelog.Default().Printf("[DEBUG] transplant(u=%v,v=%v): t.Root → %v", u, v, t.Root)
 	case u == u.parent.left:
 		u.parent.left = v
 	default:
@@ -421,4 +463,6 @@ func (t *RB[T]) transplant(u, v *RBNode[T]) {
 	}
 
 	v.parent = u.parent
+	logritelog.Default().Printf("[DEBUG] transplant(u=%v,v=%v): v.parent → %v", u, v, v.parent)
+logritelog.Default().Printf("[WARN] <<< Exiting transplant(u=%v,v=%v)", u, v)
 }

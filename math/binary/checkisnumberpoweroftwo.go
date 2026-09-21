@@ -8,6 +8,7 @@
 // see checkisnumberpoweroftwo_test.go
 
 package binary
+import logritelog "log"
 
 // IsPowerOfTwo This function uses the fact that powers of 2 are represented
 // like 10...0 in binary, and numbers one less than the power of 2
@@ -28,10 +29,12 @@ func IsPowerOfTwo(x int) bool {
 // by 1 is equivalent to multiplying by 2. For example, binary 00000001 when shifted by 3 becomes 00001000,
 // which in decimal system is 8 or = 2 * 2 * 2
 func IsPowerOfTwoLeftShift(number uint) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsPowerOfTwoLeftShift(number=%v)", number)
 	for p := uint(1); p <= number; p = p << 1 {
 		if number == p {
 			return true
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsPowerOfTwoLeftShift(number=%v)", number)
 	return false
 }

@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestCheckEqual(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestCheckEqual(t=%v)", t)
 	// Create two matrices with the same dimensions and equal values
 	m1 := matrix.New(2, 2, 0)
 	m2 := matrix.New(2, 2, 0)
@@ -38,18 +40,22 @@ func TestCheckEqual(t *testing.T) {
 	if equal3 {
 		t.Errorf("CheckEqual(m5, m6) returned true, expected false (matrices are not equal)")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestCheckEqual(t=%v)", t)
 }
 
 func BenchmarkCheckEqualSmallMatrix(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkCheckEqualSmallMatrix(b=%v)", b)
 	m1 := matrix.New(10, 10, 0) // Create a 10x10 matrix with all zeros
 	m2 := matrix.New(10, 10, 0) // Create another 10x10 matrix with all zeros
 
 	for i := 0; i < b.N; i++ {
 		_ = m1.CheckEqual(m2)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkCheckEqualSmallMatrix(b=%v)", b)
 }
 
 func BenchmarkCheckEqualLargeMatrix(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkCheckEqualLargeMatrix(b=%v)", b)
 	size := 1000 // Choose an appropriate size for your large matrix
 	m1 := MakeRandomMatrix[int](size, size)
 	m2 := MakeRandomMatrix[int](size, size)
@@ -59,4 +65,5 @@ func BenchmarkCheckEqualLargeMatrix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_ = m1.CheckEqual(m2)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkCheckEqualLargeMatrix(b=%v)", b)
 }
