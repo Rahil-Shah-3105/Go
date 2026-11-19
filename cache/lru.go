@@ -30,6 +30,7 @@ type LRU struct {
 // NewLRU represent initiate lru cache with capacity
 func NewLRU(capacity int) LRU {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewLRU(capacity=%v)", capacity)
+	logritelog.Default().Printf("[WARN] <<< Exiting NewLRU(capacity=%v)", capacity)
 	return LRU{
 		dl:       linkedlist.NewDoubly[any](),
 		storage:  make(map[string]*linkedlist.Node[any], capacity),

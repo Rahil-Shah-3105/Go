@@ -10,6 +10,7 @@ import (
 type testInt int
 
 func (u testInt) Less(o testInt) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering Less(o=%v)", o)
 	return u < o
 }
 

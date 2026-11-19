@@ -23,6 +23,7 @@ func (a Item) More(b any) bool {
 }
 func (a Item) Idx() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Idx()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Idx()")
 	return a.node
 }
 

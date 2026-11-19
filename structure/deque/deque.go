@@ -22,6 +22,7 @@ type DoublyEndedQueue[T any] struct {
 // New returns a new DoublyEndedQueue.
 func New[T any]() *DoublyEndedQueue[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering New()")
+	logritelog.Default().Printf("[WARN] <<< Exiting New()")
 	return &DoublyEndedQueue[T]{deque: make([]T, 0)}
 }
 
@@ -91,11 +92,13 @@ func (dq *DoublyEndedQueue[T]) Rear() (T, error) {
 // IsEmpty checks whether Deque is empty or not.
 func (dq *DoublyEndedQueue[T]) IsEmpty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmpty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmpty()")
 	return len(dq.deque) == 0
 }
 
 // Length gets the length of Deque.
 func (dq *DoublyEndedQueue[T]) Length() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Length()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Length()")
 	return len(dq.deque)
 }

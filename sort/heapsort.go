@@ -70,6 +70,7 @@ func (h *MaxHeap) Push(i Comparable) {
 
 func (h MaxHeap) Size() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Size()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Size()")
 	return h.heapSize
 }
 
@@ -97,6 +98,7 @@ func (h *MaxHeap) swap(i, j int) {
 
 func (h MaxHeap) more(i, j int) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering more(i=%v,j=%v)", i, j)
+	logritelog.Default().Printf("[WARN] <<< Exiting more(i=%v,j=%v)", i, j)
 	return h.slice[i].More(h.slice[j])
 }
 
@@ -146,6 +148,7 @@ type Comparable interface {
 }
 
 func HeapSort[T constraints.Ordered](slice []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering HeapSort(slice=%v)", slice)
 	N := len(slice)
 
 	moreFunc := func(i, j int) bool {

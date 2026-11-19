@@ -71,11 +71,13 @@ func (lq *LQueue) Back() (any, error) {
 // Len it will return the length of list
 func (lq *LQueue) Len() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Len()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Len()")
 	return lq.queue.Len()
 }
 
 // Empty is check our list is empty or not
 func (lq *LQueue) Empty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Empty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Empty()")
 	return lq.queue.Len() == 0
 }

@@ -201,17 +201,20 @@ func Verify(m []byte, r, s, p, q, g, y *big.Int) bool {
 // GetPublicKey returns the public key (y)
 func (dsa *dsa) GetPublicKey() *big.Int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetPublicKey()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetPublicKey()")
 	return dsa.pubKey
 }
 
 // GetParameters returns the DSA parameters (p, q, g)
 func (dsa *dsa) GetParameters() parameters {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetParameters()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetParameters()")
 	return dsa.parameters
 }
 
 // GetPrivateKey returns the private Key (x)
 func (dsa *dsa) GetPrivateKey() *big.Int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetPrivateKey()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetPrivateKey()")
 	return dsa.privKey
 }

@@ -23,6 +23,7 @@ type BTree[T constraints.Ordered] struct {
 
 func minKeys(maxKeys int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering minKeys(maxKeys=%v)", maxKeys)
+	logritelog.Default().Printf("[WARN] <<< Exiting minKeys(maxKeys=%v)", maxKeys)
 	return (maxKeys - 1) / 2
 }
 
@@ -64,6 +65,7 @@ func (node *BTreeNode[T]) Verify(tree *BTree[T]) {
 
 func (node *BTreeNode[T]) IsFull(maxKeys int) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsFull(maxKeys=%v)", maxKeys)
+	logritelog.Default().Printf("[WARN] <<< Exiting IsFull(maxKeys=%v)", maxKeys)
 	return node.numKeys == maxKeys
 }
 

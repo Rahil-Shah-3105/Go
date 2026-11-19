@@ -26,26 +26,31 @@ type AVLNode[T constraints.Ordered] struct {
 
 func (n *AVLNode[T]) Key() T {
 	logritelog.Default().Printf("[ERROR] >>> Entering Key()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Key()")
 	return n.key
 }
 
 func (n *AVLNode[T]) Parent() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Parent()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Parent()")
 	return n.parent
 }
 
 func (n *AVLNode[T]) Left() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Left()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Left()")
 	return n.left
 }
 
 func (n *AVLNode[T]) Right() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Right()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Right()")
 	return n.right
 }
 
 func (n *AVLNode[T]) Height() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Height()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Height()")
 	return n.height
 }
 
@@ -59,6 +64,7 @@ type AVL[T constraints.Ordered] struct {
 // NewAVL creates a novel AVL tree
 func NewAVL[T constraints.Ordered]() *AVL[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewAVL()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewAVL()")
 	return &AVL[T]{
 		Root: nil,
 		_NIL: nil,
@@ -68,6 +74,7 @@ func NewAVL[T constraints.Ordered]() *AVL[T] {
 // Empty determines the AVL tree is empty
 func (avl *AVL[T]) Empty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Empty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Empty()")
 	return avl.Root == avl._NIL
 }
 
@@ -95,6 +102,7 @@ func (avl *AVL[T]) Delete(key T) bool {
 // Get a Node from the AVL Tree
 func (avl *AVL[T]) Get(key T) (Node[T], bool) {
 	logritelog.Default().Printf("[ERROR] >>> Entering Get(key=%v)", key)
+	logritelog.Default().Printf("[WARN] <<< Exiting Get(key=%v)", key)
 	return searchTreeHelper[T](avl.Root, avl._NIL, key)
 }
 
@@ -118,6 +126,7 @@ func (avl *AVL[T]) PreOrder() []T {
 // InOrder Traverses the tree in the following order Left --> Root --> Right
 func (avl *AVL[T]) InOrder() []T {
 	logritelog.Default().Printf("[ERROR] >>> Entering InOrder()")
+	logritelog.Default().Printf("[WARN] <<< Exiting InOrder()")
 	return inOrderHelper[T](avl.Root, avl._NIL)
 }
 
@@ -142,12 +151,14 @@ func (avl *AVL[T]) LevelOrder() []T {
 // AccessNodesByLayer accesses nodes layer by layer (2-D array),  instead of printing the results as 1-D array.
 func (avl *AVL[T]) AccessNodesByLayer() [][]T {
 	logritelog.Default().Printf("[ERROR] >>> Entering AccessNodesByLayer()")
+	logritelog.Default().Printf("[WARN] <<< Exiting AccessNodesByLayer()")
 	return accessNodeByLayerHelper[T](avl.Root, avl._NIL)
 }
 
 // Depth returns the calculated depth of the AVL tree
 func (avl *AVL[T]) Depth() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Depth()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Depth()")
 	return calculateDepth[T](avl.Root, avl._NIL, 0)
 }
 

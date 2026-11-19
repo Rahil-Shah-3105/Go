@@ -54,6 +54,7 @@ func accessNodeByLayerHelper[T constraints.Ordered](root, nilNode Node[T]) [][]T
 }
 
 func searchTreeHelper[T constraints.Ordered](node, nilNode Node[T], key T) (Node[T], bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering searchTreeHelper(node=%v,nilNode=%v,key=%v)", node, nilNode, key)
 	if node == nilNode {
 		return node, false
 	}
@@ -69,6 +70,7 @@ func searchTreeHelper[T constraints.Ordered](node, nilNode Node[T], key T) (Node
 }
 
 func inOrderHelper[T constraints.Ordered](node, nilNode Node[T]) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering inOrderHelper(node=%v,nilNode=%v)", node, nilNode)
 	var stack []Node[T]
 	var ret []T
 
@@ -77,12 +79,14 @@ func inOrderHelper[T constraints.Ordered](node, nilNode Node[T]) []T {
 			stack = append(stack, node)
 			node = node.Left()
 		}
+			logritelog.Default().Printf("[DEBUG] inOrderHelper(node=%v,nilNode=%v): stack → %v", node, nilNode, stack)
 
 		node = stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 		ret = append(ret, node.Key())
 		node = node.Right()
 	}
+		logritelog.Default().Printf("[DEBUG] inOrderHelper(node=%v,nilNode=%v): ret → %v", node, nilNode, ret)
 
 	logritelog.Default().Printf("[WARN] <<< Exiting inOrderHelper(node=%v,nilNode=%v)", node, nilNode)
 	return ret
@@ -124,6 +128,7 @@ func calculateDepth[T constraints.Ordered](n, nilNode Node[T], depth int) int {
 }
 
 func minimum[T constraints.Ordered](node, nilNode Node[T]) Node[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering minimum(node=%v,nilNode=%v)", node, nilNode)
 	if node == nilNode {
 		return node
 	}
@@ -136,6 +141,7 @@ func minimum[T constraints.Ordered](node, nilNode Node[T]) Node[T] {
 }
 
 func maximum[T constraints.Ordered](node, nilNode Node[T]) Node[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering maximum(node=%v,nilNode=%v)", node, nilNode)
 	if node == nilNode {
 		return node
 	}
@@ -169,6 +175,7 @@ func levelOrderHelper[T constraints.Ordered](root, nilNode Node[T], traversal *[
 }
 
 func predecessorHelper[T constraints.Ordered](node, nilNode Node[T]) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering predecessorHelper(node=%v,nilNode=%v)", node, nilNode)
 	if node.Left() != nilNode {
 		return maximum(node.Left(), nilNode).Key(), true
 	}
@@ -188,6 +195,7 @@ func predecessorHelper[T constraints.Ordered](node, nilNode Node[T]) (T, bool) {
 }
 
 func successorHelper[T constraints.Ordered](node, nilNode Node[T]) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering successorHelper(node=%v,nilNode=%v)", node, nilNode)
 	if node.Right() != nilNode {
 		return minimum(node.Right(), nilNode).Key(), true
 	}

@@ -25,6 +25,7 @@ type HashMap struct {
 func DefaultNew() *HashMap {
 	logritelog.Default().Printf("[ERROR] >>> Entering DefaultNew()")
 	logritelog.Default().Printf("[ERROR] >>> Entering New(size=%v,capacity=%v)", size, capacity)
+	logritelog.Default().Printf("[WARN] <<< Exiting DefaultNew()")
 	return &HashMap{
 		capacity: defaultCapacity,
 		table:    make([]*node, defaultCapacity),
@@ -87,6 +88,7 @@ func (hm *HashMap) Put(key, value any) {
 // Contains checks if the given key is stored in the hashmap
 func (hm *HashMap) Contains(key any) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Contains(key=%v)", key)
+	logritelog.Default().Printf("[WARN] <<< Exiting Contains(key=%v)", key)
 	return hm.getNodeByKey(key) != nil
 }
 

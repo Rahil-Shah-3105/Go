@@ -28,5 +28,6 @@ func factorial(n int) int {
 // CatalanNumber This function returns the `nth` Catalan number
 func CatalanNumber(n int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering CatalanNumber(n=%v)", n)
+	logritelog.Default().Printf("[WARN] <<< Exiting CatalanNumber(n=%v)", n)
 	return factorial(n*2) / (factorial(n) * factorial(n+1))
 }

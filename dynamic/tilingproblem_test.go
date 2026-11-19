@@ -14,6 +14,7 @@ type testCaseTilingProblem struct {
 
 func getTilingProblemTestCases() []testCaseTilingProblem {
 	logritelog.Default().Printf("[ERROR] >>> Entering getTilingProblemTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getTilingProblemTestCases()")
 	return []testCaseTilingProblem{
 		{1, 1},   // Base case: 1 way to tile a 2x1 grid
 		{2, 2},   // 2 ways to tile a 2x2 grid

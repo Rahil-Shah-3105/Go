@@ -15,6 +15,7 @@ type testCaseWordBreak struct {
 
 func getWordBreakTestCases() []testCaseWordBreak {
 	logritelog.Default().Printf("[ERROR] >>> Entering getWordBreakTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getWordBreakTestCases()")
 	return []testCaseWordBreak{
 		{"leetcode", []string{"leet", "code"}, true},                        // "leetcode" can be segmented into "leet" and "code"
 		{"applepenapple", []string{"apple", "pen"}, true},                   // "applepenapple" can be segmented into "apple", "pen", "apple"

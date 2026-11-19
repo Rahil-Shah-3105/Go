@@ -24,6 +24,7 @@ func lpsRec(word string, i, j int) int {
 // LpsRec function
 func LpsRec(word string) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering LpsRec(word=%v)", word)
+	logritelog.Default().Printf("[WARN] <<< Exiting LpsRec(word=%v)", word)
 	return lpsRec(word, 0, len(word)-1)
 }
 

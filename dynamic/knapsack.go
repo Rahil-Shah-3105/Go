@@ -14,6 +14,7 @@ import (
 // Max function - possible duplicate
 func Max(a, b int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Max(a=%v,b=%v)", a, b)
+	logritelog.Default().Printf("[WARN] <<< Exiting Max(a=%v,b=%v)", a, b)
 	return int(math.Max(float64(a), float64(b)))
 }
 

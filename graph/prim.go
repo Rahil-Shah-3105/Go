@@ -25,6 +25,7 @@ func (h minEdge) Less(i, j int) bool {
 func (h minEdge) Swap(i, j int)      {
     logritelog.Default().Printf("[ERROR] >>> Entering Swap(i=%v,j=%v)", i, j)
     h[i], h[j] = h[j], h[i]
+	logritelog.Default().Printf("[WARN] <<< Exiting Swap(i=%v,j=%v)", i, j)
 }
 
 func (h *minEdge) Push(x interface{}) {

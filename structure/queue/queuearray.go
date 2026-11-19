@@ -33,23 +33,27 @@ func DeQueue() any {
 // FrontQueue return the Front value
 func FrontQueue() any {
 	logritelog.Default().Printf("[ERROR] >>> Entering FrontQueue()")
+	logritelog.Default().Printf("[WARN] <<< Exiting FrontQueue()")
 	return ListQueue[0]
 }
 
 // BackQueue return the Back value
 func BackQueue() any {
 	logritelog.Default().Printf("[ERROR] >>> Entering BackQueue()")
+	logritelog.Default().Printf("[WARN] <<< Exiting BackQueue()")
 	return ListQueue[len(ListQueue)-1]
 }
 
 // LenQueue will return the length of the queue list
 func LenQueue() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering LenQueue()")
+	logritelog.Default().Printf("[WARN] <<< Exiting LenQueue()")
 	return len(ListQueue)
 }
 
 // IsEmptyQueue check our list is empty or not
 func IsEmptyQueue() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmptyQueue()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmptyQueue()")
 	return len(ListQueue) == 0
 }

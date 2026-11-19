@@ -17,6 +17,7 @@ const (
 // shareKey = (g^key)%primeNumber
 func GenerateShareKey(prvKey int64) int64 {
 	logritelog.Default().Printf("[ERROR] >>> Entering GenerateShareKey(prvKey=%v)", prvKey)
+	logritelog.Default().Printf("[WARN] <<< Exiting GenerateShareKey(prvKey=%v)", prvKey)
 	return modularExponentiation(generator, prvKey, primeNumber)
 }
 
@@ -24,6 +25,7 @@ func GenerateShareKey(prvKey int64) int64 {
 // mutualKey = (shareKey^prvKey)%primeNumber
 func GenerateMutualKey(prvKey, shareKey int64) int64 {
 	logritelog.Default().Printf("[ERROR] >>> Entering GenerateMutualKey(prvKey=%v,shareKey=%v)", prvKey, shareKey)
+	logritelog.Default().Printf("[WARN] <<< Exiting GenerateMutualKey(prvKey=%v,shareKey=%v)", prvKey, shareKey)
 	return modularExponentiation(shareKey, prvKey, primeNumber)
 }
 

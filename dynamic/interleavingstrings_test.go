@@ -14,6 +14,7 @@ type testCaseInterleaving struct {
 
 func getInterleavingTestCases() []testCaseInterleaving {
 	logritelog.Default().Printf("[ERROR] >>> Entering getInterleavingTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getInterleavingTestCases()")
 	return []testCaseInterleaving{
 		{"aab", "axy", "aaxaby", true},   // Valid interleaving
 		{"aab", "axy", "abaaxy", false},  // Invalid interleaving

@@ -19,6 +19,7 @@ type Singly[T any] struct {
 // NewSingly returns a new instance of a linked list
 func NewSingly[T any]() *Singly[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewSingly()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewSingly()")
 	return &Singly[T]{}
 }
 
@@ -143,6 +144,7 @@ func (ll *Singly[T]) DelByPos(pos int) (T, bool) {
 // Count returns the current size of the list.
 func (ll *Singly[T]) Count() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Count()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Count()")
 	return ll.length
 }
 

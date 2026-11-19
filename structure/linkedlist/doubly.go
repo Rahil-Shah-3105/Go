@@ -34,6 +34,7 @@ func (ll *Doubly[T]) Init() *Doubly[T] {
 
 func NewDoubly[T any]() *Doubly[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewDoubly()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewDoubly()")
 	return new(Doubly[T]).Init()
 }
 
@@ -60,6 +61,7 @@ func (ll *Doubly[T]) insert(n, at *Node[T]) *Node[T] {
 
 func (ll *Doubly[T]) insertValue(val T, at *Node[T]) *Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering insertValue(val=%v,at=%v)", val, at)
+	logritelog.Default().Printf("[WARN] <<< Exiting insertValue(val=%v,at=%v)", val, at)
 	return ll.insert(NewNode(val), at)
 }
 
@@ -241,6 +243,7 @@ func (ll *Doubly[T]) Front() *Node[T] {
 func (ll *Doubly[T]) Back() *Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Back()")
 	if ll.Count() == 0 {
+		logritelog.Default().Printf("[WARN] <<< Exiting Back()")
 		return nil
 	}
 

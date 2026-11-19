@@ -38,5 +38,6 @@ func SumOfProperDivisors(inNumber uint) uint {
 // Checks if inNumber is a perfect number
 func IsPerfectNumber(inNumber uint) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsPerfectNumber(inNumber=%v)", inNumber)
+	logritelog.Default().Printf("[WARN] <<< Exiting IsPerfectNumber(inNumber=%v)", inNumber)
 	return inNumber > 0 && SumOfProperDivisors(inNumber) == inNumber
 }

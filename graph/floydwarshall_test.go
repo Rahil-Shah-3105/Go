@@ -12,6 +12,7 @@ const float64EqualityThreshold = 1e-9
 // reference: https://stackoverflow.com/a/47969546
 func almostEqual(a, b float64) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering almostEqual(a=%v,b=%v)", a, b)
+	logritelog.Default().Printf("[WARN] <<< Exiting almostEqual(a=%v,b=%v)", a, b)
 	return math.Abs(a-b) <= float64EqualityThreshold
 }
 
@@ -19,6 +20,7 @@ func almostEqual(a, b float64) bool {
 func (a *WeightedGraph) IsAlmostEqualTo(b WeightedGraph) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsAlmostEqualTo(b=%v)", b)
 	if len(*a) != len(b) {
+		logritelog.Default().Printf("[WARN] <<< Exiting IsAlmostEqualTo(b=%v)", b)
 		return false
 	}
 

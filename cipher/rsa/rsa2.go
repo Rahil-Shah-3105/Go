@@ -105,12 +105,14 @@ func (rsa *rsa) DecryptString(data string) string {
 // GetPublicKey returns the public key and modulus
 func (rsa *rsa) GetPublicKey() (uint64, uint64) {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetPublicKey()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetPublicKey()")
 	return rsa.publicKey, rsa.modulus
 }
 
 // GetPrivateKey returns the private key
 func (rsa *rsa) GetPrivateKey() uint64 {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetPrivateKey()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetPrivateKey()")
 	return rsa.privateKey
 }
 

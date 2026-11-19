@@ -17,6 +17,7 @@ type testCaseWildcardMatching struct {
 // getWildcardMatchingTestCases returns a list of test cases for the Wildcard Matching problem
 func getWildcardMatchingTestCases() []testCaseWildcardMatching {
 	logritelog.Default().Printf("[ERROR] >>> Entering getWildcardMatchingTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getWildcardMatchingTestCases()")
 	return []testCaseWildcardMatching{
 		{"aa", "a*", true},     // '*' can match zero or more characters
 		{"aa", "a", false},     // No match due to no wildcard

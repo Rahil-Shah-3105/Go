@@ -16,6 +16,7 @@ type Graph struct {
 // Constructor functions for graphs (undirected by default)
 func New(v int) *Graph {
 	logritelog.Default().Printf("[ERROR] >>> Entering New(v=%v)", v)
+	logritelog.Default().Printf("[WARN] <<< Exiting New(v=%v)", v)
 	return &Graph{
 		vertices: v,
 	}

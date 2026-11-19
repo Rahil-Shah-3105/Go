@@ -10,6 +10,7 @@ import logritelog "log"
 func (m1 Matrix[T]) CheckEqual(m2 Matrix[T]) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering CheckEqual(m2=%v)", m2)
 	if !m1.MatchDimensions(m2) {
+		logritelog.Default().Printf("[WARN] <<< Exiting CheckEqual(m2=%v)", m2)
 		return false
 	}
 

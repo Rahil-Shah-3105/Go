@@ -22,21 +22,25 @@ type BSNode[T constraints.Ordered] struct {
 
 func (n *BSNode[T]) Key() T {
 	logritelog.Default().Printf("[ERROR] >>> Entering Key()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Key()")
 	return n.key
 }
 
 func (n *BSNode[T]) Parent() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Parent()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Parent()")
 	return n.parent
 }
 
 func (n *BSNode[T]) Left() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Left()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Left()")
 	return n.left
 }
 
 func (n *BSNode[T]) Right() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Right()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Right()")
 	return n.right
 }
 
@@ -50,6 +54,7 @@ type BinarySearch[T constraints.Ordered] struct {
 // NewBinarySearch creates a novel Binary-Search tree
 func NewBinarySearch[T constraints.Ordered]() *BinarySearch[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewBinarySearch()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewBinarySearch()")
 	return &BinarySearch[T]{
 		Root: nil,
 		_NIL: nil,
@@ -59,6 +64,7 @@ func NewBinarySearch[T constraints.Ordered]() *BinarySearch[T] {
 // Empty determines the Binary-Search tree is empty
 func (t *BinarySearch[T]) Empty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Empty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Empty()")
 	return t.Root == t._NIL
 }
 
@@ -109,6 +115,7 @@ func (t *BinarySearch[T]) PreOrder() []T {
 // InOrder Traverses the tree in the following order Left --> Root --> Right
 func (t *BinarySearch[T]) InOrder() []T {
 	logritelog.Default().Printf("[ERROR] >>> Entering InOrder()")
+	logritelog.Default().Printf("[WARN] <<< Exiting InOrder()")
 	return inOrderHelper[T](t.Root, t._NIL)
 }
 
@@ -133,12 +140,14 @@ func (t *BinarySearch[T]) LevelOrder() []T {
 // AccessNodesByLayer accesses nodes layer by layer (2-D array),  instead of printing the results as 1-D array.
 func (t *BinarySearch[T]) AccessNodesByLayer() [][]T {
 	logritelog.Default().Printf("[ERROR] >>> Entering AccessNodesByLayer()")
+	logritelog.Default().Printf("[WARN] <<< Exiting AccessNodesByLayer()")
 	return accessNodeByLayerHelper[T](t.Root, t._NIL)
 }
 
 // Depth returns the calculated depth of a binary search tree
 func (t *BinarySearch[T]) Depth() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Depth()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Depth()")
 	return calculateDepth[T](t.Root, t._NIL, 0)
 }
 
@@ -205,6 +214,9 @@ func (t *BinarySearch[T]) pushHelper(x *BSNode[T], val T) {
 		case val > x.Key():
 			x = x.right
 		default:
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,val=%v): t.Root → %v", x, val, t.Root)
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,val=%v): y.left → %v", x, val, y.left)
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,val=%v): y.right → %v", x, val, y.right)
 			return
 		}
 	}

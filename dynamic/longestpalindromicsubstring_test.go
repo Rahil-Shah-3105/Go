@@ -14,6 +14,7 @@ type testCaseLongestPalindromicSubstring struct {
 
 func getLongestPalindromicSubstringTestCases() []testCaseLongestPalindromicSubstring {
 	logritelog.Default().Printf("[ERROR] >>> Entering getLongestPalindromicSubstringTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getLongestPalindromicSubstringTestCases()")
 	return []testCaseLongestPalindromicSubstring{
 		{"babad", "bab"},                   // Example with multiple palindromes
 		{"cbbd", "bb"},                     // Example with longest even palindrome

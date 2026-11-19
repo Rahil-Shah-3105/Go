@@ -16,6 +16,7 @@ type testCaseOptimalBST struct {
 
 func getOptimalBSTTestCases() []testCaseOptimalBST {
 	logritelog.Default().Printf("[ERROR] >>> Entering getOptimalBSTTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getOptimalBSTTestCases()")
 	return []testCaseOptimalBST{
 		{[]int{10, 12, 20}, []int{34, 8, 50}, 3, 142},                  // Example with 3 keys
 		{[]int{10, 20, 30, 40, 50}, []int{10, 20, 30, 40, 50}, 5, 300}, // Example with 5 keys

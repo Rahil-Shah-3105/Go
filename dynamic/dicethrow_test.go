@@ -17,6 +17,7 @@ type testCaseDiceThrow struct {
 // getDiceThrowTestCases provides the test cases for DiceThrow
 func getDiceThrowTestCases() []testCaseDiceThrow {
 	logritelog.Default().Printf("[ERROR] >>> Entering getDiceThrowTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getDiceThrowTestCases()")
 	return []testCaseDiceThrow{
 		{2, 6, 7, 6},  // Two dice, six faces each, sum = 7
 		{1, 6, 3, 1},  // One die, six faces, sum = 3

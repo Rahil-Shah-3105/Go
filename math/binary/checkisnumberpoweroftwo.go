@@ -23,6 +23,7 @@ import logritelog "log"
 // have to add and extra condition.
 func IsPowerOfTwo(x int) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsPowerOfTwo(x=%v)", x)
+	logritelog.Default().Printf("[WARN] <<< Exiting IsPowerOfTwo(x=%v)", x)
 	return x > 0 && (x&(x-1)) == 0
 }
 

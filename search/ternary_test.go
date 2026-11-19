@@ -10,6 +10,7 @@ const EPS = 1e-6
 
 func equal(a, b float64) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering equal(a=%v,b=%v)", a, b)
+	logritelog.Default().Printf("[WARN] <<< Exiting equal(a=%v,b=%v)", a, b)
 	return math.Abs(a-b) <= EPS
 }
 
