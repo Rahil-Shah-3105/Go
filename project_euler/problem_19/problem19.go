@@ -1,4 +1,5 @@
 package problem19
+import logritelog "log"
 
 /**
 * Problem 19 - Counting Sundays
@@ -24,6 +25,7 @@ package problem19
  */
 
 func Problem19() int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem19()")
 	count := 0
 	dayOfWeek := 2 // 1 Jan 1901 was a Tuesday
 
@@ -37,6 +39,8 @@ func Problem19() int {
 			switch month {
 			case 4, 6, 9, 11:
 				daysInMonth = 30
+				logritelog.Default().Printf("[DEBUG] Problem19(): daysInMonth → %v", daysInMonth)
+			logritelog.Default().Printf("[WARN] <<< Exiting Problem19()")
 			case 2:
 				if IsLeapYear(year) {
 					daysInMonth = 29
@@ -53,11 +57,13 @@ func Problem19() int {
 }
 
 func IsLeapYear(year int) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsLeapYear(year=%v)", year)
 	if year%4 == 0 {
 		if year%100 == 0 {
 			return year%400 == 0
 		}
 		return true
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsLeapYear(year=%v)", year)
 	return false
 }

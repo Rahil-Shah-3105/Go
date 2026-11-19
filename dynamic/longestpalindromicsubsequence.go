@@ -4,8 +4,10 @@
 // http://www.geeksforgeeks.org/dynamic-programming-set-12-longest-palindromic-subsequence/
 
 package dynamic
+import logritelog "log"
 
 func lpsRec(word string, i, j int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering lpsRec(word=%v,i=%v,j=%v)", word, i, j)
 	if i == j {
 		return 1
 	}
@@ -15,16 +17,19 @@ func lpsRec(word string, i, j int) int {
 	if word[i] == word[j] {
 		return 2 + lpsRec(word, i+1, j-1)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting lpsRec(word=%v,i=%v,j=%v)", word, i, j)
 	return Max(lpsRec(word, i, j-1), lpsRec(word, i+1, j))
 }
 
 // LpsRec function
 func LpsRec(word string) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering LpsRec(word=%v)", word)
 	return lpsRec(word, 0, len(word)-1)
 }
 
 // LpsDp function
 func LpsDp(word string) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering LpsDp(word=%v)", word)
 	N := len(word)
 	dp := make([][]int, N)
 
@@ -49,5 +54,6 @@ func LpsDp(word string) int {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting LpsDp(word=%v)", word)
 	return dp[0][N-1]
 }

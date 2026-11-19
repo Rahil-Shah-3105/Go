@@ -4,6 +4,7 @@
 // see montecarlopi.go
 
 package pi
+import logritelog "log"
 
 import (
 	"fmt"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestMonteCarloPi(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMonteCarloPi(t=%v)", t)
 	t.Run("Monte Carlo Pi", func(t *testing.T) {
 		result := fmt.Sprintf("%.2f", MonteCarloPi(100000000))
 		t.Log(result)
@@ -18,15 +20,19 @@ func TestMonteCarloPi(t *testing.T) {
 			t.Errorf("Wrong result! Expected:%f, returned:%s ", 3.1415, result)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMonteCarloPi(t=%v)", t)
 }
 
 func BenchmarkMonteCarloPi(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMonteCarloPi(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		MonteCarloPi(100000000)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMonteCarloPi(b=%v)", b)
 }
 
 func TestSplitInt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSplitInt(t=%v)", t)
 	testCases := []struct {
 		name           string
 		x              int
@@ -54,14 +60,17 @@ func TestSplitInt(t *testing.T) {
 				}
 			} else {
 				if err != nil {
+					logritelog.Default().Printf("[ERROR] Exception in TestSplitInt(t=%v): %v", t, err)
 					t.Fatalf("unexpected error - %s", err)
 				}
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSplitInt(t=%v)", t)
 }
 
 func TestMonteCarloPi2(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMonteCarloPi2(t=%v)", t)
 	res, err := MonteCarloPiConcurrent(100000000)
 	if err != nil {
 		t.Errorf("unexpected error %s", err)
@@ -71,13 +80,17 @@ func TestMonteCarloPi2(t *testing.T) {
 	if result != "3.14" {
 		t.Errorf("Wrong result! Expected:%f, returned:%s ", 3.1415, result)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMonteCarloPi2(t=%v)", t)
 }
 
 func BenchmarkMonteCarloPi2(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMonteCarloPi2(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, err := MonteCarloPiConcurrent(100000000)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in BenchmarkMonteCarloPi2(b=%v): %v", b, err)
 			b.Fatalf("unexpected error - %s", err)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMonteCarloPi2(b=%v)", b)
 }

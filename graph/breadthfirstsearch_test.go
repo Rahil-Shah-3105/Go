@@ -1,10 +1,12 @@
 package graph
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestBreadthFirstSearch(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestBreadthFirstSearch(t=%v)", t)
 	var bfsTestData = []struct {
 		description string
 		start       int
@@ -75,4 +77,5 @@ func TestBreadthFirstSearch(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestBreadthFirstSearch(t=%v)", t)
 }

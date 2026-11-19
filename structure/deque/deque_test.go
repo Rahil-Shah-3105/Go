@@ -10,6 +10,7 @@
 //
 
 package deque_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -30,6 +31,7 @@ type TestCaseData[T any] struct {
 }
 
 func TestDeque(t *testing.T) {
+logritelog.Default().Printf("[ERROR] >>> Entering TestDeque(t=%v)", t)
 
 	// Test cases with ints as params
 	testCasesInt := []TestCaseData[int]{
@@ -403,4 +405,5 @@ func TestDeque(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDeque(t=%v)", t)
 }

@@ -8,9 +8,11 @@
 // see bitcounter_test.go
 
 package binary
+import logritelog "log"
 
 // BitCounter - The function returns the number of set bits for an unsigned integer number
 func BitCounter(n uint) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering BitCounter(n=%v)", n)
 	counter := 0
 	for n != 0 {
 		if n&1 == 1 {
@@ -18,5 +20,6 @@ func BitCounter(n uint) int {
 		}
 		n >>= 1
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BitCounter(n=%v)", n)
 	return counter
 }

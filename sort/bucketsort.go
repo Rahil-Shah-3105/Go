@@ -1,10 +1,12 @@
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 // Bucket sorts a slice. It is mainly useful
 // when input is uniformly distributed over a range.
 func Bucket[T constraints.Number](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Bucket(arr=%v)", arr)
 	// early return if the array too small
 	if len(arr) <= 1 {
 		return arr
@@ -16,9 +18,11 @@ func Bucket[T constraints.Number](arr []T) []T {
 	for _, v := range arr {
 		if v > max {
 			max = v
+			logritelog.Default().Printf("[INFO] Bucket(arr=%v): max → %v", arr, max)
 		}
 		if v < min {
 			min = v
+			logritelog.Default().Printf("[INFO] Bucket(arr=%v): min → %v", arr, min)
 		}
 	}
 
@@ -41,6 +45,8 @@ func Bucket[T constraints.Number](arr []T) []T {
 	for _, v := range bucket {
 		sorted = append(sorted, v...)
 	}
+		logritelog.Default().Printf("[DEBUG] Bucket(arr=%v): sorted → %v", arr, sorted)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Bucket(arr=%v)", arr)
 	return sorted
 }

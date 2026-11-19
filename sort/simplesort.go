@@ -10,10 +10,12 @@
 // space complexity: O(1)
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 func Simple[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Simple(arr=%v)", arr)
 	for i := 0; i < len(arr); i++ {
 		for j := 0; j < len(arr); j++ {
 			if arr[i] < arr[j] {
@@ -22,12 +24,14 @@ func Simple[T constraints.Ordered](arr []T) []T {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Simple(arr=%v)", arr)
 	return arr
 }
 
 // ImprovedSimple is a improve SimpleSort by skipping an unnecessary comparison of the first and last.
 // This improved version is more similar to implementation of insertion sort
 func ImprovedSimple[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering ImprovedSimple(arr=%v)", arr)
 	for i := 1; i < len(arr); i++ {
 		for j := 0; j < len(arr)-1; j++ {
 			if arr[i] < arr[j] {
@@ -36,5 +40,6 @@ func ImprovedSimple[T constraints.Ordered](arr []T) []T {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting ImprovedSimple(arr=%v)", arr)
 	return arr
 }

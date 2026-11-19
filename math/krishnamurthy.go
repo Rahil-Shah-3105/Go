@@ -7,11 +7,13 @@
 // author(s): [GooMonk](https://github.com/GooMonk)
 // see krishnamurthy_test.go
 package math
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 // IsKrishnamurthyNumber returns if the provided number n is a Krishnamurthy number or not.
 func IsKrishnamurthyNumber[T constraints.Integer](n T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsKrishnamurthyNumber(n=%v)", n)
 	if n <= 0 {
 		return false
 	}
@@ -30,5 +32,6 @@ func IsKrishnamurthyNumber[T constraints.Integer](n T) bool {
 		nTemp -= digitFact[n%10]
 		n /= 10
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting IsKrishnamurthyNumber(n=%v)", n)
 	return nTemp == 0
 }

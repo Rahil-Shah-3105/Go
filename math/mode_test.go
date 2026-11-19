@@ -3,6 +3,7 @@
 // description: Test for Finding Mode Value In an Array
 
 package math_test
+import logritelog "log"
 
 import (
 	"errors"
@@ -20,6 +21,7 @@ type testCase[T constraints.Number] struct {
 }
 
 func testModeFramework[T constraints.Number](t *testing.T, testCases []testCase[T]) {
+	logritelog.Default().Printf("[ERROR] >>> Entering testModeFramework(t=%v,testCases=%v)", t, testCases)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			returnMode, err := math.Mode(test.numbers)
@@ -33,8 +35,10 @@ func testModeFramework[T constraints.Number](t *testing.T, testCases []testCase[
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting testModeFramework(t=%v,testCases=%v)", t, testCases)
 }
 func TestMode(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMode(t=%v)", t)
 	// test cases for integer values
 	intTestCases := []testCase[int]{
 		{
@@ -91,4 +95,5 @@ func TestMode(t *testing.T) {
 		},
 	}
 	testModeFramework(t, floatTestCases)
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMode(t=%v)", t)
 }

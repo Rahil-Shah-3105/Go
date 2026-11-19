@@ -1,4 +1,5 @@
 package strings_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/strings"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestCountChars(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestCountChars(t=%v)", t)
 	var testCases = []struct {
 		name     string
 		input    string
@@ -36,4 +38,5 @@ func TestCountChars(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestCountChars(t=%v)", t)
 }

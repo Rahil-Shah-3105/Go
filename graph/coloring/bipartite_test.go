@@ -1,4 +1,5 @@
 package coloring
+import logritelog "log"
 
 import (
 	"testing"
@@ -21,6 +22,7 @@ var testCases = []struct {
 }
 
 func TestBipartite(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestBipartite(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual := BipartiteCheck(tc.N, tc.edges)
@@ -29,4 +31,5 @@ func TestBipartite(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestBipartite(t=%v)", t)
 }

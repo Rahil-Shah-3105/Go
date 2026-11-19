@@ -1,4 +1,5 @@
 package hamming
+import logritelog "log"
 
 import "testing"
 
@@ -41,10 +42,12 @@ var testCases = []struct {
 }
 
 func TestHammingDistance(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestHammingDistance(t=%v)", t)
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			actual, err := Distance(tc.string1, tc.string2)
 			if err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestHammingDistance(t=%v): %v", t, err)
 				if tc.expected != -1 {
 					t.Fatalf("Expected no error, but got %v", err)
 				}
@@ -53,4 +56,5 @@ func TestHammingDistance(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestHammingDistance(t=%v)", t)
 }

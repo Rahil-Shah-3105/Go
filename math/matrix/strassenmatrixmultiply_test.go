@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"math/rand"
@@ -10,11 +11,13 @@ import (
 )
 
 func TestStrassenMatrixMultiply(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestStrassenMatrixMultiply(t=%v)", t)
 	// Create two sample matrices
 	dataA := [][]int{{1, 2}, {4, 5}}
 	dataB := [][]int{{9, 8}, {6, 5}}
 	matrixA, err := matrix.NewFromElements(dataA)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestStrassenMatrixMultiply(t=%v): %v", t, err)
 		t.Error("copyMatrix.Set error: " + err.Error())
 	}
 	matrixB, err := matrix.NewFromElements(dataB)
@@ -64,8 +67,10 @@ func TestStrassenMatrixMultiply(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestStrassenMatrixMultiply(t=%v)", t)
 }
 func TestMatrixMultiplication(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixMultiplication(t=%v)", t)
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// Generate random matrices for testing
@@ -76,6 +81,7 @@ func TestMatrixMultiplication(t *testing.T) {
 	// Calculate the expected result using the standard multiplication
 	expected, err := matrixA.Multiply(matrixB)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixMultiplication(t=%v): %v", t, err)
 		t.Error("copyMatrix.Set error: " + err.Error())
 	}
 	// Calculate the result using the Strassen algorithm
@@ -100,9 +106,11 @@ func TestMatrixMultiplication(t *testing.T) {
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixMultiplication(t=%v)", t)
 }
 
 func MakeRandomMatrix[T constraints.Integer](rows, columns int) matrix.Matrix[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering MakeRandomMatrix(rows=%v,columns=%v)", rows, columns)
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	matrixData := make([][]T, rows)
@@ -114,11 +122,13 @@ func MakeRandomMatrix[T constraints.Integer](rows, columns int) matrix.Matrix[T]
 	}
 
 	randomMatrix, _ := matrix.NewFromElements(matrixData)
+	logritelog.Default().Printf("[WARN] <<< Exiting MakeRandomMatrix(rows=%v,columns=%v)", rows, columns)
 	return randomMatrix
 }
 
 // BenchmarkStrassenMatrixMultiply benchmarks the StrassenMatrixMultiply function.
 func BenchmarkStrassenMatrixMultiply(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkStrassenMatrixMultiply(b=%v)", b)
 	// Create sample matrices for benchmarking
 	rows := 64 // it is large enough for multiplication
 	columns := 64
@@ -128,4 +138,5 @@ func BenchmarkStrassenMatrixMultiply(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = m1.StrassenMatrixMultiply(m2)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkStrassenMatrixMultiply(b=%v)", b)
 }

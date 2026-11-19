@@ -5,6 +5,7 @@
 // space complexity: O(1)
 // for more information watch : https://www.youtube.com/watch?v=NmM9HA2MQGI
 package diffiehellman
+import logritelog "log"
 
 const (
 	generator         = 3
@@ -15,17 +16,20 @@ const (
 // this key can be made public
 // shareKey = (g^key)%primeNumber
 func GenerateShareKey(prvKey int64) int64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering GenerateShareKey(prvKey=%v)", prvKey)
 	return modularExponentiation(generator, prvKey, primeNumber)
 }
 
 // GenerateMutualKey : generates a mutual key that can be used by only alice and bob
 // mutualKey = (shareKey^prvKey)%primeNumber
 func GenerateMutualKey(prvKey, shareKey int64) int64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering GenerateMutualKey(prvKey=%v,shareKey=%v)", prvKey, shareKey)
 	return modularExponentiation(shareKey, prvKey, primeNumber)
 }
 
 // r = (b^e)%mod
 func modularExponentiation(b, e, mod int64) int64 {
+logritelog.Default().Printf("[ERROR] >>> Entering modularExponentiation(b=%v,e=%v,mod=%v)", b, e, mod)
 
 	//runs in O(log(n)) where n = e
 	//uses exponentiation by squaring to speed up the process
@@ -41,5 +45,6 @@ func modularExponentiation(b, e, mod int64) int64 {
 		e = e >> 1
 		b = (b * b) % mod
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting modularExponentiation(b=%v,e=%v,mod=%v)", b, e, mod)
 	return r
 }

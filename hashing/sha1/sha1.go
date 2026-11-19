@@ -5,6 +5,7 @@
 // see sha1_test.go for testing
 
 package sha1
+import logritelog "log"
 
 import (
 	"encoding/binary" // Used for interacting with uint at the byte level
@@ -21,6 +22,7 @@ const (
 
 // pad pads the input message so that its length is congruent to 448 modulo 512
 func pad(message []byte) []byte {
+	logritelog.Default().Printf("[ERROR] >>> Entering pad(message=%v)", message)
 	originalLength := len(message) * 8
 	message = append(message, 0x80)
 	for (len(message)*8)%512 != 448 {
@@ -31,16 +33,19 @@ func pad(message []byte) []byte {
 	binary.BigEndian.PutUint64(lengthBytes, uint64(originalLength))
 	message = append(message, lengthBytes...)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting pad(message=%v)", message)
 	return message
 }
 
 // leftRotate rotates x left by n bits
 func leftRotate(x, n uint32) uint32 {
+	logritelog.Default().Printf("[ERROR] >>> Entering leftRotate(x=%v,n=%v)", x, n)
 	return (x << n) | (x >> (32 - n))
 }
 
 // Hash computes the SHA-1 hash of the input message
 func Hash(message []byte) [20]byte {
+	logritelog.Default().Printf("[ERROR] >>> Entering Hash(message=%v)", message)
 	message = pad(message)
 
 	// Initialize variables
@@ -106,5 +111,6 @@ func Hash(message []byte) [20]byte {
 	binary.BigEndian.PutUint32(digest[12:16], d)
 	binary.BigEndian.PutUint32(digest[16:20], e)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Hash(message=%v)", message)
 	return digest
 }

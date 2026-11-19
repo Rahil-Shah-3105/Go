@@ -7,6 +7,7 @@ space complexity: O(1)
 author(s): [ddaniel27](https://github.com/ddaniel27)
 */
 package rsa
+import logritelog "log"
 
 import (
 	"encoding/binary"
@@ -30,6 +31,7 @@ type rsa struct {
 // New initializes the RSA algorithm
 // returns the RSA object
 func New() *rsa {
+	logritelog.Default().Printf("[ERROR] >>> Entering New()")
 	// The following code generates keys for RSA encryption/decryption
 	// 1. Choose two large prime numbers, p and q and compute n = p * q
 	p, q := randomPrime() // p and q stands for prime numbers
@@ -51,6 +53,7 @@ func New() *rsa {
 	inv, _ := modular.Inverse(int64(publicKey), int64(totient))
 	privateKey := uint64(inv)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting New()")
 	return &rsa{
 		publicKey:  publicKey,
 		privateKey: privateKey,
@@ -61,6 +64,7 @@ func New() *rsa {
 // EncryptString encrypts the data using RSA algorithm
 // returns the encrypted string
 func (rsa *rsa) EncryptString(data string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering EncryptString(data=%v)", data)
 	var nums []byte
 
 	for _, char := range data {
@@ -71,13 +75,16 @@ func (rsa *rsa) EncryptString(data string) string {
 		)
 		nums = append(nums, slice...)
 	}
+		logritelog.Default().Printf("[DEBUG] EncryptString(data=%v): nums → %v", data, nums)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting EncryptString(data=%v)", data)
 	return string(nums)
 }
 
 // DecryptString decrypts the data using RSA algorithm
 // returns the decrypted string
 func (rsa *rsa) DecryptString(data string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering DecryptString(data=%v)", data)
 	result := ""
 	middle := []byte(data)
 
@@ -91,35 +98,44 @@ func (rsa *rsa) DecryptString(data string) string {
 		result += fmt.Sprintf("%c", encryptDecryptInt(rsa.privateKey, rsa.modulus, num))
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting DecryptString(data=%v)", data)
 	return result
 }
 
 // GetPublicKey returns the public key and modulus
 func (rsa *rsa) GetPublicKey() (uint64, uint64) {
+	logritelog.Default().Printf("[ERROR] >>> Entering GetPublicKey()")
 	return rsa.publicKey, rsa.modulus
 }
 
 // GetPrivateKey returns the private key
 func (rsa *rsa) GetPrivateKey() uint64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering GetPrivateKey()")
 	return rsa.privateKey
 }
 
 // encryptDecryptInt encrypts or decrypts the data using RSA algorithm
 func encryptDecryptInt(e, n, data uint64) uint64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering encryptDecryptInt(e=%v,n=%v,data=%v)", e, n, data)
 	pow := new(big.Int).Exp(big.NewInt(int64(data)), big.NewInt(int64(e)), big.NewInt(int64(n)))
+	logritelog.Default().Printf("[WARN] <<< Exiting encryptDecryptInt(e=%v,n=%v,data=%v)", e, n, data)
 	return pow.Uint64()
 }
 
 // randomPrime returns two random prime numbers
 func randomPrime() (uint64, uint64) {
+	logritelog.Default().Printf("[ERROR] >>> Entering randomPrime()")
 	sieve := prime.SieveEratosthenes(1000)
 	sieve = sieve[10:] // remove first 10 prime numbers (small numbers)
 	index1 := rand.Intn(len(sieve))
 	index2 := rand.Intn(len(sieve))
 
+	logritelog.Default().Printf("[DEBUG] randomPrime(): sieve → %v", sieve)
 	for index1 == index2 {
 		index2 = rand.Intn(len(sieve))
 	}
+		logritelog.Default().Printf("[DEBUG] randomPrime(): index2 → %v", index2)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting randomPrime()")
 	return uint64(sieve[index1]), uint64(sieve[index2])
 }

@@ -1,4 +1,5 @@
 package min
+import logritelog "log"
 
 import (
 	"testing"
@@ -27,6 +28,7 @@ func getTestCases() []struct {
 }
 
 func TestBitwiseMin(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestBitwiseMin(t=%v)", t)
 	tests := getTestCases()
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -36,9 +38,11 @@ func TestBitwiseMin(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestBitwiseMin(t=%v)", t)
 }
 
 func TestMin(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMin(t=%v)", t)
 	for _, test := range getTestCases() {
 		t.Run(test.name, func(t *testing.T) {
 			actualMin := Int(test.numbers...)
@@ -47,16 +51,21 @@ func TestMin(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMin(t=%v)", t)
 }
 
 func BenchmarkTestMinInt(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkTestMinInt(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Int(0, 10, 9, 7, 2, 1, 4, 3, 5, 6)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkTestMinInt(b=%v)", b)
 }
 
 func BenchmarkTestBitwiseMin(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkTestBitwiseMin(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		Bitwise(32, 10, 9, 7, 2, 1, 4, 3, 5, 6)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkTestBitwiseMin(b=%v)", b)
 }

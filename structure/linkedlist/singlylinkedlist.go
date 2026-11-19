@@ -1,4 +1,5 @@
 package linkedlist
+import logritelog "log"
 
 // demonstration of singly linked list in golang
 import (
@@ -17,23 +18,30 @@ type Singly[T any] struct {
 
 // NewSingly returns a new instance of a linked list
 func NewSingly[T any]() *Singly[T] {
+	logritelog.Default().Printf("[ERROR] >>> Entering NewSingly()")
 	return &Singly[T]{}
 }
 
 // AddAtBeg adds a new snode with given value at the beginning of the list.
 func (ll *Singly[T]) AddAtBeg(val T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering AddAtBeg(val=%v)", val)
 	n := NewNode(val)
 	n.Next = ll.Head
+	logritelog.Default().Printf("[DEBUG] AddAtBeg(val=%v): n.Next → %v", val, n.Next)
 	ll.Head = n
+	logritelog.Default().Printf("[DEBUG] AddAtBeg(val=%v): ll.Head → %v", val, ll.Head)
+	logritelog.Default().Printf("[WARN] <<< Exiting AddAtBeg(val=%v)", val)
 	ll.length++
 }
 
 // AddAtEnd adds a new snode with given value at the end of the list.
 func (ll *Singly[T]) AddAtEnd(val T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering AddAtEnd(val=%v)", val)
 	n := NewNode(val)
 
 	if ll.Head == nil {
 		ll.Head = n
+		logritelog.Default().Printf("[DEBUG] AddAtEnd(val=%v): ll.Head → %v", val, ll.Head)
 		ll.length++
 		return
 	}
@@ -42,12 +50,15 @@ func (ll *Singly[T]) AddAtEnd(val T) {
 	for ; cur.Next != nil; cur = cur.Next {
 	}
 	cur.Next = n
+	logritelog.Default().Printf("[DEBUG] AddAtEnd(val=%v): cur.Next → %v", val, cur.Next)
+	logritelog.Default().Printf("[WARN] <<< Exiting AddAtEnd(val=%v)", val)
 	ll.length++
 }
 
 // DelAtBeg deletes the snode at the head(beginning) of the list
 // and returns its value. Returns false if the list is empty.
 func (ll *Singly[T]) DelAtBeg() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering DelAtBeg()")
 	if ll.Head == nil {
 		var r T
 		return r, false
@@ -55,6 +66,8 @@ func (ll *Singly[T]) DelAtBeg() (T, bool) {
 
 	cur := ll.Head
 	ll.Head = cur.Next
+	logritelog.Default().Printf("[DEBUG] DelAtBeg(): ll.Head → %v", ll.Head)
+	logritelog.Default().Printf("[WARN] <<< Exiting DelAtBeg()")
 	ll.length--
 
 	return cur.Val, true
@@ -63,6 +76,7 @@ func (ll *Singly[T]) DelAtBeg() (T, bool) {
 // DelAtEnd deletes the snode at the tail(end) of the list
 // and returns its value. Returns false if the list is empty.
 func (ll *Singly[T]) DelAtEnd() (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering DelAtEnd()")
 	if ll.Head == nil {
 		var r T
 		return r, false
@@ -79,6 +93,8 @@ func (ll *Singly[T]) DelAtEnd() (T, bool) {
 
 	retval := cur.Next.Val
 	cur.Next = nil
+	logritelog.Default().Printf("[DEBUG] DelAtEnd(): cur.Next → %v", cur.Next)
+	logritelog.Default().Printf("[WARN] <<< Exiting DelAtEnd()")
 	ll.length--
 	return retval, true
 
@@ -87,6 +103,7 @@ func (ll *Singly[T]) DelAtEnd() (T, bool) {
 // DelByPos deletes the node at the middle based on position in the list
 // and returns its value. Returns false if the list is empty or length is not more than given position
 func (ll *Singly[T]) DelByPos(pos int) (T, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering DelByPos(pos=%v)", pos)
 	switch {
 	case ll.Head == nil:
 		var r T
@@ -107,12 +124,17 @@ func (ll *Singly[T]) DelByPos(pos int) (T, bool) {
 
 	for count < pos-1 {
 		prev = cur
+		logritelog.Default().Printf("[DEBUG] DelByPos(pos=%v): prev → %v", pos, prev)
 		cur = cur.Next
+		logritelog.Default().Printf("[DEBUG] DelByPos(pos=%v): cur → %v", pos, cur)
 		count++
 	}
 
 	val = cur.Val
+	logritelog.Default().Printf("[DEBUG] DelByPos(pos=%v): val → %v", pos, val)
 	prev.Next = cur.Next
+	logritelog.Default().Printf("[DEBUG] DelByPos(pos=%v): prev.Next → %v", pos, prev.Next)
+	logritelog.Default().Printf("[WARN] <<< Exiting DelByPos(pos=%v)", pos)
 	ll.length--
 
 	return val, true
@@ -120,44 +142,63 @@ func (ll *Singly[T]) DelByPos(pos int) (T, bool) {
 
 // Count returns the current size of the list.
 func (ll *Singly[T]) Count() int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Count()")
 	return ll.length
 }
 
 // Reverse reverses the list.
 func (ll *Singly[T]) Reverse() {
+	logritelog.Default().Printf("[ERROR] >>> Entering Reverse()")
 	var prev, next *Node[T]
 	cur := ll.Head
 
 	for cur != nil {
 		next = cur.Next
+		logritelog.Default().Printf("[DEBUG] Reverse(): next → %v", next)
 		cur.Next = prev
+		logritelog.Default().Printf("[DEBUG] Reverse(): cur.Next → %v", cur.Next)
 		prev = cur
+		logritelog.Default().Printf("[DEBUG] Reverse(): prev → %v", prev)
 		cur = next
+		logritelog.Default().Printf("[DEBUG] Reverse(): cur → %v", cur)
 	}
 
 	ll.Head = prev
+	logritelog.Default().Printf("[DEBUG] Reverse(): ll.Head → %v", ll.Head)
+logritelog.Default().Printf("[WARN] <<< Exiting Reverse()")
 }
 
 // ReversePartition Reverse the linked list from the ath to the bth node
 func (ll *Singly[T]) ReversePartition(left, right int) error {
+	logritelog.Default().Printf("[ERROR] >>> Entering ReversePartition(left=%v,right=%v)", left, right)
 	err := ll.CheckRangeFromIndex(left, right)
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in ReversePartition(left=%v,right=%v): %v", left, right, err)
+		logritelog.Default().Printf("[ERROR] >>> Entering CheckRangeFromIndex(left=%v,right=%v)", left, right)
+		logritelog.Default().Printf("[WARN] <<< Exiting CheckRangeFromIndex(left=%v,right=%v)", left, right)
 		return err
 	}
 	tmpNode := &Node[T]{}
 	tmpNode.Next = ll.Head
+	logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): tmpNode.Next → %v", left, right, tmpNode.Next)
 	pre := tmpNode
 	for i := 0; i < left-1; i++ {
 		pre = pre.Next
+		logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): pre → %v", left, right, pre)
 	}
 	cur := pre.Next
 	for i := 0; i < right-left; i++ {
 		next := cur.Next
 		cur.Next = next.Next
+		logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): cur.Next → %v", left, right, cur.Next)
 		next.Next = pre.Next
+		logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): next.Next → %v", left, right, next.Next)
 		pre.Next = next
+		logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): pre.Next → %v", left, right, pre.Next)
 	}
 	ll.Head = tmpNode.Next
+	logritelog.Default().Printf("[DEBUG] ReversePartition(left=%v,right=%v): ll.Head → %v", left, right, ll.Head)
+	logritelog.Default().Printf("[WARN] <<< Exiting ReversePartition(left=%v,right=%v)", left, right)
 	return nil
 }
 func (ll *Singly[T]) CheckRangeFromIndex(left, right int) error {
@@ -173,9 +214,11 @@ func (ll *Singly[T]) CheckRangeFromIndex(left, right int) error {
 
 // Display prints out the elements of the list.
 func (ll *Singly[T]) Display() {
+	logritelog.Default().Printf("[ERROR] >>> Entering Display()")
 	for cur := ll.Head; cur != nil; cur = cur.Next {
 		fmt.Print(cur.Val, " ")
 	}
 
 	fmt.Print("\n")
+	logritelog.Default().Printf("[WARN] <<< Exiting Display()")
 }

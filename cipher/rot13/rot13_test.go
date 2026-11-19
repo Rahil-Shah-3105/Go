@@ -1,4 +1,5 @@
 package rot13
+import logritelog "log"
 
 import (
 	"testing"
@@ -42,6 +43,7 @@ var rot13TestData = []struct {
 }
 
 func TestRot13Encrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRot13Encrypt(t=%v)", t)
 	for _, test := range rot13TestData {
 		t.Run(test.description, func(t *testing.T) {
 			input := test.input
@@ -49,9 +51,11 @@ func TestRot13Encrypt(t *testing.T) {
 			assertRot13Output(t, input, expected)
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRot13Encrypt(t=%v)", t)
 }
 
 func TestRot13Decrypt(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestRot13Decrypt(t=%v)", t)
 	for _, test := range rot13TestData {
 		t.Run(test.description, func(t *testing.T) {
 			input := test.expected
@@ -59,17 +63,21 @@ func TestRot13Decrypt(t *testing.T) {
 			assertRot13Output(t, input, expected)
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestRot13Decrypt(t=%v)", t)
 }
 
 func assertRot13Output(t *testing.T, input, expected string) {
+	logritelog.Default().Printf("[ERROR] >>> Entering assertRot13Output(t=%v,input=%v,expected=%v)", t, input, expected)
 	actual := rot13(input)
 	if actual != expected {
 		t.Fatalf("With input string %q was expecting %q but actual was %q",
 			input, expected, actual)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting assertRot13Output(t=%v,input=%v,expected=%v)", t, input, expected)
 }
 
 func FuzzRot13(f *testing.F) {
+	logritelog.Default().Printf("[ERROR] >>> Entering FuzzRot13(f=%v)", f)
 	for _, rot13TestInput := range rot13TestData {
 		f.Add(rot13TestInput.input)
 	}
@@ -79,4 +87,5 @@ func FuzzRot13(f *testing.F) {
 				input, input, result)
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting FuzzRot13(f=%v)", f)
 }

@@ -4,10 +4,12 @@
 // see powvialogarithm.go
 
 package power
+import logritelog "log"
 
 import "testing"
 
 func TestUsingLog(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestUsingLog(t=%v)", t)
 	var tests = []struct {
 		name     string
 		base     float64
@@ -35,10 +37,13 @@ func TestUsingLog(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestUsingLog(t=%v)", t)
 }
 
 func BenchmarkUsingLog(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkUsingLog(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		UsingLog(10, 5)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkUsingLog(b=%v)", b)
 }

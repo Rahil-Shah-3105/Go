@@ -7,6 +7,7 @@
 * @author ddaniel27
  */
 package problem13
+import logritelog "log"
 
 var numbers = [100]string{
 	"37107287533902102798797998220837590246510135740250",
@@ -112,16 +113,20 @@ var numbers = [100]string{
 }
 
 func Problem13() string {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem13()")
 	sum := "0"
 
 	for _, n := range numbers {
 		sum = add(sum, n)
 	}
+		logritelog.Default().Printf("[DEBUG] Problem13(): sum → %v", sum)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem13()")
 	return sum[:10]
 }
 
 func add(a, b string) string {
+	logritelog.Default().Printf("[ERROR] >>> Entering add(a=%v,b=%v)", a, b)
 	if len(a) < len(b) {
 		a, b = b, a
 	}
@@ -138,13 +143,16 @@ func add(a, b string) string {
 
 		sum[len(sum)-1-i] = byte(d%10) + '0'
 		carry = d / 10
+		logritelog.Default().Printf("[DEBUG] add(a=%v,b=%v): carry → %v", a, b, carry)
 	}
 
 	if carry > 0 {
 		sum[0] = byte(carry) + '0'
 	} else {
 		sum = sum[1:]
+		logritelog.Default().Printf("[DEBUG] add(a=%v,b=%v): sum → %v", a, b, sum)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting add(a=%v,b=%v)", a, b)
 	return string(sum)
 }

@@ -8,12 +8,14 @@
 // see reversebits_test.go
 
 package binary
+import logritelog "log"
 
 // ReverseBits This function initialized the result by 0 (all bits 0) and process the given number starting
 // from its least significant bit. If the current bit is 1, set the corresponding most significant bit in the result
 // and finally move on to the next bit in the input number.
 // Repeat this till all its bits are processed.
 func ReverseBits(number uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering ReverseBits(number=%v)", number)
 	result := uint(0)
 	intSize := 31
 	for number != 0 {
@@ -21,5 +23,6 @@ func ReverseBits(number uint) uint {
 		number = number >> 1
 		intSize -= 1
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting ReverseBits(number=%v)", number)
 	return result
 }

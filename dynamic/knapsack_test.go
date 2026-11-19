@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"fmt"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestKnapsack(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestKnapsack(t=%v)", t)
 	td := []struct {
 		maxWeight int
 		weights   []int
@@ -30,9 +32,12 @@ func TestKnapsack(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestKnapsack(t=%v)", t)
 }
 
 func ExampleKnapsack() {
+	logritelog.Default().Printf("[ERROR] >>> Entering ExampleKnapsack()")
 	fmt.Print(dynamic.Knapsack(10, []int{4, 5, 8}, []int{50, 15, 60}))
 	//Output:65
+	logritelog.Default().Printf("[WARN] <<< Exiting ExampleKnapsack()")
 }

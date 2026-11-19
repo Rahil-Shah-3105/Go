@@ -10,13 +10,16 @@
 // see twin_test.go
 
 package prime
+import logritelog "log"
 
 // This function returns twin prime for given number
 // returns (n + 2) if both n and (n + 2) are prime
 // -1 otherwise
 func Twin(n int) (int, bool) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Twin(n=%v)", n)
 	if OptimizedTrialDivision(int64(n)) && OptimizedTrialDivision(int64(n+2)) {
 		return n + 2, true
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Twin(n=%v)", n)
 	return -1, false
 }

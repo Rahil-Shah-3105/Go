@@ -8,12 +8,14 @@
 // author: [SilverDragonOfR](https://github.com/SilverDragonOfR)
 
 package math
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
 )
 
 func IsAutomorphic[T constraints.Integer](n T) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsAutomorphic(n=%v)", n)
 	// handling the negetive number case
 	if n < 0 {
 		return false
@@ -28,5 +30,6 @@ func IsAutomorphic[T constraints.Integer](n T) bool {
 		n_sq /= 10
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting IsAutomorphic(n=%v)", n)
 	return true
 }

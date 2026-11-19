@@ -13,6 +13,7 @@
 
 // Package guid provides facilities for generating random globally unique identifiers.
 package guid
+import logritelog "log"
 
 import (
 	"crypto/rand"
@@ -26,6 +27,7 @@ const versionIndex int = 14
 
 // New returns a randomly generated global unique identifier.
 func New() (string, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering New()")
 	var guid strings.Builder
 
 	for i, ch := range pattern {
@@ -44,5 +46,6 @@ func New() (string, error) {
 		guid.WriteString(fmt.Sprintf("%x", random.Int64()))
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting New()")
 	return guid.String(), nil
 }

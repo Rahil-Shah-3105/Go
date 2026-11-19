@@ -6,6 +6,7 @@
 // Author: M3talM0nk3y
 
 package strings
+import logritelog "log"
 
 import (
 	"errors"
@@ -22,16 +23,21 @@ const (
 )
 
 func hasDigit(text string) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering hasDigit(text=%v)", text)
 	re := regexp.MustCompile(`\d`)
+	logritelog.Default().Printf("[WARN] <<< Exiting hasDigit(text=%v)", text)
 	return re.MatchString(text)
 }
 
 func hasSymbol(text string) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering hasSymbol(text=%v)", text)
 	re := regexp.MustCompile(`[-!@#$%^&*()+]`)
+	logritelog.Default().Printf("[WARN] <<< Exiting hasSymbol(text=%v)", text)
 	return re.MatchString(text)
 }
 
 func IsIsogram(text string, order IsogramOrder) (bool, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering IsIsogram(text=%v,order=%v)", text, order)
 	if order < First || order > Third {
 		return false, errors.New("Invalid isogram order provided")
 	}
@@ -67,5 +73,6 @@ func IsIsogram(text string, order IsogramOrder) (bool, error) {
 		return true, nil
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting IsIsogram(text=%v,order=%v)", text, order)
 	return false, nil
 }

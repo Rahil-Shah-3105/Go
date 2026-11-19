@@ -6,6 +6,7 @@
 // see mode.go
 
 package math
+import logritelog "log"
 
 import (
 	"errors"
@@ -19,6 +20,7 @@ import (
 var ErrEmptySlice = errors.New("empty slice provided")
 
 func Mode[T constraints.Number](numbers []T) (T, error) {
+logritelog.Default().Printf("[ERROR] >>> Entering Mode(numbers=%v)", numbers)
 
 	countMap := make(map[T]int)
 
@@ -38,10 +40,13 @@ func Mode[T constraints.Number](numbers []T) (T, error) {
 	for k, v := range countMap {
 		if v > count {
 			count = v
+			logritelog.Default().Printf("[DEBUG] Mode(numbers=%v): count → %v", numbers, count)
 			mode = k
+			logritelog.Default().Printf("[DEBUG] Mode(numbers=%v): mode → %v", numbers, mode)
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Mode(numbers=%v)", numbers)
 	return mode, nil
 
 }

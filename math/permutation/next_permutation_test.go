@@ -1,4 +1,5 @@
 package permutation
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestNextPermutation(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestNextPermutation(t=%v)", t)
 	var nextPermutationTestData = []struct {
 		description string
 		numbers     []int
@@ -37,4 +39,5 @@ func TestNextPermutation(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestNextPermutation(t=%v)", t)
 }

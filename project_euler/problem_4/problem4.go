@@ -9,6 +9,7 @@
 * @author ddaniel27
  */
 package problem4
+import logritelog "log"
 
 import (
 	"fmt"
@@ -17,6 +18,7 @@ import (
 )
 
 func Problem4() uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem4()")
 	max := uint(0)
 
 	for i := 999; i >= 100; i-- {
@@ -25,9 +27,11 @@ func Problem4() uint {
 
 			if palindrome.IsPalindrome(fmt.Sprintf("%d", n)) && n > max {
 				max = n
+				logritelog.Default().Printf("[INFO] Problem4(): max → %v", max)
 			}
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem4()")
 	return max
 }

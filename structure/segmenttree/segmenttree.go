@@ -5,6 +5,7 @@
 // Update: O(log(n))
 // reference: https://cp-algorithms.com/data_structures/segment_tree.html
 package segmenttree
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math/max"
@@ -22,6 +23,7 @@ type SegmentTree struct {
 
 // Propagate propagates the lazy updates to the child nodes
 func (s *SegmentTree) Propagate(node int, leftNode int, rightNode int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Propagate(node=%v,leftNode=%v,rightNode=%v)", node, leftNode, rightNode)
 	if s.LazyTree[node] != emptyLazyNode {
 		//add lazy node value multiplied by (right-left+1), which represents all interval
 		//this is the same of adding a value on each node
@@ -40,11 +42,13 @@ func (s *SegmentTree) Propagate(node int, leftNode int, rightNode int) {
 		//clear lazy node
 		s.LazyTree[node] = emptyLazyNode
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Propagate(node=%v,leftNode=%v,rightNode=%v)", node, leftNode, rightNode)
 }
 
 // Query returns the sum of elements of the array in the interval [firstIndex, leftIndex].
 // node, leftNode and rightNode should always start with 1, 0 and len(Array)-1, respectively.
 func (s *SegmentTree) Query(node int, leftNode int, rightNode int, firstIndex int, lastIndex int) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Query(node=%v,leftNode=%v,rightNode=%v,firstIndex=%v,lastIndex=%v)", node, leftNode, rightNode, firstIndex, lastIndex)
 	if (firstIndex > lastIndex) || (leftNode > rightNode) {
 		//outside the interval
 		return 0
@@ -64,6 +68,7 @@ func (s *SegmentTree) Query(node int, leftNode int, rightNode int, firstIndex in
 	leftNodeSum := s.Query(2*node, leftNode, mid, firstIndex, min.Int(mid, lastIndex))
 	rightNodeSum := s.Query(2*node+1, mid+1, rightNode, max.Int(firstIndex, mid+1), lastIndex)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Query(node=%v,leftNode=%v,rightNode=%v,firstIndex=%v,lastIndex=%v)", node, leftNode, rightNode, firstIndex, lastIndex)
 	return leftNodeSum + rightNodeSum
 }
 
@@ -71,6 +76,7 @@ func (s *SegmentTree) Query(node int, leftNode int, rightNode int, firstIndex in
 // with the new value provided and recomputes the sum of different ranges.
 // node, leftNode and rightNode should always start with 1, 0 and len(Array)-1, respectively.
 func (s *SegmentTree) Update(node int, leftNode int, rightNode int, firstIndex int, lastIndex int, value int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Update(node=%v,leftNode=%v,rightNode=%v,firstIndex=%v,lastIndex=%v,value=%v)", node, leftNode, rightNode, firstIndex, lastIndex, value)
 	//propagate lazy tree
 	s.Propagate(node, leftNode, rightNode)
 
@@ -93,11 +99,13 @@ func (s *SegmentTree) Update(node int, leftNode int, rightNode int, firstIndex i
 
 		s.SegmentTree[node] = s.SegmentTree[2*node] + s.SegmentTree[2*node+1]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Update(node=%v,leftNode=%v,rightNode=%v,firstIndex=%v,lastIndex=%v,value=%v)", node, leftNode, rightNode, firstIndex, lastIndex, value)
 }
 
 // Build builds the SegmentTree by computing the sum of different ranges.
 // node, leftNode and rightNode should always start with 1, 0 and len(Array)-1, respectively.
 func (s *SegmentTree) Build(node int, left int, right int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Build(node=%v,left=%v,right=%v)", node, left, right)
 	if left == right {
 		//leaf node
 		s.SegmentTree[node] = s.Array[left]
@@ -110,11 +118,13 @@ func (s *SegmentTree) Build(node int, left int, right int) {
 
 		s.SegmentTree[node] = s.SegmentTree[2*node] + s.SegmentTree[2*node+1]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Build(node=%v,left=%v,right=%v)", node, left, right)
 }
 
 // NewSegmentTree returns a new instance of a SegmentTree. It takes an input
 // array of integers representing Array, initializes and builds the SegmentTree.
 func NewSegmentTree(Array []int) *SegmentTree {
+	logritelog.Default().Printf("[ERROR] >>> Entering NewSegmentTree(Array=%v)", Array)
 	if len(Array) == 0 {
 		return nil
 	}
@@ -133,5 +143,6 @@ func NewSegmentTree(Array []int) *SegmentTree {
 	//starts with node 1 and interval [0, len(arr)-1] inclusive
 	segTree.Build(1, 0, len(Array)-1)
 
+	logritelog.Default().Printf("[WARN] <<< Exiting NewSegmentTree(Array=%v)", Array)
 	return &segTree
 }

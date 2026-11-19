@@ -4,6 +4,7 @@
 // space complexity: O(N)
 
 package sort
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
@@ -15,6 +16,7 @@ import (
 // NOTE: To maintain time complexity O(n + N), this is the reason for having
 // only Integer constraint instead of Ordered.
 func Pigeonhole[T constraints.Integer](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Pigeonhole(arr=%v)", arr)
 	if len(arr) == 0 {
 		return arr
 	}
@@ -40,5 +42,6 @@ func Pigeonhole[T constraints.Integer](arr []T) []T {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Pigeonhole(arr=%v)", arr)
 	return arr
 }

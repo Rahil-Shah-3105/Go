@@ -4,12 +4,14 @@
 // see xorsearch.go
 
 package binary
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestXorSearchMissingNumber(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestXorSearchMissingNumber(t=%v)", t)
 	var tests = []struct {
 		name    string
 		a       []int
@@ -21,6 +23,7 @@ func TestXorSearchMissingNumber(t *testing.T) {
 		{"[0, 10, 9, 7, 2, 1,  4, 3, 5, 6]/8", []int{0, 10, 9, 7, 2, 1, 4, 3, 5, 6}, 8},
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting TestXorSearchMissingNumber(t=%v)", t)
 	for _, tv := range tests {
 		t.Run(tv.name, func(t *testing.T) {
 			result := XorSearchMissingNumber(tv.a)
@@ -33,7 +36,9 @@ func TestXorSearchMissingNumber(t *testing.T) {
 }
 
 func BenchmarkTestXorSearchMissingNumber(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkTestXorSearchMissingNumber(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		XorSearchMissingNumber([]int{0, 10, 9, 7, 2, 1, 4, 3, 5, 6})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkTestXorSearchMissingNumber(b=%v)", b)
 }

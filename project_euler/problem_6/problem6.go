@@ -17,8 +17,10 @@
 * @author ddaniel27
  */
 package problem6
+import logritelog "log"
 
 func Problem6(n uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem6(n=%v)", n)
 	sumOfSquares := uint(0)
 	squareOfSum := uint(0)
 
@@ -29,5 +31,6 @@ func Problem6(n uint) uint {
 
 	squareOfSum *= squareOfSum
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem6(n=%v)", n)
 	return squareOfSum - sumOfSquares
 }

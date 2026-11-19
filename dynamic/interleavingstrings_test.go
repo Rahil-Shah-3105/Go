@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseInterleaving struct {
 }
 
 func getInterleavingTestCases() []testCaseInterleaving {
+	logritelog.Default().Printf("[ERROR] >>> Entering getInterleavingTestCases()")
 	return []testCaseInterleaving{
 		{"aab", "axy", "aaxaby", true},   // Valid interleaving
 		{"aab", "axy", "abaaxy", false},  // Invalid interleaving
@@ -27,6 +29,7 @@ func getInterleavingTestCases() []testCaseInterleaving {
 }
 
 func TestIsInterleave(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsInterleave(t=%v)", t)
 	t.Run("Interleaving Strings test cases", func(t *testing.T) {
 		for _, tc := range getInterleavingTestCases() {
 			actual := dynamic.IsInterleave(tc.s1, tc.s2, tc.s3)
@@ -35,4 +38,5 @@ func TestIsInterleave(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsInterleave(t=%v)", t)
 }

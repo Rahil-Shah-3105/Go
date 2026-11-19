@@ -10,8 +10,10 @@
  * @author ddaniel27
  */
 package problem1
+import logritelog "log"
 
 func Problem1(n uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem1(n=%v)", n)
 	sum := uint(0)
 
 	for i := uint(1); i < n; i++ {
@@ -20,5 +22,6 @@ func Problem1(n uint) uint {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem1(n=%v)", n)
 	return sum
 }

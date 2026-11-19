@@ -3,6 +3,7 @@
 // see factorial.go
 
 package factorial
+import logritelog "log"
 
 import "testing"
 import "fmt"
@@ -35,6 +36,7 @@ var testCases = []struct {
 }
 
 func TestFactorial(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestFactorial(t=%v)", t)
 	for implName, implFunction := range implementations {
 		t.Run(implName+" errors for negative input", func(t *testing.T) {
 			_, error := implFunction(-1)
@@ -46,6 +48,7 @@ func TestFactorial(t *testing.T) {
 			t.Run(fmt.Sprintf("%s with input %d", implName, tc.n), func(t *testing.T) {
 				actual, err := implFunction(tc.n)
 				if err != nil {
+					logritelog.Default().Printf("[ERROR] Exception in TestFactorial(t=%v): %v", t, err)
 					t.Errorf("unexpected error captured")
 				}
 				if actual != tc.expected {
@@ -54,9 +57,11 @@ func TestFactorial(t *testing.T) {
 			})
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestFactorial(t=%v)", t)
 }
 
 func BenchmarkFactorial(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkFactorial(b=%v)", b)
 	for _, input := range []int{5, 10, 15} {
 		for implName, implFunction := range implementations {
 			b.Run(fmt.Sprintf("%s_%d", implName, input), func(b *testing.B) {
@@ -66,4 +71,5 @@ func BenchmarkFactorial(b *testing.B) {
 			})
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkFactorial(b=%v)", b)
 }

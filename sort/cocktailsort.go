@@ -2,11 +2,13 @@
 // reference: https://en.wikipedia.org/wiki/Cocktail_shaker_sort
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 // Cocktail sort is a variation of bubble sort, operating in two directions (beginning to end, end to beginning)
 func Cocktail[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Cocktail(arr=%v)", arr)
 	if len(arr) == 0 { // ignore 0 length arrays
 		return arr
 	}
@@ -20,6 +22,7 @@ func Cocktail[T constraints.Ordered](arr []T) []T {
 
 	for swapped {
 		swapped = false
+		logritelog.Default().Printf("[DEBUG] Cocktail(arr=%v): swapped → %v", arr, swapped)
 		var new_start int
 		var new_end int
 
@@ -27,11 +30,13 @@ func Cocktail[T constraints.Ordered](arr []T) []T {
 			if arr[i] > arr[i+1] { // if current and next elements are unordered
 				arr[i], arr[i+1] = arr[i+1], arr[i] // swap two elements
 				new_end = i
+				logritelog.Default().Printf("[DEBUG] Cocktail(arr=%v): new_end → %v", arr, new_end)
 				swapped = true
 			}
 		}
 
 		end = new_end
+		logritelog.Default().Printf("[DEBUG] Cocktail(arr=%v): end → %v", arr, end)
 
 		if !swapped { // early exit, skipping the second loop
 			break
@@ -43,6 +48,7 @@ func Cocktail[T constraints.Ordered](arr []T) []T {
 			if arr[i] < arr[i-1] { // same process of the first loop, now going 'backwards'
 				arr[i], arr[i-1] = arr[i-1], arr[i]
 				new_start = i
+				logritelog.Default().Printf("[DEBUG] Cocktail(arr=%v): new_start → %v", arr, new_start)
 				swapped = true
 			}
 		}
@@ -50,5 +56,6 @@ func Cocktail[T constraints.Ordered](arr []T) []T {
 		start = new_start
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Cocktail(arr=%v)", arr)
 	return arr
 }

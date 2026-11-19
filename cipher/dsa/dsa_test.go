@@ -1,4 +1,5 @@
 package dsa_test
+import logritelog "log"
 
 import (
 	"math/big"
@@ -8,6 +9,7 @@ import (
 )
 
 func TestDSA(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDSA(t=%v)", t)
 	tests := []struct {
 		name    string
 		message string
@@ -64,16 +66,20 @@ func TestDSA(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDSA(t=%v)", t)
 }
 
 /* ------------------- BENCHMARKS ------------------- */
 func BenchmarkDSANew(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkDSANew(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		dsa.New()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkDSANew(b=%v)", b)
 }
 
 func BenchmarkDSASign(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkDSASign(b=%v)", b)
 	dsaInstance := dsa.New()
 	params := dsaInstance.GetParameters()
 	privKey := dsaInstance.GetPrivateKey()
@@ -86,9 +92,11 @@ func BenchmarkDSASign(b *testing.B) {
 			privKey,
 		)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkDSASign(b=%v)", b)
 }
 
 func BenchmarkDSAVerify(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkDSAVerify(b=%v)", b)
 	dsaInstance := dsa.New()
 	pubKey := dsaInstance.GetPublicKey()
 	params := dsaInstance.GetParameters()
@@ -111,4 +119,5 @@ func BenchmarkDSAVerify(b *testing.B) {
 			pubKey,
 		)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkDSAVerify(b=%v)", b)
 }

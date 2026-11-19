@@ -4,6 +4,7 @@
 // see sieve.go
 
 package prime
+import logritelog "log"
 
 import (
 	"reflect"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestSieve(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSieve(t=%v)", t)
 	firstTenPrimes := [10]int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
 
 	t.Run("First 10 primes test", func(t *testing.T) {
@@ -31,9 +33,11 @@ func TestSieve(t *testing.T) {
 		}
 
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSieve(t=%v)", t)
 }
 
 func TestGeneratePrimes(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestGeneratePrimes(t=%v)", t)
 	firstTenPrimes := []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
 
 	t.Run("Testing GeneratePrimes Function", func(t *testing.T) {
@@ -43,10 +47,13 @@ func TestGeneratePrimes(t *testing.T) {
 			t.Fatal("GeneratePrimes function failed")
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestGeneratePrimes(t=%v)", t)
 }
 
 func BenchmarkSieve10(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSieve10(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_ = Generate(10)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSieve10(b=%v)", b)
 }

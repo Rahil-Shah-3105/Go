@@ -8,8 +8,10 @@
 * @author ddaniel27
  */
 package problem3
+import logritelog "log"
 
 func Problem3(n uint) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem3(n=%v)", n)
 	i := uint(2)
 
 	for n > 1 {
@@ -20,5 +22,6 @@ func Problem3(n uint) uint {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem3(n=%v)", n)
 	return i
 }

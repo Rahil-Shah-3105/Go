@@ -6,14 +6,18 @@
 // Useful reference: https://www.geeksforgeeks.org/next-permutation/
 
 package permutation
+import logritelog "log"
 
 func NextPermutation(nums []int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering NextPermutation(nums=%v)", nums)
 	pivot := 0
 	for pivot = len(nums) - 2; pivot >= 0; pivot-- {
+		logritelog.Default().Printf("[ERROR] NextPermutation(nums=%v): pivot → %v", nums, pivot)
 		if nums[pivot] < nums[pivot+1] {
 			break
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting NextPermutation(nums=%v)", nums)
 	if pivot < 0 {
 		// current permutation is the last and must be reversed totally
 		for l, r := 0, len(nums)-1; l < r; l, r = l+1, r-1 {
@@ -22,6 +26,7 @@ func NextPermutation(nums []int) {
 	} else {
 		succ := 0
 		for succ = len(nums) - 1; succ > pivot; succ = succ - 1 {
+			logritelog.Default().Printf("[ERROR] NextPermutation(nums=%v): succ → %v", nums, succ)
 			if nums[succ] > nums[pivot] {
 				break
 			}

@@ -1,10 +1,12 @@
 package conversion
+import logritelog "log"
 
 import (
 	"testing"
 )
 
 func TestHexToDecimal(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestHexToDecimal(t=%v)", t)
 	tests := []struct {
 		hex     string
 		want    int64
@@ -42,11 +44,14 @@ func TestHexToDecimal(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestHexToDecimal(t=%v)", t)
 }
 
 func BenchmarkHexToDecimal(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkHexToDecimal(b=%v)", b)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		_, _ = hexToDecimal("7FFFFFFFFFFFFFFF")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkHexToDecimal(b=%v)", b)
 }

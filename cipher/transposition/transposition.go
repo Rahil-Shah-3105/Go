@@ -8,6 +8,7 @@
 // see transposition_test.go
 
 package transposition
+import logritelog "log"
 
 import (
 	"errors"
@@ -22,6 +23,7 @@ var ErrKeyMissing = errors.New("missing Key")
 const placeholder = ' '
 
 func getKey(keyWord string) []int {
+	logritelog.Default().Printf("[ERROR] >>> Entering getKey(keyWord=%v)", keyWord)
 	keyWord = strings.ToLower(keyWord)
 	word := []rune(keyWord)
 	var sortedWord = make([]rune, len(word))
@@ -37,20 +39,24 @@ func getKey(keyWord string) []int {
 		numberOfUsage++
 		usedLettersMap[char] = numberOfUsage
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getKey(keyWord=%v)", keyWord)
 	return resultKey
 }
 
 func getIndex(wordSet []rune, subString rune) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering getIndex(wordSet=%v,subString=%v)", wordSet, subString)
 	n := len(wordSet)
 	for i := 0; i < n; i++ {
 		if wordSet[i] == subString {
 			return i
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getIndex(wordSet=%v,subString=%v)", wordSet, subString)
 	return 0
 }
 
 func Encrypt(text []rune, keyWord string) ([]rune, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Encrypt(text=%v,keyWord=%v)", text, keyWord)
 	key := getKey(keyWord)
 	keyLength := len(key)
 	textLength := len(text)
@@ -70,6 +76,7 @@ func Encrypt(text []rune, keyWord string) ([]rune, error) {
 	}
 	textLength = len(text)
 	var result []rune
+	logritelog.Default().Printf("[DEBUG] Encrypt(text=%v,keyWord=%v): textLength → %v", text, keyWord, textLength)
 	for i := 0; i < textLength; i += keyLength {
 		transposition := make([]rune, keyLength)
 		for j := 0; j < keyLength; j++ {
@@ -77,10 +84,12 @@ func Encrypt(text []rune, keyWord string) ([]rune, error) {
 		}
 		result = append(result, transposition...)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Encrypt(text=%v,keyWord=%v)", text, keyWord)
 	return result, nil
 }
 
 func Decrypt(text []rune, keyWord string) ([]rune, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Decrypt(text=%v,keyWord=%v)", text, keyWord)
 	key := getKey(keyWord)
 	textLength := len(text)
 	if textLength <= 0 {
@@ -103,5 +112,6 @@ func Decrypt(text []rune, keyWord string) ([]rune, error) {
 		result = append(result, transposition...)
 	}
 	result = []rune(strings.TrimRight(string(result), string(placeholder)))
+	logritelog.Default().Printf("[WARN] <<< Exiting Decrypt(text=%v,keyWord=%v)", text, keyWord)
 	return result, nil
 }

@@ -3,6 +3,7 @@
 // see pronicnumber.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestPronicNumber(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestPronicNumber(t=%v)", t)
 	var tests = []struct {
 		name          string
 		n             int
@@ -430,9 +432,12 @@ func TestPronicNumber(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestPronicNumber(t=%v)", t)
 }
 func BenchmarkPronicNumber(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkPronicNumber(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math.PronicNumber(65536)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkPronicNumber(b=%v)", b)
 }

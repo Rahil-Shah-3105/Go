@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"reflect"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestKosaraju(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestKosaraju(t=%v)", t)
 	tests := []struct {
 		name     string
 		vertices int
@@ -90,10 +92,12 @@ func TestKosaraju(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestKosaraju(t=%v)", t)
 }
 
 // Utility function to sort the slices and their contents
 func sortSlices(s [][]int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering sortSlices(s=%v)", s)
 	for _, inner := range s {
 		sort.Ints(inner)
 	}
@@ -101,6 +105,7 @@ func sortSlices(s [][]int) {
 		if len(s[i]) == 0 || len(s[j]) == 0 {
 			return len(s[i]) < len(s[j])
 		}
+	logritelog.Default().Printf("[WARN] <<< Exiting sortSlices(s=%v)", s)
 		return s[i][0] < s[j][0]
 	})
 }

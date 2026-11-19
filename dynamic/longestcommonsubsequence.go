@@ -6,14 +6,18 @@
 // space complexity: O(m*n) where m and n are lengths of the strings
 
 package dynamic
+import logritelog "log"
 
 func strToRuneSlice(s string) (r []rune, size int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering strToRuneSlice(s=%v)", s)
 	r = []rune(s)
+	logritelog.Default().Printf("[WARN] <<< Exiting strToRuneSlice(s=%v)", s)
 	return r, len(r)
 }
 
 // LongestCommonSubsequence function
 func LongestCommonSubsequence(a string, b string) int {
+	logritelog.Default().Printf("[ERROR] >>> Entering LongestCommonSubsequence(a=%v,b=%v)", a, b)
 	aRunes, aLen := strToRuneSlice(a)
 	bRunes, bLen := strToRuneSlice(b)
 
@@ -36,5 +40,6 @@ func LongestCommonSubsequence(a string, b string) int {
 		}
 	}
 	// returning the length of longest common subsequence
+	logritelog.Default().Printf("[WARN] <<< Exiting LongestCommonSubsequence(a=%v,b=%v)", a, b)
 	return lcs[aLen][bLen]
 }

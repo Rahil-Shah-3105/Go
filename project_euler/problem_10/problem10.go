@@ -8,10 +8,12 @@
 * @author ddaniel27
  */
 package problem10
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/prime"
 
 func Problem10(n int) uint {
+	logritelog.Default().Printf("[ERROR] >>> Entering Problem10(n=%v)", n)
 	sum := uint(0)
 	sieve := prime.SieveEratosthenes(n)
 
@@ -19,5 +21,6 @@ func Problem10(n int) uint {
 		sum += uint(v)
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Problem10(n=%v)", n)
 	return sum
 }

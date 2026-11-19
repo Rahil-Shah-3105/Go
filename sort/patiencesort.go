@@ -10,10 +10,12 @@
 // see patiencesort.go
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 func Patience[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Patience(arr=%v)", arr)
 	if len(arr) <= 1 {
 		return arr
 	}
@@ -34,14 +36,17 @@ func Patience[T constraints.Ordered](arr []T) []T {
 		if left == len(piles) {
 			piles = append(piles, []T{card})
 		} else {
+			logritelog.Default().Printf("[DEBUG] Patience(arr=%v): piles → %v", arr, piles)
 			piles[left] = append(piles[left], card)
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Patience(arr=%v)", arr)
 	return mergePiles(piles)
 }
 
 func mergePiles[T constraints.Ordered](piles [][]T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering mergePiles(piles=%v)", piles)
 	var ret []T
 
 	for len(piles) > 0 {
@@ -54,11 +59,14 @@ func mergePiles[T constraints.Ordered](piles [][]T) []T {
 			}
 
 			minValue = piles[i][len(piles[i])-1]
+			logritelog.Default().Printf("[DEBUG] mergePiles(piles=%v): minValue → %v", piles, minValue)
 			minID = i
+			logritelog.Default().Printf("[DEBUG] mergePiles(piles=%v): minID → %v", piles, minID)
 		}
 
 		ret = append(ret, minValue)
 
+		logritelog.Default().Printf("[DEBUG] mergePiles(piles=%v): ret → %v", piles, ret)
 		piles[minID] = piles[minID][:len(piles[minID])-1]
 
 		if len(piles[minID]) == 0 {
@@ -66,5 +74,6 @@ func mergePiles[T constraints.Ordered](piles [][]T) []T {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting mergePiles(piles=%v)", piles)
 	return ret
 }

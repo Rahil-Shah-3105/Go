@@ -1,4 +1,5 @@
 package matrix_test
+import logritelog "log"
 
 import (
 	"errors"
@@ -11,12 +12,14 @@ import (
 
 // Test different matrix contents
 func TestMatrixDeterminant(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMatrixDeterminant(t=%v)", t)
 	// Find Determinant of a 2 by 2 matrix.
 	matrix1, err := matrix.NewFromElements([][]int{
 		{3, 8},
 		{4, 6},
 	})
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestMatrixDeterminant(t=%v): %v", t, err)
 		t.Fatalf("Error creating 3 by 3 matrix: %v", err)
 	}
 	determinant, err := matrix1.Determinant()
@@ -39,6 +42,7 @@ func TestMatrixDeterminant(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Error returned from 1 by 1 matrix: %v", err)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMatrixDeterminant(t=%v)", t)
 	if determinant != expectedValue {
 		t.Fatalf("Determinant returned for a 1 by 1 matrix was %d; wanted %d", determinant, expectedValue)
 	}
@@ -46,10 +50,12 @@ func TestMatrixDeterminant(t *testing.T) {
 }
 
 func TestEmptyMatrix(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestEmptyMatrix(t=%v)", t)
 	emptyElements := [][]int{}
 	matrix, err := matrix.NewFromElements(emptyElements)
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestEmptyMatrix(t=%v): %v", t, err)
 		t.Fatalf("Error creating Matrix with empty elements: %v", err)
 	}
 
@@ -61,6 +67,7 @@ func TestEmptyMatrix(t *testing.T) {
 
 	// Check that 0 is returned from an empty matrix.
 	expectedValue := 0
+	logritelog.Default().Printf("[WARN] <<< Exiting TestEmptyMatrix(t=%v)", t)
 	if determinant != expectedValue {
 		t.Errorf("Determinant returned from empty matrix was %d; wanted %d", determinant, expectedValue)
 	}
@@ -68,6 +75,7 @@ func TestEmptyMatrix(t *testing.T) {
 }
 
 func TestNonSquareMatrix(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestNonSquareMatrix(t=%v)", t)
 	// Creating non-square matrix for testing.
 	initialValue := 0
 	initialRows := 4
@@ -89,6 +97,7 @@ func TestNonSquareMatrix(t *testing.T) {
 	}
 
 	// Check if the determinant of the non-square matrix is 0.
+	logritelog.Default().Printf("[WARN] <<< Exiting TestNonSquareMatrix(t=%v)", t)
 	if determinant != 0 {
 		t.Errorf("Determinant of non-square matrix was not 0 but was %d", determinant)
 	}
@@ -97,6 +106,7 @@ func TestNonSquareMatrix(t *testing.T) {
 
 // Test matrix returned from matrix.New
 func TestDefaultMatrix(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDefaultMatrix(t=%v)", t)
 	initialValue := 0
 	initialRows := 3
 	initialCols := 3
@@ -105,16 +115,19 @@ func TestDefaultMatrix(t *testing.T) {
 	determinant, err := defaultMatrix.Determinant()
 
 	if err != nil {
+		logritelog.Default().Printf("[ERROR] Exception in TestDefaultMatrix(t=%v): %v", t, err)
 		t.Fatalf("Error finding the determinant of 3 by 3 default matrix: %v.", err)
 	}
 	expectedValue := 0
 	if determinant != expectedValue {
 		t.Errorf("Determinant of the default matrix with an initial value 0 was %d; wanted %d.", initialValue, expectedValue)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDefaultMatrix(t=%v)", t)
 }
 
 // Benchmark a 3 by 3 matrix for computational throughput
 func BenchmarkSmallMatrixDeterminant(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSmallMatrixDeterminant(b=%v)", b)
 	// Create a 3 by 3 matrix for benchmarking
 	rows := 3
 	columns := 3
@@ -124,10 +137,12 @@ func BenchmarkSmallMatrixDeterminant(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = matrix.Determinant()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSmallMatrixDeterminant(b=%v)", b)
 }
 
 // Benchmark a 10 by 10 matrix for computational throughput.
 func BenchmarkMatrixDeterminant(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMatrixDeterminant(b=%v)", b)
 	// Create a 10 by 10 matrix for benchmarking
 	rows := 10
 	columns := 10
@@ -139,4 +154,5 @@ func BenchmarkMatrixDeterminant(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = matrix.Determinant()
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMatrixDeterminant(b=%v)", b)
 }

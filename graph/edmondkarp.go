@@ -6,6 +6,7 @@
 // Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. 2009. Introduction to Algorithms, Third Edition (3rd. ed.). The MIT Press.
 
 package graph
+import logritelog "log"
 
 import (
 	"math"
@@ -14,12 +15,14 @@ import (
 // Returns a mapping of vertices as path, if there is any from source to sink
 // Otherwise, returns nil
 func FindPath(rGraph WeightedGraph, source int, sink int) map[int]int {
+	logritelog.Default().Printf("[ERROR] >>> Entering FindPath(rGraph=%v,source=%v,sink=%v)", rGraph, source, sink)
 	queue := make([]int, 0)
 	marked := make([]bool, len(rGraph))
 	marked[source] = true
 	queue = append(queue, source)
 	parent := make(map[int]int)
 
+	logritelog.Default().Printf("[DEBUG] FindPath(rGraph=%v,source=%v,sink=%v): queue → %v", rGraph, source, sink, queue)
 	// BFS loop with saving the path found
 	for len(queue) > 0 {
 		v := queue[0]
@@ -37,10 +40,12 @@ func FindPath(rGraph WeightedGraph, source int, sink int) map[int]int {
 		}
 	}
 	// source and sink are not in the same connected component
+	logritelog.Default().Printf("[WARN] <<< Exiting FindPath(rGraph=%v,source=%v,sink=%v)", rGraph, source, sink)
 	return nil
 }
 
 func EdmondKarp(graph WeightedGraph, source int, sink int) float64 {
+	logritelog.Default().Printf("[ERROR] >>> Entering EdmondKarp(graph=%v,source=%v,sink=%v)", graph, source, sink)
 	// Check graph emptiness
 	if len(graph) == 0 {
 		return 0.0
@@ -74,6 +79,7 @@ func EdmondKarp(graph WeightedGraph, source int, sink int) float64 {
 			u := parent[v]
 			if rGraph[u][v] < pathFlow {
 				pathFlow = rGraph[u][v]
+				logritelog.Default().Printf("[DEBUG] EdmondKarp(graph=%v,source=%v,sink=%v): pathFlow → %v", graph, source, sink, pathFlow)
 			}
 		}
 
@@ -89,5 +95,6 @@ func EdmondKarp(graph WeightedGraph, source int, sink int) float64 {
 		maxFlow += pathFlow
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting EdmondKarp(graph=%v,source=%v,sink=%v)", graph, source, sink)
 	return maxFlow
 }

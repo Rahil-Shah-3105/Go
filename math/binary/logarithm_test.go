@@ -4,6 +4,7 @@
 // see logarithm.go
 
 package binary
+import logritelog "log"
 
 import (
 	"math"
@@ -11,6 +12,7 @@ import (
 )
 
 func TestLogBase2(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLogBase2(t=%v)", t)
 	tests := []struct {
 		name string
 		n    uint32
@@ -33,16 +35,21 @@ func TestLogBase2(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLogBase2(t=%v)", t)
 }
 
 func BenchmarkBitwiseLogBase2(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkBitwiseLogBase2(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		LogBase2(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkBitwiseLogBase2(b=%v)", b)
 }
 
 func BenchmarkMathPAckageLogBase2(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkMathPAckageLogBase2(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math.Log2(1024)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkMathPAckageLogBase2(b=%v)", b)
 }

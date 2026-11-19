@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 import (
 	"fmt"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestKruskalMST(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestKruskalMST(t=%v)", t)
 	// Define test cases with inputs, expected outputs, and sample graphs
 	var testCases = []struct {
 		n     int
@@ -82,4 +84,5 @@ func TestKruskalMST(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestKruskalMST(t=%v)", t)
 }

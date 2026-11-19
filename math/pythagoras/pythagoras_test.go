@@ -1,4 +1,5 @@
 package pythagoras
+import logritelog "log"
 
 import (
 	"math"
@@ -20,6 +21,7 @@ var distanceTest = []struct {
 
 // TestDistance tests the Function Distance with 2 vectors
 func TestDistance(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDistance(t=%v)", t)
 	t.Parallel() // marks TestDistance as capable of running in parallel with other tests
 	for _, tt := range distanceTest {
 		tt := tt // NOTE: https://github.com/golang/go/wiki/CommonMistakes#using-goroutines-on-loop-iterator-variables
@@ -34,4 +36,5 @@ func TestDistance(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDistance(t=%v)", t)
 }

@@ -1,4 +1,5 @@
 package graph
+import logritelog "log"
 
 // BreadthFirstSearch is an algorithm for traversing and searching graph data structures.
 // It starts at an arbitrary node of a graph, and explores all of the neighbor nodes
@@ -7,11 +8,14 @@ package graph
 // Worst-case space complexity	 	O(|V|)=O(b^{d})}O(|V|)=O(b^{d}) where |V| is the number of vertices and |E| is the number of edges in the graph and b is the branching factor of the graph (the average number of successors of a node). d is the depth of the goal node.
 // reference: https://en.wikipedia.org/wiki/Breadth-first_search
 func BreadthFirstSearch(start, end, nodes int, edges [][]int) (isConnected bool, distance int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BreadthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
+	logritelog.Default().Printf("[ERROR] >>> Entering BreadthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
 	queue := make([]int, 0)
 	discovered := make([]int, nodes)
 	discovered[start] = 1
 	queue = append(queue, start)
 	for len(queue) > 0 {
+	logritelog.Default().Printf("[DEBUG] BreadthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v): queue → %v", start, end, nodes, edges, queue)
 		v := queue[0]
 		queue = queue[1:]
 		for i := 0; i < len(edges[v]); i++ {
@@ -24,5 +28,6 @@ func BreadthFirstSearch(start, end, nodes int, edges [][]int) (isConnected bool,
 			}
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BreadthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
 	return false, 0
 }

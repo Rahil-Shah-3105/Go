@@ -1,4 +1,5 @@
 package dynamic_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ type testCaseBurstBalloons struct {
 }
 
 func getBurstBalloonsTestCases() []testCaseBurstBalloons {
+	logritelog.Default().Printf("[ERROR] >>> Entering getBurstBalloonsTestCases()")
 	return []testCaseBurstBalloons{
 		{[]int{3, 1, 5, 8}, 167}, // Maximum coins from [3,1,5,8]
 		{[]int{1, 5}, 10},        // Maximum coins from [1,5]
@@ -22,6 +24,7 @@ func getBurstBalloonsTestCases() []testCaseBurstBalloons {
 }
 
 func TestMaxCoins(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMaxCoins(t=%v)", t)
 	t.Run("Burst Balloons test cases", func(t *testing.T) {
 		for _, tc := range getBurstBalloonsTestCases() {
 			actual := dynamic.MaxCoins(tc.nums)
@@ -30,4 +33,5 @@ func TestMaxCoins(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMaxCoins(t=%v)", t)
 }

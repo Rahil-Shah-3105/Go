@@ -4,10 +4,12 @@
 // see reversebits.go
 
 package binary
+import logritelog "log"
 
 import "testing"
 
 func TestReverseBits(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestReverseBits(t=%v)", t)
 	var tests = []struct {
 		name   string
 		number uint
@@ -28,10 +30,13 @@ func TestReverseBits(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestReverseBits(t=%v)", t)
 }
 
 func BenchmarkReverseBits(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkReverseBits(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		ReverseBits(2684354560)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkReverseBits(b=%v)", b)
 }

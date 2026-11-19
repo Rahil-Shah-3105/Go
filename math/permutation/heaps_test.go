@@ -1,4 +1,5 @@
 package permutation
+import logritelog "log"
 
 import (
 	"reflect"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestHeaps(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestHeaps(t=%v)", t)
 	t.Run("Should generate permutations for various size sets", func(t *testing.T) {
 		expectedValues := [][]string{
 			{"1"},
@@ -21,6 +23,7 @@ func TestHeaps(t *testing.T) {
 		for i := 1; i <= 5; i++ {
 			go Heaps(permutationsCh, i)
 			value = <-permutationsCh
+			logritelog.Default().Printf("[DEBUG] TestHeaps(t=%v): value → %v", t, value)
 			sort.Strings(value)
 			sort.Strings(expectedValues[i-1])
 			if !reflect.DeepEqual(value, expectedValues[i-1]) {
@@ -28,4 +31,5 @@ func TestHeaps(t *testing.T) {
 			}
 		}
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestHeaps(t=%v)", t)
 }

@@ -2,6 +2,7 @@
 // Author(s): [Shivam](https://github.com/Shivam010)
 
 package coloring_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/graph/coloring"
@@ -16,6 +17,7 @@ type testGraph struct {
 }
 
 func getTestGraphs() (list []*testGraph) {
+	logritelog.Default().Printf("[ERROR] >>> Entering getTestGraphs()")
 	// Graph 0th:
 	//     1---2
 	//     | /  \
@@ -37,6 +39,7 @@ func getTestGraphs() (list []*testGraph) {
 	g0.Graph.AddEdge(1, 2)
 	g0.Graph.AddEdge(2, 0)
 
+	logritelog.Default().Printf("[DEBUG] getTestGraphs(): list → %v", list)
 	// Graph 1st:
 	//      1---2
 	//      | / |
@@ -115,22 +118,28 @@ func getTestGraphs() (list []*testGraph) {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting getTestGraphs()")
 	return
 }
 
 func TestGraph_ValidateColorsOfVertex(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestGraph_ValidateColorsOfVertex(t=%v)", t)
 	for i, tt := range getTestGraphs() {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			if err := tt.Graph.ValidateColorsOfVertex(tt.VertexColors); err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestGraph_ValidateColorsOfVertex(t=%v): %v", t, err)
 				t.Errorf("ValidateColorsOfVertex() error = %v, wantErr nil", err)
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestGraph_ValidateColorsOfVertex(t=%v)", t)
 }
 
 func getTestGraphsForNegativeTests() (list []*testGraph) {
+	logritelog.Default().Printf("[ERROR] >>> Entering getTestGraphsForNegativeTests()")
 	list = getTestGraphs()
 	list[0].VertexColors = nil
+	logritelog.Default().Printf("[DEBUG] getTestGraphsForNegativeTests(): list → %v", list)
 	list[1].VertexColors = map[int]coloring.Color{}
 	for v := range list[2].VertexColors {
 		in := len(list[2].VertexColors) - v - 1
@@ -139,10 +148,12 @@ func getTestGraphsForNegativeTests() (list []*testGraph) {
 	for v := range list[3].VertexColors {
 		list[3].VertexColors[v] = 1
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getTestGraphsForNegativeTests()")
 	return list[:4]
 }
 
 func TestGraphValidateColorsOfVertex_Negative(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestGraphValidateColorsOfVertex_Negative(t=%v)", t)
 	for i, tt := range getTestGraphsForNegativeTests() {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			if err := tt.Graph.ValidateColorsOfVertex(tt.VertexColors); err == nil {
@@ -150,4 +161,5 @@ func TestGraphValidateColorsOfVertex_Negative(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestGraphValidateColorsOfVertex_Negative(t=%v)", t)
 }

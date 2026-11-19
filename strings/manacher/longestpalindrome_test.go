@@ -4,6 +4,7 @@
 // see longestpalindrome.go
 
 package manacher
+import logritelog "log"
 
 import "testing"
 
@@ -25,6 +26,7 @@ func getTests() []struct {
 }
 
 func TestLongestPalindrome(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLongestPalindrome(t=%v)", t)
 	tests := getTests()
 	for _, tv := range tests {
 		t.Run(tv.s, func(t *testing.T) {
@@ -35,4 +37,5 @@ func TestLongestPalindrome(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLongestPalindrome(t=%v)", t)
 }

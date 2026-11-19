@@ -1,4 +1,5 @@
 package cache_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -7,6 +8,7 @@ import (
 )
 
 func TestLRU(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestLRU(t=%v)", t)
 	cache := cache.NewLRU(3)
 
 	t.Run("Test 1: Put number and Get is correct", func(t *testing.T) {
@@ -51,9 +53,11 @@ func TestLRU(t *testing.T) {
 		expected := 3
 		got = cache.Get("3")
 
+		logritelog.Default().Printf("[DEBUG] TestLRU(t=%v): got → %v", t, got)
 		if got != expected {
 			t.Errorf("expected: %v, got: %v", expected, got)
 		}
 
 	})
+	logritelog.Default().Printf("[WARN] <<< Exiting TestLRU(t=%v)", t)
 }

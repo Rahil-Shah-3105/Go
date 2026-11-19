@@ -1,4 +1,5 @@
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
@@ -6,6 +7,7 @@ import "github.com/TheAlgorithms/Go/constraints"
 // where flip refers to the idea of reversing the
 // slice from index `0` to `i`.
 func Pancake[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Pancake(arr=%v)", arr)
 	// early return if the array too small
 	if len(arr) <= 1 {
 		return arr
@@ -18,6 +20,7 @@ func Pancake[T constraints.Ordered](arr []T) []T {
 		for j := 1; j <= i; j++ {
 			if arr[j] > arr[max] {
 				max = j
+				logritelog.Default().Printf("[INFO] Pancake(arr=%v): max → %v", arr, max)
 			}
 		}
 
@@ -31,14 +34,17 @@ func Pancake[T constraints.Ordered](arr []T) []T {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Pancake(arr=%v)", arr)
 	return arr
 }
 
 // flip reverses the input slice from `0` to `i`.
 func flip[T constraints.Ordered](arr []T, i int) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering flip(arr=%v,i=%v)", arr, i)
 	for j := 0; j < i; j++ {
 		arr[j], arr[i] = arr[i], arr[j]
 		i--
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting flip(arr=%v,i=%v)", arr, i)
 	return arr
 }

@@ -1,5 +1,6 @@
 // Package graph provides algorithms to analyze graph structures.
 package graph
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/math/min"
 
@@ -18,6 +19,7 @@ type apHelper struct {
 // Auxiliary Space: O(|V|)
 // Reference: https://en.wikipedia.org/wiki/Biconnected_component and https://cptalks.quora.com/Cut-Vertex-Articulation-point
 func ArticulationPoint(graph *Graph) []bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering ArticulationPoint(graph=%v)", graph)
 	// Time variable to keep track of the discovery time of a vertex
 	time := 0
 
@@ -38,6 +40,7 @@ func ArticulationPoint(graph *Graph) []bool {
 		apHelperInstance.isAP[0] = false
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting ArticulationPoint(graph=%v)", graph)
 	return apHelperInstance.isAP
 }
 
@@ -50,6 +53,7 @@ func articulationPointHelper(
 	time *int,
 	graph *Graph,
 ) {
+	logritelog.Default().Printf("[ERROR] >>> Entering articulationPointHelper(apHelperInstance=%v,vertex=%v,parent=%v,time=%v,graph=%v)", apHelperInstance, vertex, parent, time, graph)
 	apHelperInstance.visited[vertex] = true
 
 	// Set discovery and earliest discovery times for the vertex
@@ -86,4 +90,5 @@ func articulationPointHelper(
 			apHelperInstance.isAP[vertex] = true
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting articulationPointHelper(apHelperInstance=%v,vertex=%v,parent=%v,time=%v,graph=%v)", apHelperInstance, vertex, parent, time, graph)
 }

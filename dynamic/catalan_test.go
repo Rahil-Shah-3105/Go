@@ -1,4 +1,5 @@
 package dynamic
+import logritelog "log"
 
 import (
 	"fmt"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestCatalanNumbers(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestCatalanNumbers(t=%v)", t)
 	var testCatalanNumbersData = []struct {
 		nthCatalanNumber      int
 		expectedCatalanNumber int64
@@ -43,4 +45,5 @@ func TestCatalanNumbers(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestCatalanNumbers(t=%v)", t)
 }

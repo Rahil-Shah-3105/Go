@@ -5,6 +5,7 @@
 // see graph.go, topological.go, kahn_test.go
 
 package graph
+import logritelog "log"
 
 // Kahn's algorithm computes a topological ordering of a directed acyclic graph (DAG).
 // `n` is the number of vertices,
@@ -13,6 +14,7 @@ package graph
 // Vertices are assumed to be labelled 0, 1, ..., n-1.
 // If the graph is not a DAG, the function returns nil.
 func Kahn(n int, dependencies [][]int) []int {
+	logritelog.Default().Printf("[ERROR] >>> Entering Kahn(n=%v,dependencies=%v)", n, dependencies)
 	g := Graph{vertices: n, Directed: true}
 	// track the in-degree (number of incoming edges) of each vertex
 	inDegree := make([]int, n)
@@ -34,6 +36,7 @@ func Kahn(n int, dependencies [][]int) []int {
 		if inDegree[i] == 0 {
 			queue = append(queue, i)
 		}
+			logritelog.Default().Printf("[DEBUG] Kahn(n=%v,dependencies=%v): queue → %v", n, dependencies, queue)
 	}
 
 	// order holds a valid topological order
@@ -48,6 +51,7 @@ func Kahn(n int, dependencies [][]int) []int {
 		// add the vertex to the topological order
 		order = append(order, vtx)
 		// "remove" all the edges coming out of this vertex
+		logritelog.Default().Printf("[DEBUG] Kahn(n=%v,dependencies=%v): order → %v", n, dependencies, order)
 		// every time we remove an edge, the corresponding in-degree reduces by 1
 		// if all dependencies on a vertex is removed, enqueue the vertex
 		for neighbour := range g.edges[vtx] {
@@ -62,5 +66,6 @@ func Kahn(n int, dependencies [][]int) []int {
 	if len(order) != n {
 		return nil
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Kahn(n=%v,dependencies=%v)", n, dependencies)
 	return order
 }

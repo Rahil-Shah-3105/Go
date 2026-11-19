@@ -8,10 +8,12 @@
 // see sort_test.go for a test implementation, test function TestQuickSort
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 func Count[T constraints.Integer](data []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Count(data=%v)", data)
 	if len(data) == 0 {
 		return data
 	}
@@ -19,9 +21,11 @@ func Count[T constraints.Integer](data []T) []T {
 	for _, x := range data {
 		if x < aMin {
 			aMin = x
+			logritelog.Default().Printf("[DEBUG] Count(data=%v): aMin → %v", data, aMin)
 		}
 		if x > aMax {
 			aMax = x
+			logritelog.Default().Printf("[DEBUG] Count(data=%v): aMax → %v", data, aMax)
 		}
 	}
 	count := make([]int, aMax-aMin+1)
@@ -36,5 +40,6 @@ func Count[T constraints.Integer](data []T) []T {
 			c--
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Count(data=%v)", data)
 	return data
 }

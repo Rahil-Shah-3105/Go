@@ -2,6 +2,7 @@
 // Author(s): [Shivam](https://github.com/Shivam010)
 
 package coloring_test
+import logritelog "log"
 
 import (
 	"strconv"
@@ -9,6 +10,7 @@ import (
 )
 
 func TestGraphColorUsingBacktracking(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestGraphColorUsingBacktracking(t=%v)", t)
 	for i, tt := range getTestGraphs() {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			colorsOfVertices, colors := tt.Graph.ColorUsingBacktracking()
@@ -17,8 +19,10 @@ func TestGraphColorUsingBacktracking(t *testing.T) {
 			}
 			// check colors
 			if err := tt.Graph.ValidateColorsOfVertex(colorsOfVertices); err != nil {
+				logritelog.Default().Printf("[ERROR] Exception in TestGraphColorUsingBacktracking(t=%v): %v", t, err)
 				t.Errorf("ColorUsingBacktracking() assigned colors are wrong, error = %v", err)
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestGraphColorUsingBacktracking(t=%v)", t)
 }

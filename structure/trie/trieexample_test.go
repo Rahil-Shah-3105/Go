@@ -1,8 +1,10 @@
 package trie
+import logritelog "log"
 
 import "fmt"
 
 func ExampleNode() {
+	logritelog.Default().Printf("[ERROR] >>> Entering ExampleNode()")
 	// creates a new node
 	node := NewNode()
 
@@ -36,4 +38,5 @@ func ExampleNode() {
 	// false
 	// 1
 	// 12
+	logritelog.Default().Printf("[WARN] <<< Exiting ExampleNode()")
 }

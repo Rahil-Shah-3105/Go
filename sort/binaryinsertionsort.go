@@ -7,10 +7,12 @@
 // ref: https://www.geeksforgeeks.org/binary-insertion-sort
 
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 func BinaryInsertion[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering BinaryInsertion(arr=%v)", arr)
 	for currentIndex := 1; currentIndex < len(arr); currentIndex++ {
 		temporary := arr[currentIndex]
 		low := 0
@@ -22,6 +24,7 @@ func BinaryInsertion[T constraints.Ordered](arr []T) []T {
 				high = mid - 1
 			} else {
 				low = mid + 1
+				logritelog.Default().Printf("[DEBUG] BinaryInsertion(arr=%v): low → %v", arr, low)
 			}
 		}
 
@@ -31,5 +34,6 @@ func BinaryInsertion[T constraints.Ordered](arr []T) []T {
 
 		arr[low] = temporary
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BinaryInsertion(arr=%v)", arr)
 	return arr
 }

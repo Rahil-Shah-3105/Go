@@ -8,6 +8,7 @@
 // see pollard_test.go
 
 package math
+import logritelog "log"
 
 import (
 	"errors"
@@ -16,12 +17,14 @@ import (
 
 // DefaultPolynomial is the commonly used polynomial g(x) = (x^2 + 1) mod n
 func DefaultPolynomial(n *big.Int) func(*big.Int) *big.Int {
+	logritelog.Default().Printf("[ERROR] >>> Entering DefaultPolynomial(n=%v)", n)
 	bigOne := big.NewInt(1)
 	bigTwo := big.NewInt(2)
 	return func(x *big.Int) *big.Int {
 		xSquared := new(big.Int).Exp(x, bigTwo, n) // see: https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Core_ideas
 		xSquared.Add(xSquared, bigOne)
 		xSquared.Mod(xSquared, n)
+		logritelog.Default().Printf("[WARN] <<< Exiting DefaultPolynomial(n=%v)", n)
 		return xSquared
 	}
 }
@@ -29,6 +32,7 @@ func DefaultPolynomial(n *big.Int) func(*big.Int) *big.Int {
 // PollardsRhoFactorization is an implementation of Pollard's rho factorization algorithm
 // using the default parameters x = y = 2
 func PollardsRhoFactorization(n *big.Int, f func(n *big.Int) func(x *big.Int) *big.Int) (*big.Int, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering PollardsRhoFactorization(n=%v,f=%v)", n, f)
 	x, y, d := big.NewInt(2), big.NewInt(2), big.NewInt(1)
 	bigOne := big.NewInt(1)
 	g := f(n)
@@ -41,5 +45,6 @@ func PollardsRhoFactorization(n *big.Int, f func(n *big.Int) func(x *big.Int) *b
 	if d.Cmp(n) == 0 {
 		return nil, errors.New("factorization failed")
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting PollardsRhoFactorization(n=%v,f=%v)", n, f)
 	return d, nil
 }

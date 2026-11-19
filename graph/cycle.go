@@ -6,8 +6,10 @@
 // [kiarash hajian](https://github.com/kiarash8112)
 
 package graph
+import logritelog "log"
 
 func (g *Graph) HasCycle() bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering HasCycle()")
 	//this implimetation referred as 3-color too
 	all := map[int]struct{}{}
 	visiting := map[int]struct{}{}
@@ -23,11 +25,13 @@ func (g *Graph) HasCycle() bool {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting HasCycle()")
 	return false
 
 }
 
 func (g Graph) hasCycleHelper(v int, all, visiting, visited map[int]struct{}) bool {
+	logritelog.Default().Printf("[ERROR] >>> Entering hasCycleHelper(v=%v,all=%v,visiting=%v,visited=%v)", v, all, visiting, visited)
 	delete(all, v)
 	visiting[v] = struct{}{}
 
@@ -43,11 +47,13 @@ func (g Graph) hasCycleHelper(v int, all, visiting, visited map[int]struct{}) bo
 	}
 	delete(visiting, v)
 	visited[v] = struct{}{}
+	logritelog.Default().Printf("[WARN] <<< Exiting hasCycleHelper(v=%v,all=%v,visiting=%v,visited=%v)", v, all, visiting, visited)
 	return false
 }
 
 // this function can do HasCycle() job but it is slower
 func (g *Graph) FindAllCycles() []Graph {
+	logritelog.Default().Printf("[ERROR] >>> Entering FindAllCycles()")
 	all := map[int]struct{}{}
 	visiting := map[int]struct{}{}
 	visited := map[int]struct{}{}
@@ -68,7 +74,9 @@ func (g *Graph) FindAllCycles() []Graph {
 			for i := len(parents) - 1; i > 0; i-- {
 				if parents[i][1] == parents[0][0] {
 					parents = parents[:i+1]
+					logritelog.Default().Printf("[DEBUG] FindAllCycles(): parents → %v", parents)
 					foundCycleFromCurrent = true
+					logritelog.Default().Printf("[DEBUG] FindAllCycles(): foundCycleFromCurrent → %v", foundCycleFromCurrent)
 				}
 			}
 			if foundCycleFromCurrent {
@@ -78,16 +86,19 @@ func (g *Graph) FindAllCycles() []Graph {
 				}
 				allCycles = append(allCycles, graph)
 			}
+				logritelog.Default().Printf("[DEBUG] FindAllCycles(): allCycles → %v", allCycles)
 
 		}
 
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting FindAllCycles()")
 	return allCycles
 
 }
 
 func (g Graph) findAllCyclesHelper(current int, all, visiting, visited map[int]struct{}) (bool, [][]int) {
+	logritelog.Default().Printf("[ERROR] >>> Entering findAllCyclesHelper(current=%v,all=%v,visiting=%v,visited=%v)", current, all, visiting, visited)
 	parents := [][]int{}
 
 	delete(all, current)
@@ -99,6 +110,7 @@ func (g Graph) findAllCyclesHelper(current int, all, visiting, visited map[int]s
 			continue
 		} else if _, ok := visiting[v]; ok {
 			parents = append(parents, []int{v, current})
+			logritelog.Default().Printf("[DEBUG] findAllCyclesHelper(current=%v,all=%v,visiting=%v,visited=%v): parents → %v", current, all, visiting, visited, parents)
 			return true, parents
 		} else if ok, savedParents := g.findAllCyclesHelper(v, all, visiting, visited); ok {
 			parents = append(parents, savedParents...)
@@ -108,5 +120,6 @@ func (g Graph) findAllCyclesHelper(current int, all, visiting, visited map[int]s
 	}
 	delete(visiting, current)
 	visited[current] = struct{}{}
+	logritelog.Default().Printf("[WARN] <<< Exiting findAllCyclesHelper(current=%v,all=%v,visiting=%v,visited=%v)", current, all, visiting, visited)
 	return false, parents
 }

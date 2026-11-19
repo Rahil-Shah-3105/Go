@@ -1,4 +1,5 @@
 package dynamicarray
+import logritelog "log"
 
 import (
 	"reflect"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestDynamicArray(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestDynamicArray(t=%v)", t)
 	numbers := DynamicArray{}
 
 	// check numbers is empty or nut
@@ -33,6 +35,7 @@ func TestDynamicArray(t *testing.T) {
 		res = append(res, 40)
 		res = append(res, 50)
 
+		logritelog.Default().Printf("[DEBUG] TestDynamicArray(t=%v): res → %v", t, res)
 		if !reflect.DeepEqual(numbers.GetData(), res) {
 			t.Errorf("Expected be [10, 20, 30, 40, 50] but got %v", numbers.GetData())
 		}
@@ -53,6 +56,7 @@ func TestDynamicArray(t *testing.T) {
 		err := numbers.Remove(1)
 
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in TestDynamicArray(t=%v): %v", t, err)
 			t.Errorf("Expected be [10, 30, 40, 50] but got an Error %v", err)
 		}
 
@@ -77,6 +81,7 @@ func TestDynamicArray(t *testing.T) {
 	})
 
 	// Put to add a value to specific index of Dynamic Array
+	logritelog.Default().Printf("[WARN] <<< Exiting TestDynamicArray(t=%v)", t)
 	t.Run("Put to Dynamic Array", func(t *testing.T) {
 		if numbers.IsEmpty() != false {
 			t.Errorf("Expected be false but got %v", numbers.IsEmpty())

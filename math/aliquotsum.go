@@ -11,9 +11,11 @@
 // see aliquotsum_test.go
 
 package math
+import logritelog "log"
 
 // This function returns s(n) for given number
 func AliquotSum(n int) (int, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering AliquotSum(n=%v)", n)
 	switch {
 	case n < 0:
 		return 0, ErrPosArgsOnly
@@ -26,6 +28,7 @@ func AliquotSum(n int) (int, error) {
 				sum += i
 			}
 		}
+		logritelog.Default().Printf("[WARN] <<< Exiting AliquotSum(n=%v)", n)
 		return sum, nil
 	}
 }

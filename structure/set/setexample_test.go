@@ -1,10 +1,12 @@
 package set
+import logritelog "log"
 
 import (
 	"fmt"
 )
 
 func ExampleSet() {
+logritelog.Default().Printf("[ERROR] >>> Entering ExampleSet()")
 
 	set := New(1, 2, 3)
 	fmt.Println(set.Len()) // 3
@@ -17,4 +19,5 @@ func ExampleSet() {
 	// 3
 	// 3
 	// 4
+	logritelog.Default().Printf("[WARN] <<< Exiting ExampleSet()")
 }

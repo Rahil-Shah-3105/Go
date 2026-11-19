@@ -5,6 +5,7 @@
 // space complexity: O(n)
 // ref: https://en.wikipedia.org/wiki/Polybius_square#Hybrid_Polybius_Playfair_Cipher
 package polybius
+import logritelog "log"
 
 import (
 	"fmt"
@@ -23,6 +24,7 @@ type Polybius struct {
 // If the size of "chars" is longer than "size",
 // "chars" are truncated to "size".
 func NewPolybius(key string, size int, chars string) (*Polybius, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering NewPolybius(key=%v,size=%v,chars=%v)", key, size, chars)
 	if size < 0 {
 		return nil, fmt.Errorf("provided size %d cannot be negative", size)
 	}
@@ -50,28 +52,36 @@ func NewPolybius(key string, size int, chars string) (*Polybius, error) {
 
 // Encrypt encrypts with polybius encryption
 func (p *Polybius) Encrypt(text string) (string, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Encrypt(text=%v)", text)
 	encryptedText := ""
 	for _, char := range strings.ToUpper(text) {
 		encryptedChar, err := p.encipher(char)
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in Encrypt(text=%v): %v", text, err)
+			logritelog.Default().Printf("[ERROR] >>> Entering encipher(char=%v)", char)
+			logritelog.Default().Printf("[WARN] <<< Exiting encipher(char=%v)", char)
 			return "", fmt.Errorf("failed encipher: %w", err)
 		}
 		encryptedText += encryptedChar
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Encrypt(text=%v)", text)
 	return encryptedText, nil
 }
 
 // Decrypt decrypts with polybius encryption
 func (p *Polybius) Decrypt(text string) (string, error) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Decrypt(text=%v)", text)
 	chars := []rune(strings.ToUpper(text))
 	decryptedText := ""
 	for i := 0; i < len(chars); i += 2 {
 		decryptedChar, err := p.decipher(chars[i:int(math.Min(float64(i+2), float64(len(chars))))])
 		if err != nil {
+			logritelog.Default().Printf("[ERROR] Exception in Decrypt(text=%v): %v", text, err)
 			return "", fmt.Errorf("failed decipher: %w", err)
 		}
 		decryptedText += decryptedChar
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Decrypt(text=%v)", text)
 	return decryptedText, nil
 }
 

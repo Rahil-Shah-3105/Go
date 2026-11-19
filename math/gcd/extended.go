@@ -9,12 +9,15 @@
 // see extended_test.go
 
 package gcd
+import logritelog "log"
 
 // Extended simple extended gcd
 func Extended(a, b int64) (int64, int64, int64) {
+	logritelog.Default().Printf("[ERROR] >>> Entering Extended(a=%v,b=%v)", a, b)
 	if a == 0 {
 		return b, 0, 1
 	}
 	gcd, xPrime, yPrime := Extended(b%a, a)
+	logritelog.Default().Printf("[WARN] <<< Exiting Extended(a=%v,b=%v)", a, b)
 	return gcd, yPrime - (b/a)*xPrime, xPrime
 }

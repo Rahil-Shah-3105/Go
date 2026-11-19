@@ -10,6 +10,7 @@
 // see crc8_test.go
 
 package checksum
+import logritelog "log"
 
 import "math/bits"
 
@@ -25,17 +26,21 @@ type CRCModel struct {
 
 // CRC8 calculates CRC8 checksum of the given data.
 func CRC8(data []byte, model CRCModel) uint8 {
+	logritelog.Default().Printf("[ERROR] >>> Entering CRC8(data=%v,model=%v)", data, model)
 	table := getTable(model)
 	crcResult := model.Init
 	crcResult = addBytes(data, model, crcResult, table)
 	if model.RefOut {
 		crcResult = bits.Reverse8(crcResult)
+	logritelog.Default().Printf("[DEBUG] CRC8(data=%v,model=%v): crcResult → %v", data, model, crcResult)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting CRC8(data=%v,model=%v)", data, model)
 	return crcResult ^ model.XorOut
 }
 
 // This function get the result of adding the bytes in data to the crc
 func addBytes(data []byte, model CRCModel, crcResult uint8, table []uint8) uint8 {
+	logritelog.Default().Printf("[ERROR] >>> Entering addBytes(data=%v,model=%v,crcResult=%v,table=%v)", data, model, crcResult, table)
 	if model.RefIn {
 		for _, d := range data {
 			d = bits.Reverse8(d)
@@ -46,11 +51,13 @@ func addBytes(data []byte, model CRCModel, crcResult uint8, table []uint8) uint8
 	for _, d := range data {
 		crcResult = table[crcResult^d]
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting addBytes(data=%v,model=%v,crcResult=%v,table=%v)", data, model, crcResult, table)
 	return crcResult
 }
 
 // This function get 256-byte (256x8) table for efficient processing.
 func getTable(model CRCModel) []uint8 {
+	logritelog.Default().Printf("[ERROR] >>> Entering getTable(model=%v)", model)
 	table := make([]uint8, 256)
 	for i := 0; i < 256; i++ {
 		crc := uint8(i)
@@ -63,5 +70,6 @@ func getTable(model CRCModel) []uint8 {
 		}
 		table[i] = crc
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting getTable(model=%v)", model)
 	return table
 }

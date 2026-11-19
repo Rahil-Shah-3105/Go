@@ -4,6 +4,7 @@
 // worst-case space complexity   O(n)
 
 package sort
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
@@ -13,6 +14,7 @@ import (
 )
 
 func innerStooge[T constraints.Ordered](arr []T, i int32, j int32) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering innerStooge(arr=%v,i=%v,j=%v)", arr, i, j)
 	if arr[i] > arr[j] {
 		arr[i], arr[j] = arr[j], arr[i]
 	}
@@ -22,13 +24,16 @@ func innerStooge[T constraints.Ordered](arr []T, i int32, j int32) []T {
 		arr = innerStooge(arr, i+t, j)
 		arr = innerStooge(arr, i, j-t)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting innerStooge(arr=%v,i=%v,j=%v)", arr, i, j)
 	return arr
 }
 
 func Stooge[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Stooge(arr=%v)", arr)
 	if len(arr) == 0 {
 		return arr
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Stooge(arr=%v)", arr)
 	return innerStooge(arr, 0, int32(len(arr)-1))
 }

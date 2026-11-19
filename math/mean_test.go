@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/math"
@@ -6,6 +7,7 @@ import (
 )
 
 func TestMean(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestMean(t=%v)", t)
 	testCases := []struct {
 		name       string
 		testValues []float64
@@ -38,6 +40,7 @@ func TestMean(t *testing.T) {
 		},
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting TestMean(t=%v)", t)
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
 			returnedAverage := math.Mean(test.testValues)

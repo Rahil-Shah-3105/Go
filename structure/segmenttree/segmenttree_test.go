@@ -1,4 +1,5 @@
 package segmenttree
+import logritelog "log"
 
 import (
 	"testing"
@@ -17,6 +18,7 @@ type update struct {
 }
 
 func TestSegmentTree(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSegmentTree(t=%v)", t)
 	var segmentTreeTestData = []struct {
 		description string
 		array       []int
@@ -88,4 +90,5 @@ func TestSegmentTree(t *testing.T) {
 
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSegmentTree(t=%v)", t)
 }

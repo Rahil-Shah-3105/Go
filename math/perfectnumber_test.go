@@ -1,4 +1,5 @@
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -16,6 +17,7 @@ type testCaseSumOfProperDivisors struct {
 // Data was verified using [A001065].
 // [A001065]: https://oeis.org/A001065/b001065.txt
 func getSumOfProperDivisorsTestCases() []testCaseSumOfProperDivisors {
+	logritelog.Default().Printf("[ERROR] >>> Entering getSumOfProperDivisorsTestCases()")
 	return []testCaseSumOfProperDivisors{
 		{0, 0},
 		{1, 0},
@@ -89,6 +91,7 @@ func getSumOfProperDivisorsTestCases() []testCaseSumOfProperDivisors {
 }
 
 func TestSumOfProperDivisors(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestSumOfProperDivisors(t=%v)", t)
 	for _, tc := range getSumOfProperDivisorsTestCases() {
 		actual := math.SumOfProperDivisors(tc.input)
 		if actual != tc.expected {
@@ -97,12 +100,15 @@ func TestSumOfProperDivisors(t *testing.T) {
 				tc.input, tc.expected, actual)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestSumOfProperDivisors(t=%v)", t)
 }
 
 func BenchmarkSumOfProperDivisors(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkSumOfProperDivisors(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math.SumOfProperDivisors(800)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkSumOfProperDivisors(b=%v)", b)
 }
 
 type isPerfectNumberTestCase struct {
@@ -115,6 +121,7 @@ type isPerfectNumberTestCase struct {
 // Data was verified using [A000396].
 // [A000396]: https://oeis.org/A000396
 func getIsPerfectNumberTestCases() []isPerfectNumberTestCase {
+	logritelog.Default().Printf("[ERROR] >>> Entering getIsPerfectNumberTestCases()")
 	return []isPerfectNumberTestCase{
 		{6, true},
 		{28, true},
@@ -137,15 +144,19 @@ func getIsPerfectNumberTestCases() []isPerfectNumberTestCase {
 }
 
 func TestIsPerfectNumber(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestIsPerfectNumber(t=%v)", t)
 	for _, tc := range getIsPerfectNumberTestCases() {
 		if math.IsPerfectNumber(tc.number) != tc.isPerfect {
 			t.Errorf("Unexpected output for %d", tc.number)
 		}
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestIsPerfectNumber(t=%v)", t)
 }
 
 func BenchmarkIsPerfectNumber(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkIsPerfectNumber(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		math.IsPerfectNumber(8128)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkIsPerfectNumber(b=%v)", b)
 }

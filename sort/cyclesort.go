@@ -1,4 +1,5 @@
 package sort
+import logritelog "log"
 
 import (
 	"github.com/TheAlgorithms/Go/constraints"
@@ -8,6 +9,7 @@ import (
 // when sorting arrays containing elements with a small range of values. It is theoretically
 // optimal in terms of the total number of writes to the original array.
 func Cycle[T constraints.Number](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Cycle(arr=%v)", arr)
 	counter, cycle, len := 0, 0, len(arr)
 	// Early return if the array too small
 	if len <= 1 {
@@ -54,5 +56,6 @@ func Cycle[T constraints.Number](arr []T) []T {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting Cycle(arr=%v)", arr)
 	return arr
 }

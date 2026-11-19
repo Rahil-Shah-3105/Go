@@ -4,6 +4,7 @@
 // see aliquotsum.go
 
 package math_test
+import logritelog "log"
 
 import (
 	"testing"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestAliquotSum(t *testing.T) {
+	logritelog.Default().Printf("[ERROR] >>> Entering TestAliquotSum(t=%v)", t)
 	var tests = []struct {
 		name          string
 		n             int
@@ -32,9 +34,12 @@ func TestAliquotSum(t *testing.T) {
 			}
 		})
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting TestAliquotSum(t=%v)", t)
 }
 func BenchmarkAliquotSum(b *testing.B) {
+	logritelog.Default().Printf("[ERROR] >>> Entering BenchmarkAliquotSum(b=%v)", b)
 	for i := 0; i < b.N; i++ {
 		_, _ = math.AliquotSum(65536)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting BenchmarkAliquotSum(b=%v)", b)
 }

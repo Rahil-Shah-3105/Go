@@ -5,10 +5,12 @@
 // space complexity: O(m) where m is the amount of money
 
 package dynamic
+import logritelog "log"
 
 // CoinChange finds the number of possible combinations of coins
 // of different values which can get to the target amount.
 func CoinChange(coins []int32, amount int32) int32 {
+	logritelog.Default().Printf("[ERROR] >>> Entering CoinChange(coins=%v,amount=%v)", coins, amount)
 	combination := make([]int32, amount)
 	combination[0] = 1
 
@@ -19,5 +21,6 @@ func CoinChange(coins []int32, amount int32) int32 {
 		}
 	}
 
+	logritelog.Default().Printf("[WARN] <<< Exiting CoinChange(coins=%v,amount=%v)", coins, amount)
 	return combination[amount-1]
 }

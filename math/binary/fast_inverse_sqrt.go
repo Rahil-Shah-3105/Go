@@ -4,6 +4,7 @@
 // [See more](https://en.wikipedia.org/wiki/Fast_inverse_square_root)
 
 package binary
+import logritelog "log"
 
 import (
 	"math"
@@ -15,6 +16,7 @@ import (
 // The math.Float32bits is alias to *(*uint32)(unsafe.Pointer(&f))
 // and math.Float32frombits is to *(*float32)(unsafe.Pointer(&b)).
 func FastInverseSqrt(number float32) float32 {
+	logritelog.Default().Printf("[ERROR] >>> Entering FastInverseSqrt(number=%v)", number)
 	var i uint32
 	var y, x2 float32
 	const threehalfs float32 = 1.5
@@ -27,5 +29,6 @@ func FastInverseSqrt(number float32) float32 {
 
 	y = y * (threehalfs - (x2 * y * y)) // 1st iteration of Newton's method
 	y = y * (threehalfs - (x2 * y * y)) // 2nd iteration, this can be removed
+	logritelog.Default().Printf("[WARN] <<< Exiting FastInverseSqrt(number=%v)", number)
 	return y
 }

@@ -1,15 +1,21 @@
 // Package sort implements various sorting algorithms.
 package sort
+import logritelog "log"
 
 import "github.com/TheAlgorithms/Go/constraints"
 
 // Circle sorts an array using the circle sort algorithm.
 func Circle[T constraints.Ordered](arr []T) []T {
+	logritelog.Default().Printf("[ERROR] >>> Entering Circle(arr=%v)", arr)
 	if len(arr) == 0 {
 		return arr
 	}
 	for doSort(arr, 0, len(arr)-1) {
+	logritelog.Default().Printf("[ERROR] >>> Entering doSort(arr=%v,left=%v,right=%v)", arr, left, right)
+	logritelog.Default().Printf("[DEBUG] doSort(arr=%v,left=%v,right=%v): swapped → %v", arr, left, right, swapped)
+	logritelog.Default().Printf("[WARN] <<< Exiting doSort(arr=%v,left=%v,right=%v)", arr, left, right)
 	}
+	logritelog.Default().Printf("[WARN] <<< Exiting Circle(arr=%v)", arr)
 	return arr
 }
 
