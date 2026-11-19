@@ -68,6 +68,7 @@ func DepthFirstSearchHelper(start, end int, nodes []int, edges [][]bool, showrou
 
 func DepthFirstSearch(start, end int, nodes []int, edges [][]bool) ([]int, bool) {
 	logritelog.Default().Printf("[ERROR] >>> Entering DepthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
+	logritelog.Default().Printf("[WARN] <<< Exiting DepthFirstSearch(start=%v,end=%v,nodes=%v,edges=%v)", start, end, nodes, edges)
 	return DepthFirstSearchHelper(start, end, nodes, edges, false)
 }
 

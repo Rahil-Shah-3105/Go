@@ -57,6 +57,7 @@ func (sl *SList) Pop() (any, error) {
 // Length return length of our stack
 func (sl *SList) Length() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Length()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Length()")
 	return sl.Stack.Len()
 }
 

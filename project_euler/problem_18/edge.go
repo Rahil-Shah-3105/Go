@@ -11,21 +11,25 @@ type Edge struct {
 
 func (n *Edge) Value() NodeValue {
 	logritelog.Default().Printf("[ERROR] >>> Entering Value()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Value()")
 	return n.NodeValue
 }
 
 func (n *Edge) Left() Node {
 	logritelog.Default().Printf("[ERROR] >>> Entering Left()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Left()")
 	return n.NodeLeft
 }
 
 func (n *Edge) Right() Node {
 	logritelog.Default().Printf("[ERROR] >>> Entering Right()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Right()")
 	return n.NodeRight
 }
 
 func (n *Edge) Kind() string {
 	logritelog.Default().Printf("[ERROR] >>> Entering Kind()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Kind()")
 	return "edge"
 }
 
@@ -65,6 +69,7 @@ func (n *Edge) CreateChild(value NodeValue, id int) Node {
 
 func (n *Edge) GetID() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetID()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetID()")
 	return n.ID
 }
 
@@ -97,16 +102,19 @@ func (n *Edge) Insert(node Node) {
 
 func (n *Edge) HasSpace() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering HasSpace()")
+	logritelog.Default().Printf("[WARN] <<< Exiting HasSpace()")
 	return n.NodeLeft == nil || n.NodeRight == nil
 }
 
 func (n *Edge) LeftIsNil() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering LeftIsNil()")
+	logritelog.Default().Printf("[WARN] <<< Exiting LeftIsNil()")
 	return n.NodeLeft == nil
 }
 
 func (n *Edge) RightIsNil() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering RightIsNil()")
+	logritelog.Default().Printf("[WARN] <<< Exiting RightIsNil()")
 	return n.NodeRight == nil
 }
 

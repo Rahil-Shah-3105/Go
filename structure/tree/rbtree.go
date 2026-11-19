@@ -33,21 +33,25 @@ type RBNode[T constraints.Ordered] struct {
 
 func (n *RBNode[T]) Key() T {
 	logritelog.Default().Printf("[ERROR] >>> Entering Key()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Key()")
 	return n.key
 }
 
 func (n *RBNode[T]) Parent() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Parent()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Parent()")
 	return n.parent
 }
 
 func (n *RBNode[T]) Left() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Left()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Left()")
 	return n.left
 }
 
 func (n *RBNode[T]) Right() Node[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering Right()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Right()")
 	return n.right
 }
 
@@ -74,6 +78,7 @@ func NewRB[T constraints.Ordered]() *RB[T] {
 // Empty determines the Red-Black tree is empty
 func (t *RB[T]) Empty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Empty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Empty()")
 	return t.Root == t._NIL
 }
 
@@ -90,12 +95,14 @@ func (t *RB[T]) Push(keys ...T) {
 // Returns false if the node does not exist, otherwise returns true.
 func (t *RB[T]) Delete(data T) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Delete(data=%v)", data)
+	logritelog.Default().Printf("[WARN] <<< Exiting Delete(data=%v)", data)
 	return t.deleteHelper(t.Root, data)
 }
 
 // Get a Node from the Red-Black Tree
 func (t *RB[T]) Get(key T) (Node[T], bool) {
 	logritelog.Default().Printf("[ERROR] >>> Entering Get(key=%v)", key)
+	logritelog.Default().Printf("[WARN] <<< Exiting Get(key=%v)", key)
 	return searchTreeHelper[T](t.Root, t._NIL, key)
 }
 
@@ -119,6 +126,7 @@ func (t *RB[T]) PreOrder() []T {
 // InOrder Traverses the tree in the following order Left --> Root --> Right
 func (t *RB[T]) InOrder() []T {
 	logritelog.Default().Printf("[ERROR] >>> Entering InOrder()")
+	logritelog.Default().Printf("[WARN] <<< Exiting InOrder()")
 	return inOrderHelper[T](t.Root, t._NIL)
 }
 
@@ -143,12 +151,14 @@ func (t *RB[T]) LevelOrder() []T {
 // AccessNodesByLayer accesses nodes layer by layer (2-D array),  instead of printing the results as 1-D array.
 func (t *RB[T]) AccessNodesByLayer() [][]T {
 	logritelog.Default().Printf("[ERROR] >>> Entering AccessNodesByLayer()")
+	logritelog.Default().Printf("[WARN] <<< Exiting AccessNodesByLayer()")
 	return accessNodeByLayerHelper[T](t.Root, t._NIL)
 }
 
 // Depth returns the calculated depth of a Red-Black tree
 func (t *RB[T]) Depth() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Depth()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Depth()")
 	return calculateDepth[T](t.Root, t._NIL, 0)
 }
 
@@ -215,6 +225,9 @@ func (t *RB[T]) pushHelper(x *RBNode[T], key T) {
 		case key > x.Key():
 			x = x.right
 		default:
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,key=%v): t.Root → %v", x, key, t.Root)
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,key=%v): y.left → %v", x, key, y.left)
+		logritelog.Default().Printf("[DEBUG] pushHelper(x=%v,key=%v): y.right → %v", x, key, y.right)
 			return
 		}
 	}
@@ -256,6 +269,7 @@ func (t *RB[T]) leftRotate(x *RBNode[T]) {
 
 	if y.left != t._NIL {
 		y.left.parent = x
+		logritelog.Default().Printf("[DEBUG] leftRotate(x=%v): t.Root → %v", x, t.Root)
 	}
 
 	y.parent = x.parent
@@ -280,6 +294,7 @@ func (t *RB[T]) rightRotate(x *RBNode[T]) {
 	logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): x.left → %v", x, x.left)
 	if y.right != t._NIL {
 		y.right.parent = x
+		logritelog.Default().Printf("[DEBUG] rightRotate(x=%v): t.Root → %v", x, t.Root)
 	}
 
 	y.parent = x.parent

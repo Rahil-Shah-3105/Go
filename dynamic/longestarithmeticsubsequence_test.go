@@ -14,6 +14,7 @@ type testCaseLongestArithmeticSubsequence struct {
 
 func getLongestArithmeticSubsequenceTestCases() []testCaseLongestArithmeticSubsequence {
 	logritelog.Default().Printf("[ERROR] >>> Entering getLongestArithmeticSubsequenceTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getLongestArithmeticSubsequenceTestCases()")
 	return []testCaseLongestArithmeticSubsequence{
 		{[]int{3, 6, 9, 12}, 4},                  // Arithmetic sequence of length 4
 		{[]int{9, 4, 7, 2, 10}, 3},               // Arithmetic sequence of length 3

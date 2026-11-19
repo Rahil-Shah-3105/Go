@@ -176,6 +176,7 @@ func (t *Tree) PrintPyramid() {
 	logritelog.Default().Printf("[ERROR] >>> Entering PrintPyramid()")
 	t.Nodes = make(map[int]struct{})
 	if t.Root == nil {
+		logritelog.Default().Printf("[DEBUG] PrintPyramid(): output → %v", output)
 		return
 	}
 
@@ -207,6 +208,7 @@ func (t *Tree) PrintPyramid() {
 			output += fmt.Sprintf("0%d  ", current.Value())
 		} else {
 			output += fmt.Sprintf("%d  ", current.Value())
+			logritelog.Default().Printf("[DEBUG] PrintPyramid(): levels → %v", levels)
 		}
 
 		// Add children to the queue

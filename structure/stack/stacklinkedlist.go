@@ -56,18 +56,21 @@ func (ll *Stack) Pop() any {
 // isEmpty to check our array is empty or not
 func (ll *Stack) IsEmpty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmpty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmpty()")
 	return ll.length == 0
 }
 
 // len use to return length of our stack
 func (ll *Stack) Length() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Length()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Length()")
 	return ll.length
 }
 
 // peak return last input value
 func (ll *Stack) Peek() any {
 	logritelog.Default().Printf("[ERROR] >>> Entering Peek()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Peek()")
 	return ll.top.Val
 }
 

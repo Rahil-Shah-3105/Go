@@ -18,6 +18,7 @@ type testCaseSumOfProperDivisors struct {
 // [A001065]: https://oeis.org/A001065/b001065.txt
 func getSumOfProperDivisorsTestCases() []testCaseSumOfProperDivisors {
 	logritelog.Default().Printf("[ERROR] >>> Entering getSumOfProperDivisorsTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getSumOfProperDivisorsTestCases()")
 	return []testCaseSumOfProperDivisors{
 		{0, 0},
 		{1, 0},
@@ -122,6 +123,7 @@ type isPerfectNumberTestCase struct {
 // [A000396]: https://oeis.org/A000396
 func getIsPerfectNumberTestCases() []isPerfectNumberTestCase {
 	logritelog.Default().Printf("[ERROR] >>> Entering getIsPerfectNumberTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getIsPerfectNumberTestCases()")
 	return []isPerfectNumberTestCase{
 		{6, true},
 		{28, true},

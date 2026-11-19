@@ -14,6 +14,7 @@ type testCaseMaxSubArraySum struct {
 
 func getMaxSubArraySumTestCases() []testCaseMaxSubArraySum {
 	logritelog.Default().Printf("[ERROR] >>> Entering getMaxSubArraySumTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getMaxSubArraySumTestCases()")
 	return []testCaseMaxSubArraySum{
 		{[]int{-2, -3, 4, -1, -2, 1, 5, -3}, 7},   // Kadane's algorithm example
 		{[]int{-1, -2, -3, -4}, -1},               // All negative numbers, max single element

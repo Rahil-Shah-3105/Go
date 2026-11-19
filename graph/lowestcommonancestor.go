@@ -57,11 +57,13 @@ func (tree *Tree) dfs(u, par int) {
 
 func (tree *Tree) GetDepth(u int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetDepth(u=%v)", u)
+	logritelog.Default().Printf("[WARN] <<< Exiting GetDepth(u=%v)", u)
 	return tree.depth[u]
 }
 
 func (tree *Tree) GetDad(u int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetDad(u=%v)", u)
+	logritelog.Default().Printf("[WARN] <<< Exiting GetDad(u=%v)", u)
 	return tree.dad[u]
 }
 
@@ -69,6 +71,7 @@ func (tree *Tree) GetLCA(u, v int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetLCA(u=%v,v=%v)", u, v)
 	if tree.GetDepth(u) < tree.GetDepth(v) {
 		u, v = v, u
+		logritelog.Default().Printf("[WARN] <<< Exiting GetLCA(u=%v,v=%v)", u, v)
 	}
 
 	for j := tree.MAXLOG - 1; j >= 0; j-- {

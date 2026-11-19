@@ -12,6 +12,7 @@ type Cyclic[T any] struct {
 // Create new list.
 func NewCyclic[T any]() *Cyclic[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewCyclic()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewCyclic()")
 	return &Cyclic[T]{}
 }
 
@@ -86,6 +87,7 @@ func (cl *Cyclic[T]) Delete() bool {
 	var prevItem, thisItem, nextItem *Node[T]
 
 	if cl.Size == 0 {
+		logritelog.Default().Printf("[DEBUG] Delete(): cl.Head → %v", cl.Head)
 		return deleted
 	}
 

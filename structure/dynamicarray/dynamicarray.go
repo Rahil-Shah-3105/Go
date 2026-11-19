@@ -91,12 +91,14 @@ func (da *DynamicArray) Get(index int) (any, error) {
 // IsEmpty function is check that the array has value or not
 func (da *DynamicArray) IsEmpty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmpty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmpty()")
 	return da.Size == 0
 }
 
 // GetData function return all value of array
 func (da *DynamicArray) GetData() []any {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetData()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetData()")
 	return da.ElementData[:da.Size]
 }
 

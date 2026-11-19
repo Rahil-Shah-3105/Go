@@ -19,6 +19,7 @@ func MaxSubArraySum(nums []int) int {
 		currentSum = max.Int(nums[i], currentSum+nums[i])
 		maxSum = max.Int(maxSum, currentSum)
 	}
+		logritelog.Default().Printf("[DEBUG] MaxSubArraySum(nums=%v): maxSum → %v", nums, maxSum)
 		logritelog.Default().Printf("[DEBUG] MaxSubArraySum(nums=%v): currentSum → %v", nums, currentSum)
 
 	logritelog.Default().Printf("[WARN] <<< Exiting MaxSubArraySum(nums=%v)", nums)

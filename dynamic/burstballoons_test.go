@@ -14,6 +14,7 @@ type testCaseBurstBalloons struct {
 
 func getBurstBalloonsTestCases() []testCaseBurstBalloons {
 	logritelog.Default().Printf("[ERROR] >>> Entering getBurstBalloonsTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getBurstBalloonsTestCases()")
 	return []testCaseBurstBalloons{
 		{[]int{3, 1, 5, 8}, 167}, // Maximum coins from [3,1,5,8]
 		{[]int{1, 5}, 10},        // Maximum coins from [1,5]

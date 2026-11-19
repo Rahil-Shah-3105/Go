@@ -11,6 +11,7 @@ type Leaf struct {
 
 func (n *Leaf) Value() NodeValue {
 	logritelog.Default().Printf("[ERROR] >>> Entering Value()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Value()")
 	return n.NodeValue
 }
 
@@ -26,11 +27,13 @@ func (n *Leaf) Left() Node {
 
 func (n *Leaf) Right() Node {
 	logritelog.Default().Printf("[ERROR] >>> Entering Right()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Right()")
 	return n.NodeRight
 }
 
 func (n *Leaf) Kind() string {
 	logritelog.Default().Printf("[ERROR] >>> Entering Kind()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Kind()")
 	return "leaf"
 }
 
@@ -49,6 +52,7 @@ func (n *Leaf) CreateChild(value NodeValue, id int) Node {
 
 func (n *Leaf) GetID() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering GetID()")
+	logritelog.Default().Printf("[WARN] <<< Exiting GetID()")
 	return n.ID
 }
 
@@ -71,16 +75,19 @@ func (n *Leaf) Insert(node Node) {
 
 func (n *Leaf) HasSpace() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering HasSpace()")
+	logritelog.Default().Printf("[WARN] <<< Exiting HasSpace()")
 	return n.NodeLeft == nil || n.NodeRight == nil
 }
 
 func (n *Leaf) LeftIsNil() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering LeftIsNil()")
+	logritelog.Default().Printf("[WARN] <<< Exiting LeftIsNil()")
 	return n.NodeLeft == nil
 }
 
 func (n *Leaf) RightIsNil() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering RightIsNil()")
+	logritelog.Default().Printf("[WARN] <<< Exiting RightIsNil()")
 	return n.NodeRight == nil
 }
 

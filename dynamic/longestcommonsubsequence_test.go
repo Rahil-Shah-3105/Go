@@ -15,6 +15,7 @@ type testCaseLCS struct {
 
 func getLCSTestCases() []testCaseLCS {
 	logritelog.Default().Printf("[ERROR] >>> Entering getLCSTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getLCSTestCases()")
 	return []testCaseLCS{
 		{"ABCDGH", "AEDFHR", 3},
 		{"AGGTAB", "GXTXAYB", 4},

@@ -14,11 +14,13 @@ import logritelog "log"
 // MeanUsingAndXor This function finds arithmetic mean using "AND" and "XOR" operations
 func MeanUsingAndXor(a int, b int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering MeanUsingAndXor(a=%v,b=%v)", a, b)
+	logritelog.Default().Printf("[WARN] <<< Exiting MeanUsingAndXor(a=%v,b=%v)", a, b)
 	return ((a ^ b) >> 1) + (a & b)
 }
 
 // MeanUsingRightShift This function finds arithmetic mean using right shift
 func MeanUsingRightShift(a int, b int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering MeanUsingRightShift(a=%v,b=%v)", a, b)
+	logritelog.Default().Printf("[WARN] <<< Exiting MeanUsingRightShift(a=%v,b=%v)", a, b)
 	return (a + b) >> 1
 }

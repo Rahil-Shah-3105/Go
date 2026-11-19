@@ -82,6 +82,7 @@ func (st *set[T]) GetItems() []T {
 
 func (st *set[T]) Len() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Len()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Len()")
 	return len(st.elements)
 }
 
@@ -120,6 +121,7 @@ func (st *set[T]) IsProperSubsetOf(superSet Set[T]) bool {
 
 func (st *set[T]) IsSupersetOf(subSet Set[T]) bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsSupersetOf(subSet=%v)", subSet)
+	logritelog.Default().Printf("[WARN] <<< Exiting IsSupersetOf(subSet=%v)", subSet)
 	return subSet.IsSubsetOf(st)
 }
 

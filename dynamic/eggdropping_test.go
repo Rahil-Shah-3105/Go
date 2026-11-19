@@ -15,6 +15,7 @@ type testCaseEggDropping struct {
 
 func getEggDroppingTestCases() []testCaseEggDropping {
 	logritelog.Default().Printf("[ERROR] >>> Entering getEggDroppingTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getEggDroppingTestCases()")
 	return []testCaseEggDropping{
 		{1, 10, 10}, // One egg, need to test all floors
 		{2, 10, 4},  // Two eggs and ten floors

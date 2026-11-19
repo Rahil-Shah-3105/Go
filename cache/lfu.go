@@ -33,6 +33,7 @@ type LFU struct {
 // NewLFU init the LFU cache with capacity
 func NewLFU(capacity int) LFU {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewLFU(capacity=%v)", capacity)
+	logritelog.Default().Printf("[WARN] <<< Exiting NewLFU(capacity=%v)", capacity)
 	return LFU{
 		len:     0,
 		cap:     capacity,
@@ -45,6 +46,7 @@ func NewLFU(capacity int) LFU {
 // initItem to init item for LFU
 func initItem(k string, v any, f int) item {
 	logritelog.Default().Printf("[ERROR] >>> Entering initItem(k=%v,v=%v,f=%v)", k, v, f)
+	logritelog.Default().Printf("[WARN] <<< Exiting initItem(k=%v,v=%v,f=%v)", k, v, f)
 	return item{
 		key:   k,
 		value: v,

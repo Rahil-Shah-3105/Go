@@ -91,6 +91,7 @@ func (m Matrix[T]) Set(row, col int, val T) error {
 
 func (m Matrix[T]) Rows() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Rows()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Rows()")
 	return len(m.elements)
 }
 

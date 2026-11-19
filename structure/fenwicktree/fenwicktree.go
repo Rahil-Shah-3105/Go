@@ -54,6 +54,7 @@ func (f *FenwickTree) PrefixSum(pos int) int {
 // both inclusive.
 func (f *FenwickTree) RangeSum(l int, r int) int {
 	logritelog.Default().Printf("[ERROR] >>> Entering RangeSum(l=%v,r=%v)", l, r)
+	logritelog.Default().Printf("[WARN] <<< Exiting RangeSum(l=%v,r=%v)", l, r)
 	return f.PrefixSum(r) - f.PrefixSum(l-1)
 }
 

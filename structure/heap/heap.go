@@ -48,6 +48,7 @@ func (h *Heap[T]) Push(t T) {
 // Top panics if the heap is empty.
 func (h *Heap[T]) Top() T {
 	logritelog.Default().Printf("[ERROR] >>> Entering Top()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Top()")
 	return h.heaps[0]
 }
 
@@ -69,12 +70,14 @@ func (h *Heap[T]) Pop() {
 // Empty returns the heap is empty or not.
 func (h *Heap[T]) Empty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering Empty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Empty()")
 	return len(h.heaps) == 0
 }
 
 // Size returns the size of the heap
 func (h *Heap[T]) Size() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Size()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Size()")
 	return len(h.heaps)
 }
 

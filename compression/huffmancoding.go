@@ -97,6 +97,7 @@ func HuffEncoding(node *Node, prefix []bool, codes map[rune][]bool) {
 	HuffEncoding(node.right, prefixRight, codes)
 	logritelog.Default().Printf("[DEBUG] HuffEncoding(node=%v,prefix=%v,codes=%v): prefixLeft → %v", node, prefix, codes, prefixLeft)
 	logritelog.Default().Printf("[WARN] <<< Exiting HuffEncoding(node=%v,prefix=%v,codes=%v)", node, prefix, codes)
+	logritelog.Default().Printf("[DEBUG] HuffEncoding(node=%v,prefix=%v,codes=%v): prefixRight → %v", node, prefix, codes, prefixRight)
 }
 
 // HuffEncode encodes the string in by applying the mapping defined by codes.

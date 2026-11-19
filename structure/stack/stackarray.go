@@ -17,6 +17,7 @@ type Array[T any] struct {
 // NewStack creates and returns a new stack.
 func NewStack[T any]() *Array[T] {
 	logritelog.Default().Printf("[ERROR] >>> Entering NewStack()")
+	logritelog.Default().Printf("[WARN] <<< Exiting NewStack()")
 	return &Array[T]{}
 }
 
@@ -30,6 +31,7 @@ func (s *Array[T]) Push(value T) {
 // Size returns the number of elements in the stack.
 func (s *Array[T]) Length() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Length()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Length()")
 	return len(s.elements)
 }
 
@@ -47,6 +49,7 @@ func (s *Array[T]) Peek() T {
 // IsEmpty returns true if the stack is empty, false otherwise.
 func (s *Array[T]) IsEmpty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmpty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmpty()")
 	return len(s.elements) == 0
 }
 

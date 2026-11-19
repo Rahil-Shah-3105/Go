@@ -40,6 +40,7 @@ func pad(message []byte) []byte {
 // leftRotate rotates x left by n bits
 func leftRotate(x, n uint32) uint32 {
 	logritelog.Default().Printf("[ERROR] >>> Entering leftRotate(x=%v,n=%v)", x, n)
+	logritelog.Default().Printf("[WARN] <<< Exiting leftRotate(x=%v,n=%v)", x, n)
 	return (x << n) | (x >> (32 - n))
 }
 

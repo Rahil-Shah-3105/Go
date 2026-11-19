@@ -64,6 +64,7 @@ func (cq *CircularQueue[T]) Dequeue() (T, error) {
 	logritelog.Default().Printf("[ERROR] >>> Entering Dequeue()")
 	if cq.IsEmpty() {
 		var zeroValue T
+		logritelog.Default().Printf("[DEBUG] Dequeue(): cq.rear → %v", cq.rear)
 		return zeroValue, errors.New("queue is empty")
 	}
 	retVal := cq.items[cq.front]
@@ -81,12 +82,14 @@ func (cq *CircularQueue[T]) Dequeue() (T, error) {
 // IsFull checks if the queue is full.
 func (cq *CircularQueue[T]) IsFull() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsFull()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsFull()")
 	return (cq.front == 0 && cq.rear == cq.size-1) || cq.front == cq.rear+1
 }
 
 // IsEmpty checks if the queue is empty.
 func (cq *CircularQueue[T]) IsEmpty() bool {
 	logritelog.Default().Printf("[ERROR] >>> Entering IsEmpty()")
+	logritelog.Default().Printf("[WARN] <<< Exiting IsEmpty()")
 	return cq.front == -1 && cq.rear == -1
 }
 
@@ -106,5 +109,6 @@ func (cq *CircularQueue[T]) Peek() (T, error) {
 // Size returns the size of the queue.
 func (cq *CircularQueue[T]) Size() int {
 	logritelog.Default().Printf("[ERROR] >>> Entering Size()")
+	logritelog.Default().Printf("[WARN] <<< Exiting Size()")
 	return cq.size
 }

@@ -29,6 +29,7 @@ func Comb[T constraints.Ordered](data []T) []T {
 	for gap != 1 || swapped {
 		gap = getNextGap(gap)
 		swapped = false
+		logritelog.Default().Printf("[DEBUG] Comb(data=%v): swapped → %v", data, swapped)
 		logritelog.Default().Printf("[DEBUG] Comb(data=%v): gap → %v", data, gap)
 		for i := 0; i < n-gap; i++ {
 			if data[i] > data[i+gap] {

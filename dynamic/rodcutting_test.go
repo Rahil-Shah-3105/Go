@@ -15,6 +15,7 @@ type rodCuttingTestCase struct {
 
 func getRodCuttingTestCases() []rodCuttingTestCase {
 	logritelog.Default().Printf("[ERROR] >>> Entering getRodCuttingTestCases()")
+	logritelog.Default().Printf("[WARN] <<< Exiting getRodCuttingTestCases()")
 	return []rodCuttingTestCase{
 		{[]int{0, 1, 5, 8, 9}, 4, 10},
 		{[]int{0, 2, 5, 7, 8, 0}, 5, 12},
